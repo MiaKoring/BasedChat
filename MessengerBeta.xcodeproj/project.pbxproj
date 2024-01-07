@@ -7,20 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140DD9B72B42EE0F00302447 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DD9B62B42EE0F00302447 /* Music.swift */; };
 		14469B502B40937300835BFC /* MessengerBetaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B4F2B40937300835BFC /* MessengerBetaApp.swift */; };
 		14469B522B40937300835BFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B512B40937300835BFC /* ContentView.swift */; };
 		14469B542B40937300835BFC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B532B40937300835BFC /* Item.swift */; };
 		14469B562B40937500835BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B552B40937500835BFC /* Assets.xcassets */; };
 		14469B592B40937500835BFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B582B40937500835BFC /* Preview Assets.xcassets */; };
+		148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */; };
+		148FC7C62B44016C007E3546 /* JetBrainsMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */; };
+		148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */; };
+		148FC7C82B44016C007E3546 /* JetBrainsMonoNL-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7B12B440137007E3546 /* JetBrainsMonoNL-BoldItalic.ttf */; };
+		148FC7C92B4401FD007E3546 /* JetBrainsMono-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */; };
+		14BD726B2B4A3AD800334D69 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BD726D2B4A3AD800334D69 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140DD9B62B42EE0F00302447 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		14469B4C2B40937300835BFC /* MessengerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessengerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14469B4F2B40937300835BFC /* MessengerBetaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerBetaApp.swift; sourceTree = "<group>"; };
 		14469B512B40937300835BFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		14469B532B40937300835BFC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		14469B552B40937500835BFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14469B582B40937500835BFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1473EA0F2B40D0D900667053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Thin.ttf"; sourceTree = "<group>"; };
+		148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Bold.ttf"; sourceTree = "<group>"; };
+		148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Italic.ttf"; sourceTree = "<group>"; };
+		148FC7A82B440137007E3546 /* JetBrainsMono-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-LightItalic.ttf"; sourceTree = "<group>"; };
+		148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Regular.ttf"; sourceTree = "<group>"; };
+		148FC7AA2B440137007E3546 /* JetBrainsMonoNL-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		148FC7AB2B440137007E3546 /* JetBrainsMono-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		148FC7AC2B440137007E3546 /* JetBrainsMonoNL-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-ExtraLight.ttf"; sourceTree = "<group>"; };
+		148FC7AD2B440137007E3546 /* JetBrainsMonoNL-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-MediumItalic.ttf"; sourceTree = "<group>"; };
+		148FC7AE2B440137007E3546 /* JetBrainsMonoNL-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-ThinItalic.ttf"; sourceTree = "<group>"; };
+		148FC7AF2B440137007E3546 /* JetBrainsMonoNL-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Light.ttf"; sourceTree = "<group>"; };
+		148FC7B02B440137007E3546 /* JetBrainsMonoNL-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Italic.ttf"; sourceTree = "<group>"; };
+		148FC7B12B440137007E3546 /* JetBrainsMonoNL-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-BoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7B22B440137007E3546 /* JetBrainsMonoNL-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-SemiBold.ttf"; sourceTree = "<group>"; };
+		148FC7B32B440137007E3546 /* JetBrainsMono-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7B42B440137007E3546 /* JetBrainsMonoNL-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-LightItalic.ttf"; sourceTree = "<group>"; };
+		148FC7B52B440137007E3546 /* JetBrainsMono-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Light.ttf"; sourceTree = "<group>"; };
+		148FC7B62B440137007E3546 /* JetBrainsMono-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-MediumItalic.ttf"; sourceTree = "<group>"; };
+		148FC7B72B440137007E3546 /* JetBrainsMono-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-ExtraBold.ttf"; sourceTree = "<group>"; };
+		148FC7B82B440137007E3546 /* JetBrainsMono-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-SemiBold.ttf"; sourceTree = "<group>"; };
+		148FC7B92B440137007E3546 /* JetBrainsMonoNL-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Regular.ttf"; sourceTree = "<group>"; };
+		148FC7BA2B440137007E3546 /* JetBrainsMonoNL-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Medium.ttf"; sourceTree = "<group>"; };
+		148FC7BB2B440137007E3546 /* JetBrainsMonoNL-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Thin.ttf"; sourceTree = "<group>"; };
+		148FC7BC2B440137007E3546 /* JetBrainsMonoNL-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7BD2B440137007E3546 /* JetBrainsMonoNL-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7BE2B440137007E3546 /* JetBrainsMono-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7BF2B440137007E3546 /* JetBrainsMono-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-ThinItalic.ttf"; sourceTree = "<group>"; };
+		148FC7C02B440137007E3546 /* JetBrainsMonoNL-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-ExtraBold.ttf"; sourceTree = "<group>"; };
+		148FC7C12B440137007E3546 /* JetBrainsMono-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-ExtraLight.ttf"; sourceTree = "<group>"; };
+		148FC7C22B440137007E3546 /* JetBrainsMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Medium.ttf"; sourceTree = "<group>"; };
+		148FC7C32B440137007E3546 /* JetBrainsMono-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-BoldItalic.ttf"; sourceTree = "<group>"; };
+		148FC7C42B440137007E3546 /* JetBrainsMonoNL-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Bold.ttf"; sourceTree = "<group>"; };
+		14BD726C2B4A3AD800334D69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		14BD72732B4A3B1100334D69 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +96,14 @@
 		14469B4E2B40937300835BFC /* MessengerBeta */ = {
 			isa = PBXGroup;
 			children = (
+				1473EA0F2B40D0D900667053 /* Info.plist */,
 				14469B4F2B40937300835BFC /* MessengerBetaApp.swift */,
 				14469B512B40937300835BFC /* ContentView.swift */,
+				140DD9B62B42EE0F00302447 /* Music.swift */,
 				14469B532B40937300835BFC /* Item.swift */,
 				14469B552B40937500835BFC /* Assets.xcassets */,
+				14BD72682B4A37CC00334D69 /* MultiLanguage */,
+				148FC7A42B440137007E3546 /* ttf */,
 				14469B572B40937500835BFC /* Preview Content */,
 			);
 			path = MessengerBeta;
@@ -68,6 +115,53 @@
 				14469B582B40937500835BFC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		148FC7A42B440137007E3546 /* ttf */ = {
+			isa = PBXGroup;
+			children = (
+				148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */,
+				148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */,
+				148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */,
+				148FC7A82B440137007E3546 /* JetBrainsMono-LightItalic.ttf */,
+				148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */,
+				148FC7AA2B440137007E3546 /* JetBrainsMonoNL-ExtraLightItalic.ttf */,
+				148FC7AB2B440137007E3546 /* JetBrainsMono-ExtraLightItalic.ttf */,
+				148FC7AC2B440137007E3546 /* JetBrainsMonoNL-ExtraLight.ttf */,
+				148FC7AD2B440137007E3546 /* JetBrainsMonoNL-MediumItalic.ttf */,
+				148FC7AE2B440137007E3546 /* JetBrainsMonoNL-ThinItalic.ttf */,
+				148FC7AF2B440137007E3546 /* JetBrainsMonoNL-Light.ttf */,
+				148FC7B02B440137007E3546 /* JetBrainsMonoNL-Italic.ttf */,
+				148FC7B12B440137007E3546 /* JetBrainsMonoNL-BoldItalic.ttf */,
+				148FC7B22B440137007E3546 /* JetBrainsMonoNL-SemiBold.ttf */,
+				148FC7B32B440137007E3546 /* JetBrainsMono-SemiBoldItalic.ttf */,
+				148FC7B42B440137007E3546 /* JetBrainsMonoNL-LightItalic.ttf */,
+				148FC7B52B440137007E3546 /* JetBrainsMono-Light.ttf */,
+				148FC7B62B440137007E3546 /* JetBrainsMono-MediumItalic.ttf */,
+				148FC7B72B440137007E3546 /* JetBrainsMono-ExtraBold.ttf */,
+				148FC7B82B440137007E3546 /* JetBrainsMono-SemiBold.ttf */,
+				148FC7B92B440137007E3546 /* JetBrainsMonoNL-Regular.ttf */,
+				148FC7BA2B440137007E3546 /* JetBrainsMonoNL-Medium.ttf */,
+				148FC7BB2B440137007E3546 /* JetBrainsMonoNL-Thin.ttf */,
+				148FC7BC2B440137007E3546 /* JetBrainsMonoNL-SemiBoldItalic.ttf */,
+				148FC7BD2B440137007E3546 /* JetBrainsMonoNL-ExtraBoldItalic.ttf */,
+				148FC7BE2B440137007E3546 /* JetBrainsMono-ExtraBoldItalic.ttf */,
+				148FC7BF2B440137007E3546 /* JetBrainsMono-ThinItalic.ttf */,
+				148FC7C02B440137007E3546 /* JetBrainsMonoNL-ExtraBold.ttf */,
+				148FC7C12B440137007E3546 /* JetBrainsMono-ExtraLight.ttf */,
+				148FC7C22B440137007E3546 /* JetBrainsMono-Medium.ttf */,
+				148FC7C32B440137007E3546 /* JetBrainsMono-BoldItalic.ttf */,
+				148FC7C42B440137007E3546 /* JetBrainsMonoNL-Bold.ttf */,
+			);
+			path = ttf;
+			sourceTree = "<group>";
+		};
+		14BD72682B4A37CC00334D69 /* MultiLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				14BD726D2B4A3AD800334D69 /* Localizable.strings */,
+			);
+			path = MultiLanguage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,7 +205,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				de,
 			);
 			mainGroup = 14469B432B40937300835BFC;
 			productRefGroup = 14469B4D2B40937300835BFC /* Products */;
@@ -128,6 +222,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				148FC7C92B4401FD007E3546 /* JetBrainsMono-Thin.ttf in Resources */,
+				148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */,
+				148FC7C62B44016C007E3546 /* JetBrainsMono-Italic.ttf in Resources */,
+				148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */,
+				148FC7C82B44016C007E3546 /* JetBrainsMonoNL-BoldItalic.ttf in Resources */,
+				14BD726B2B4A3AD800334D69 /* Localizable.strings in Resources */,
 				14469B592B40937500835BFC /* Preview Assets.xcassets in Resources */,
 				14469B562B40937500835BFC /* Assets.xcassets in Resources */,
 			);
@@ -143,10 +243,23 @@
 				14469B522B40937300835BFC /* ContentView.swift in Sources */,
 				14469B542B40937300835BFC /* Item.swift in Sources */,
 				14469B502B40937300835BFC /* MessengerBetaApp.swift in Sources */,
+				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		14BD726D2B4A3AD800334D69 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14BD726C2B4A3AD800334D69 /* en */,
+				14BD72732B4A3B1100334D69 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		14469B5A2B40937500835BFC /* Debug */ = {
@@ -201,6 +314,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -258,6 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -279,11 +394,13 @@
 				DEVELOPMENT_TEAM = 68YWPYV749;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MessengerBeta/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,11 +425,13 @@
 				DEVELOPMENT_TEAM = 68YWPYV749;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MessengerBeta/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
