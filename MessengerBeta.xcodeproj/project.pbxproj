@@ -19,6 +19,10 @@
 		148FC7C82B44016C007E3546 /* JetBrainsMonoNL-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7B12B440137007E3546 /* JetBrainsMonoNL-BoldItalic.ttf */; };
 		148FC7C92B4401FD007E3546 /* JetBrainsMono-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */; };
 		14BD726B2B4A3AD800334D69 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14BD726D2B4A3AD800334D69 /* Localizable.strings */; };
+		14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B372B4AE5CB009ED309 /* MessageViews.swift */; };
+		14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B392B4AE637009ED309 /* BottomCard.swift */; };
+		14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */; };
+		14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,10 @@
 		148FC7C42B440137007E3546 /* JetBrainsMonoNL-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMonoNL-Bold.ttf"; sourceTree = "<group>"; };
 		14BD726C2B4A3AD800334D69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14BD72732B4A3B1100334D69 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		14DC8B372B4AE5CB009ED309 /* MessageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViews.swift; sourceTree = "<group>"; };
+		14DC8B392B4AE637009ED309 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
+		14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionsCard.swift; sourceTree = "<group>"; };
+		14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +106,7 @@
 			children = (
 				1473EA0F2B40D0D900667053 /* Info.plist */,
 				14469B4F2B40937300835BFC /* MessengerBetaApp.swift */,
-				14469B512B40937300835BFC /* ContentView.swift */,
+				14DC8B362B4AE5A3009ED309 /* View */,
 				140DD9B62B42EE0F00302447 /* Music.swift */,
 				14469B532B40937300835BFC /* Item.swift */,
 				14469B552B40937500835BFC /* Assets.xcassets */,
@@ -162,6 +170,18 @@
 				14BD726D2B4A3AD800334D69 /* Localizable.strings */,
 			);
 			path = MultiLanguage;
+			sourceTree = "<group>";
+		};
+		14DC8B362B4AE5A3009ED309 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14469B512B40937300835BFC /* ContentView.swift */,
+				14DC8B372B4AE5CB009ED309 /* MessageViews.swift */,
+				14DC8B392B4AE637009ED309 /* BottomCard.swift */,
+				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
+				14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +262,10 @@
 			files = (
 				14469B522B40937300835BFC /* ContentView.swift in Sources */,
 				14469B542B40937300835BFC /* Item.swift in Sources */,
+				14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */,
+				14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */,
+				14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */,
+				14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */,
 				14469B502B40937300835BFC /* MessengerBetaApp.swift in Sources */,
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
 			);
