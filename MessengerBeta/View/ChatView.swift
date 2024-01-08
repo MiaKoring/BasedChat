@@ -84,63 +84,76 @@ import SwiftUI
 
 
 
-struct ChatViewTest: View {
+struct ChatView: View {
     @State var bottomCardOpen = false
     @State var bottomCardReaction: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @State var scrollTo = UUID()
-    @Binding var messages: [Message]
+    @State var messages: [Message]
     @State var triggerScroll = false
     @State var msg = Message(time: "", sender: "", text: "")
+    @State var lastTime = ""
+    @State var previousMessage: Message? = nil
     var body: some View {
         ZStack(alignment: .bottom){
             ScrollView{
                 ScrollViewReader{proxy in
                     LazyVStack(spacing: 8){
-                        if messages.count > 0{
-                            HStack{
-                                Spacer()
-                                Text(messages[0].time.split(separator: " ")[0])
-                                    .font(Font.custom("JetBrainsMono-Regular", size: 12))
-                                    .padding(2)
-                                Spacer()
-                            }
-                            .background(){
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.init("DateDisplay"))
-                            }
-                            .onChange(of: triggerScroll){
-                                if triggerScroll{
-                                    withAnimation(.easeIn(duration: 0.15)){
-                                        proxy.scrollTo(scrollTo, anchor: .top)
-                                    }
-                                    triggerScroll.toggle()
-                                }
-                            }
-                        }
-                        ForEach($messages, id: \.id){ message in
-                            if message.sender.wrappedValue == "me" {
-                                MeMSG(message: message, pos: "", nextTime: "", bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, messages: $messages, triggerScroll: $triggerScroll)
-                                    .padding(4)
-                            }
-                            else{
-                                YouMSG(message: message, pos: "", nextTime: "", bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, messages: $messages, triggerScroll: $triggerScroll)
-                                    .padding(.top, 4)
-                                    .id(message.id)
-                            }
-                            if true{
+
+                        ForEach($messages) { $message in
+                            if $message.time.wrappedValue.split(separator: " ")[0] != ($messages.firstIndex(where: {$0.id == message.id}) != $messages.startIndex ? $messages[messages.index(before: messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].time.wrappedValue.split(separator: " ")[0] : ""){
                                 HStack{
                                     Spacer()
-                                    Text(message.time.split(separator: " ")[0])
+                                    Text($message.time.wrappedValue.split(separator: " ")[0])
                                         .font(Font.custom("JetBrainsMono-Regular", size: 12))
                                         .padding(2)
                                     Spacer()
                                 }
-                                .background{
+                                .background(){
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(Color.init("DateDisplay"))
                                 }
+                                
+                            }
+                            if $message.sender.wrappedValue == "me" {
+                                MeMSG(
+                                    message: $message,
+                                    pos: $messages.firstIndex(where: {$0.id == message.id}) != $messages.startIndex ? ($messages[$messages.index(before: messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].sender.wrappedValue == message.sender && $messages[$messages.index(before: messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].time.wrappedValue.split(separator: " ")[0] == message.time.split(separator: " ")[0] ? "bottom" : "top") : "",
+                                    nextTime: nil,
+                                    bottomCardOpen: $bottomCardOpen,
+                                    bottomCardReaction: $bottomCardReaction,
+                                    scrollTo: $scrollTo,
+                                    messages: $messages,
+                                    triggerScroll: $triggerScroll,
+                                    showTime: $messages.indices.contains($messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? -1)) && $messages[$messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].sender.wrappedValue == $message.sender.wrappedValue ?  ($messages[$messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? 0 )].time.wrappedValue != $message.time.wrappedValue) : true
+                                )
+                                .id(message.id)
+                            }
+                            else{
+                                YouMSG(
+                                    message: $message,
+                                    pos: $messages.firstIndex(where: {$0.id == message.id}) != $messages.startIndex ? ($messages[$messages.index(before: messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].sender.wrappedValue == message.sender && $messages[$messages.index(before: messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].time.wrappedValue.split(separator: " ")[0] == message.time.split(separator: " ")[0] ? "bottom" : "top") : "",
+                                    nextTime: nil,
+                                    bottomCardOpen: $bottomCardOpen,
+                                    bottomCardReaction: $bottomCardReaction,
+                                    scrollTo: $scrollTo,
+                                    messages: $messages,
+                                    triggerScroll: $triggerScroll,
+                                    showTime: $messages.indices.contains($messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? -1)) && $messages[$messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? 1 )].sender.wrappedValue == $message.sender.wrappedValue ?  ($messages[$messages.index(after: $messages.firstIndex(where: {$0.id == message.id}) ?? 0 )].time.wrappedValue != $message.time.wrappedValue) : true
+                                )
+                                .id(message.id)
                             }
                         }
+                    }
+                    .onChange(of: triggerScroll){
+                        if triggerScroll{
+                            withAnimation(.easeIn(duration: 0.15)){
+                                proxy.scrollTo(scrollTo, anchor: .top)
+                            }
+                            triggerScroll.toggle()
+                        }
+                    }
+                    .onChange(of: messages){
+                        print("item got deleted")
                     }
                 }
             }

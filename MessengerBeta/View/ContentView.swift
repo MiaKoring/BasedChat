@@ -59,7 +59,7 @@ struct ContentView: View {
     @State var chats: [Chat] = [Chat(title: "Eli", participants: ["you", "me"], messages: defaultMessages)]
     
     var body: some View {
-        ChatViewTest(messages: $chats[0].messages)
+        ChatView(messages: chats[0].messages)
     }
 }
 

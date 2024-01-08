@@ -38,6 +38,7 @@ struct MeMSG: View{
     @Binding var messages: [Message]
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
+    @State var showTime: Bool
     var body: some View{
         VStack{
             HStack{
@@ -154,7 +155,7 @@ struct MeMSG: View{
             }
             
             HStack{
-                if nextTime != message.time {
+                if showTime {
                     Spacer()
                     Text(message.time.split(separator: " ")[1])
                         .font(Font.custom("JetBrainsMono-Regular", size: 10))
@@ -173,6 +174,7 @@ struct MeMSG: View{
         }
         .contextMenu{
             Button(role: .destructive){
+                messages.removeAll(where: {$0.id == message.id})
             } label: {
                 Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
             }
@@ -299,6 +301,7 @@ struct YouMSG: View{
     @Binding var messages: [Message]
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
+    @State var showTime: Bool
     var body: some View{
         VStack{
             HStack{
@@ -416,7 +419,7 @@ struct YouMSG: View{
             
             
             HStack{
-                if nextTime != message.time {
+                if showTime {
                     Text(message.time.split(separator: " ")[1])
                         .font(Font.custom("JetBrainsMono-Regular", size: 10))
                         .frame(alignment: .bottomTrailing)
