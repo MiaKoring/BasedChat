@@ -6,3 +6,5 @@
   
 */
 "Delete" = "Löschen";
+"DeleteAlert" = "Nachricht löschen?";
+"DeleteMessage" = "Bist du sicher, dass du diese Nachricht löschen möchtest?";

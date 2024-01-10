@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AnswerDisplay: View {
     @State var text: String
@@ -24,9 +25,9 @@ struct AnswerDisplay: View {
 }
 
 struct MeMSG: View{
-    @Binding var message: Message
+    @Environment(\.modelContext) var context
+    var message: Message
     let pos: String
-    let nextTime: String?
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
     @State var reactionContainer = ""
@@ -35,10 +36,11 @@ struct MeMSG: View{
     @State var reactionWidth = 0.0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID
-    @Binding var messages: [Message]
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
-    @State var showTime: Bool
+    let showTime: Bool
+    @Binding var glowOriginMessage: UUID?
+    
     var body: some View{
         VStack{
             HStack{
@@ -57,16 +59,7 @@ struct MeMSG: View{
                             .onTapGesture {
                                 scrollTo = message.reply.originID
                                 triggerScroll.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
-                                    withAnimation(.easeIn){
-                                        messages[messages.firstIndex(where:{$0.id == message.reply.originID})!].background = "glow"
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
-                                        withAnimation(.easeIn){
-                                            messages[messages.firstIndex(where:{$0.id == message.reply.originID})!].background = "normal"
-                                        }
-                                    }
-                                }
+                                glowOriginMessage = message.reply.originID
                             }
                             .background{
                                 RoundedRectangle(cornerRadius: 5)
@@ -157,7 +150,7 @@ struct MeMSG: View{
             HStack{
                 if showTime {
                     Spacer()
-                    Text(message.time.split(separator: " ")[1])
+                    Text(DateHandler.formatTime(message.time, lang: "de_DE"))
                         .font(Font.custom("JetBrainsMono-Regular", size: 10))
                         .frame(alignment: .bottomTrailing)
                         .opacity(0.75)
@@ -174,12 +167,13 @@ struct MeMSG: View{
         }
         .contextMenu{
             Button(role: .destructive){
-                messages.removeAll(where: {$0.id == message.id})
+                context.delete(message)
             } label: {
                 Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
             }
         }
     }
+    
     func formatText()-> some View{
         var text = Text("")
         for i in 0..<formattedChars.count{
@@ -287,9 +281,9 @@ struct MeMSG: View{
 
 
 struct YouMSG: View{
-    @Binding var message: Message
+    @Environment(\.modelContext) var context
+    var message: Message
     let pos: String
-    let nextTime: String?
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
     @State var reactionContainer = ""
@@ -298,10 +292,11 @@ struct YouMSG: View{
     @State var reactionWidth = 0.0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID
-    @Binding var messages: [Message]
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
-    @State var showTime: Bool
+    let showTime: Bool
+    @Binding var glowOriginMessage: UUID?
+    
     var body: some View{
         VStack{
             HStack{
@@ -319,16 +314,7 @@ struct YouMSG: View{
                             .onTapGesture {
                                 scrollTo = message.reply.originID
                                 triggerScroll.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
-                                    withAnimation(.easeIn){
-                                        messages[messages.firstIndex(where:{$0.id == message.reply.originID})!].background = "glow"
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
-                                        withAnimation(.easeIn){
-                                            messages[messages.firstIndex(where:{$0.id == message.reply.originID})!].background = "normal"
-                                        }
-                                    }
-                                }
+                                glowOriginMessage = message.reply.originID
                             }
                             .background{
                                 RoundedRectangle(cornerRadius: 5)
@@ -420,7 +406,7 @@ struct YouMSG: View{
             
             HStack{
                 if showTime {
-                    Text(message.time.split(separator: " ")[1])
+                    Text(DateHandler.formatTime(message.time, lang: "de_DE"))
                         .font(Font.custom("JetBrainsMono-Regular", size: 10))
                         .frame(alignment: .bottomTrailing)
                         .opacity(0.75)
@@ -435,10 +421,11 @@ struct YouMSG: View{
                 reactionData = genReactions()
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
+            
         }
         .contextMenu{
             Button(role: .destructive){
-                messages.removeAll(where: {$0.id == message.id})
+                context.delete(message)
             } label: {
                 Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
             }

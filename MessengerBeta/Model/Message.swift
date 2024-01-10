@@ -1,0 +1,73 @@
+//
+//  Message.swift
+//  MessengerBeta
+//
+//  Created by Mia Koring on 08.01.24.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+class Message: Identifiable, ObservableObject{
+    var chatMessagesID: UUID
+    var time: Int
+    var sender: String
+    var type: String
+    var reply: Reply
+    var attachments: [Attachment]
+    var text: String
+    var reactions: [String: String]
+    var background: String
+    var id: UUID = UUID()
+    
+    init(chatMessagesID: UUID = UUID(), time: Int, sender: String, type: String = "normal", reply: Reply = Reply(originID: UUID(), text: "", sender: ""), attachments: [Attachment] = [], text: String, reactions: [String : String] = [:], background: String = "normal", id: UUID = UUID()) {
+        self.chatMessagesID = chatMessagesID
+        self.time = time
+        self.sender = sender
+        self.type = type
+        self.reply = reply
+        self.attachments = attachments
+        self.text = text
+        self.reactions = reactions
+        self.background = background
+        self.id = id
+    }
+}
+
+@Model
+class Attachment: Equatable, Hashable{
+    let type: String
+    let dataPath: String
+    init(type: String, dataPath: String) {
+        self.type = type
+        self.dataPath = dataPath
+    }
+}
+
+@Model
+class Reply: Equatable, Hashable{
+    var originID: UUID
+    var text: String
+    var sender: String
+    
+    init(originID: UUID, text: String, sender: String) {
+        self.originID = originID
+        self.text = text
+        self.sender = sender
+    }
+}
+
+struct Reaction{
+    var mostUsed: String
+    var countString: String
+    var emojisCount: [String: Int]
+    var differentEmojisCount: Int
+    var peopleReactions: [String: String]
+    
+}
+
+struct FormattedChar{
+    let char: String
+    let formats: [String]
+}

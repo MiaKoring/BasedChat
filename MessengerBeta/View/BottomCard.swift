@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BottomCard<Content: View>: View {
+    @Environment(\.modelContext) var context
     @ViewBuilder let content: Content
     @Binding var isOpen: Bool
+    @Query var chats: [Chat]
     
     @State var totalHeight: Double = 0
     
@@ -84,6 +87,14 @@ struct BottomCard<Content: View>: View {
             )
             
             ScrollView{
+                Button(){
+                    for _ in 0...100{
+                        context.insert(Message(chatMessagesID:  chats.first!.messagesID, time: 1392642469, sender: "me", text: "testMessage"))
+                    }
+                    print("created")
+                }label: {
+                    Text("add message")
+                }
                 content
             }
         }

@@ -15,5 +15,9 @@ struct MessengerBetaApp: App {
         WindowGroup{
             ContentView()
         }
+        .modelContainer(for: [
+            Chat.self,
+            Message.self
+        ])
     }
 }

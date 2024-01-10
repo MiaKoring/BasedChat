@@ -13,6 +13,8 @@
 		14469B542B40937300835BFC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B532B40937300835BFC /* Item.swift */; };
 		14469B562B40937500835BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B552B40937500835BFC /* Assets.xcassets */; };
 		14469B592B40937500835BFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B582B40937500835BFC /* Preview Assets.xcassets */; };
+		145899102B4D8F4800A3C836 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1458990F2B4D8F4800A3C836 /* DateHandler.swift */; };
+		145899122B4D91C100A3C836 /* Ternary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145899112B4D91C100A3C836 /* Ternary.swift */; };
 		148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */; };
 		148FC7C62B44016C007E3546 /* JetBrainsMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */; };
 		148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */; };
@@ -23,6 +25,8 @@
 		14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B392B4AE637009ED309 /* BottomCard.swift */; };
 		14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */; };
 		14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */; };
+		14E0180A2B4CB2D200A6E379 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018092B4CB2D200A6E379 /* Message.swift */; };
+		14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E0180B2B4CB32500A6E379 /* Chat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,8 @@
 		14469B532B40937300835BFC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		14469B552B40937500835BFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14469B582B40937500835BFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1458990F2B4D8F4800A3C836 /* DateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
+		145899112B4D91C100A3C836 /* Ternary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ternary.swift; sourceTree = "<group>"; };
 		1473EA0F2B40D0D900667053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Thin.ttf"; sourceTree = "<group>"; };
 		148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Bold.ttf"; sourceTree = "<group>"; };
@@ -72,6 +78,8 @@
 		14DC8B392B4AE637009ED309 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
 		14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionsCard.swift; sourceTree = "<group>"; };
 		14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		14E018092B4CB2D200A6E379 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		14E0180B2B4CB32500A6E379 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,10 +114,12 @@
 			children = (
 				1473EA0F2B40D0D900667053 /* Info.plist */,
 				14469B4F2B40937300835BFC /* MessengerBetaApp.swift */,
-				14DC8B362B4AE5A3009ED309 /* View */,
 				140DD9B62B42EE0F00302447 /* Music.swift */,
 				14469B532B40937300835BFC /* Item.swift */,
 				14469B552B40937500835BFC /* Assets.xcassets */,
+				14E018082B4CB26500A6E379 /* Model */,
+				14DC8B362B4AE5A3009ED309 /* View */,
+				1458990E2B4D8F1F00A3C836 /* Controller */,
 				14BD72682B4A37CC00334D69 /* MultiLanguage */,
 				148FC7A42B440137007E3546 /* ttf */,
 				14469B572B40937500835BFC /* Preview Content */,
@@ -123,6 +133,15 @@
 				14469B582B40937500835BFC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1458990E2B4D8F1F00A3C836 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1458990F2B4D8F4800A3C836 /* DateHandler.swift */,
+				145899112B4D91C100A3C836 /* Ternary.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		148FC7A42B440137007E3546 /* ttf */ = {
@@ -182,6 +201,15 @@
 				14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		14E018082B4CB26500A6E379 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				14E0180B2B4CB32500A6E379 /* Chat.swift */,
+				14E018092B4CB2D200A6E379 /* Message.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				14469B522B40937300835BFC /* ContentView.swift in Sources */,
+				145899122B4D91C100A3C836 /* Ternary.swift in Sources */,
 				14469B542B40937300835BFC /* Item.swift in Sources */,
 				14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */,
+				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
+				14E0180A2B4CB2D200A6E379 /* Message.swift in Sources */,
+				145899102B4D8F4800A3C836 /* DateHandler.swift in Sources */,
 				14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */,
 				14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */,
 				14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */,
