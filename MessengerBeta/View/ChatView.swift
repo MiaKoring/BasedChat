@@ -98,7 +98,10 @@ struct ChatView: View {
     @State var allowPageDown = false
     @Binding var pageBinding: Int
     @Binding var showLoading: Bool
+    @State var showTime = false
     let page: Int
+    @State var timer : Timer? = nil
+    @State var currentMessage : Message = Message(time: 1, sender: "", text: "")
     init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>){
         self.messagesID = messagesID
         self._pageBinding = pageBinding
@@ -109,7 +112,7 @@ struct ChatView: View {
         self._showLoading = showLoading
         self.page = page
         var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .reverse)])
-        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 50 : .none
+        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 70 : .none
         fetchDescriptor.fetchOffset = page > 2 ? (page - 2) * 30 : 0
         fetchDescriptor.predicate = #Predicate{
             $0.chatMessagesID == messagesID
@@ -129,44 +132,79 @@ struct ChatView: View {
                                 }
                         }
                         ForEach(messages.sorted(by: {$0.time < $1.time})) {message in
-                            if Ternary.dateDivider(message: message, messages: messages){
-                                HStack{
-                                    Spacer()
-                                    Text(DateHandler.formatDate(message.time, lang: "de_DE"))
-                                        .font(Font.custom("JetBrainsMono-Regular", size: 12))
-                                        .padding(2)
-                                    Spacer()
-                                }
-                                .background(){
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .fill(Color.init("DateDisplay"))
-                                }
-                            }
                             if message.sender == "me" {
                                 MeMSG(
                                     message: message,
-                                    pos: Ternary.pos(message: message, messages: messages),
+                                    pos: "top",
                                     bottomCardOpen: $bottomCardOpen,
                                     bottomCardReaction: $bottomCardReaction,
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
-                                    showTime: Ternary.showTime(message: message, messages: messages),
+                                    showTime: showTime,
                                     glowOriginMessage: $glowOriginMessage
                                 )
+                                .onAppear(){
+                                    currentMessage = message
+                                }
                                 .id(message.id)
+                                .onTapGesture(){
+                                    if showTime{
+                                        withAnimation(.easeOut(duration: 0.1)){
+                                            showTime = false
+                                        }
+                                    }
+                                    else{
+                                        withAnimation(.easeIn(duration: 0.1)){
+                                            showTime = true
+                                        }
+                                        if timer != nil && timer!.isValid{
+                                            timer!.invalidate()
+                                        }
+                                        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                            withAnimation(.easeOut(duration: 0.1)){
+                                                showTime = false
+                                                timer.invalidate()
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             else{
                                 YouMSG(
                                     message: message,
-                                    pos: Ternary.pos(message: message, messages: messages),
+                                    pos: "top",
                                     bottomCardOpen: $bottomCardOpen,
                                     bottomCardReaction: $bottomCardReaction,
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
-                                    showTime: Ternary.showTime(message: message, messages: messages),
+                                    showTime: showTime,
                                     glowOriginMessage: $glowOriginMessage
                                 )
+                                .onAppear(){
+                                    currentMessage = message
+                                }
                                 .id(message.id)
+                                .onTapGesture(){
+                                    if showTime{
+                                        withAnimation(.easeOut(duration: 0.1)){
+                                            showTime = false
+                                        }
+                                    }
+                                    else{
+                                        withAnimation(.easeIn(duration: 0.1)){
+                                            showTime = true
+                                        }
+                                        if timer != nil && timer!.isValid{
+                                            timer!.invalidate()
+                                        }
+                                        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                            withAnimation(.easeOut(duration: 0.1)){
+                                                showTime = false
+                                                timer.invalidate()
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         if page > 1 {
@@ -180,6 +218,19 @@ struct ChatView: View {
                         proxy.scrollTo(scrollTo)
                     }
                 }
+            }
+            VStack{
+                HStack{
+                    Text(DateHandler.formatDate(currentMessage.time, lang: "de_DE"))
+                        .padding(3)
+                        .font(.footnote)
+                        .background(){
+                            RoundedRectangle(cornerRadius: 15.0)
+                                .fill(Color.init("DateDisplay"))
+                        }
+                }
+                .padding(.top, 10)
+                Spacer()
             }
         }
         .padding(.horizontal, 10)
