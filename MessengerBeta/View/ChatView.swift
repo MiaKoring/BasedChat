@@ -89,20 +89,28 @@ struct ChatView: View {
     let messagesID: UUID
     @Environment(\.modelContext) var context
     @Query var messages: [Message]
-    @State var bottomCardOpen = false
-    @State var bottomCardReaction: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
-    @State var scrollTo = UUID()
-    @State var triggerScroll = false
+    @Binding var bottomCardOpen: Bool
+    @Binding var bottomCardReaction: Reaction
+    @Binding var scrollTo: UUID
+    @Binding var triggerScroll:  Bool
     @State var glowOriginMessage: UUID? = nil
-    @State var page: Int = 1
     @State var allowPageUp = true
     @State var allowPageDown = false
-    
-    init(messagesID: UUID){
+    @Binding var pageBinding: Int
+    @Binding var showLoading: Bool
+    let page: Int
+    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>){
         self.messagesID = messagesID
+        self._pageBinding = pageBinding
+        self._scrollTo = scrollTo
+        self._triggerScroll = triggerScroll
+        self._bottomCardOpen = bottomCardOpen
+        self._bottomCardReaction = bottomCardReaction
+        self._showLoading = showLoading
+        self.page = page
         var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .reverse)])
-        fetchDescriptor.fetchLimit = 10
-        fetchDescriptor.fetchOffset = page > 1 ? (page - 1) * 50 - 15 : 0
+        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 50 : .none
+        fetchDescriptor.fetchOffset = page > 2 ? (page - 2) * 30 : 0
         fetchDescriptor.predicate = #Predicate{
             $0.chatMessagesID == messagesID
         }
@@ -113,19 +121,15 @@ struct ChatView: View {
         ZStack(alignment: .bottom){
             ScrollView{
                 ScrollViewReader{proxy in
-                    Spacer()
-                        .onAppear(){
-                            if allowPageUp{
-                                allowPageUp = false
-                                allowPageDown = true
-                                page += 1
-                            }
-                            print("hello bin da")
-                            print(page)
-                        }
                     LazyVStack(spacing: 8){
+                        if showLoading{
+                            ProgressView()
+                                .onAppear(){
+                                    pageBinding += 1
+                                }
+                        }
                         ForEach(messages.sorted(by: {$0.time < $1.time})) {message in
-                           if Ternary.dateDivider(message: message, messages: messages){
+                            if Ternary.dateDivider(message: message, messages: messages){
                                 HStack{
                                     Spacer()
                                     Text(DateHandler.formatDate(message.time, lang: "de_DE"))
@@ -165,46 +169,37 @@ struct ChatView: View {
                                 .id(message.id)
                             }
                         }
-                    }
-                    .onChange(of: triggerScroll){
-                        if triggerScroll{
-                            withAnimation(.easeIn(duration: 0.15)){
-                                proxy.scrollTo(scrollTo, anchor: .top)
-                            }
-                            triggerScroll.toggle()
+                        if page > 1 {
+                            ProgressView()
+                                .onAppear(){
+                                    pageBinding -= 1
+                                }
                         }
                     }
-                    .onChange(of: glowOriginMessage){
-                        let glowMessage = glowOriginMessage
-                        glowOriginMessage = nil
-                        if glowMessage != nil && messages.contains(where: {$0.id == glowMessage!}){
-                            DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
-                                withAnimation(.easeIn){
-                                    messages.first(where: {$0.id == glowMessage})!.background = "glow"
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
-                                    withAnimation(.easeIn){
-                                        messages.first(where: {$0.id == glowMessage})!.background = "normal"
-                                    }
-                                }
-                            }
+                    .onChange(of: triggerScroll){
+                        proxy.scrollTo(scrollTo)
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 10)
+        .defaultScrollAnchor(.bottom)
+        .padding(.top, 1)
+        .onChange(of: glowOriginMessage){
+            let glowMessage = glowOriginMessage
+            glowOriginMessage = nil
+            if glowMessage != nil && messages.contains(where: {$0.id == glowMessage!}){
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
+                    withAnimation(.easeIn){
+                        messages.first(where: {$0.id == glowMessage})!.background = "glow"
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                        withAnimation(.easeIn){
+                            messages.first(where: {$0.id == glowMessage})!.background = "normal"
                         }
                     }
                 }
             }
-            .padding(.horizontal, 10)
-            .defaultScrollAnchor(.bottom)
-            .padding(.top, 1)
-            .padding(.bottom, 40)
-            .onAppear(){
-                print(messages)
-            }
-            
-            if(bottomCardOpen){
-                BottomCard(content: {ReactionOverview(reaction: $bottomCardReaction, emojis: Array(bottomCardReaction.emojisCount.keys))}, isOpen: $bottomCardOpen)
-                    .ignoresSafeArea(edges: .bottom)
-            }
         }
-        .ignoresSafeArea(edges: .bottom)
     }
 }

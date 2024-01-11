@@ -88,8 +88,9 @@ struct BottomCard<Content: View>: View {
             
             ScrollView{
                 Button(){
-                    for _ in 0...100{
-                        context.insert(Message(chatMessagesID:  chats.first!.messagesID, time: 1392642469, sender: "me", text: "testMessage"))
+                    let time = 1392642469
+                    for i in 0...100{
+                        context.insert(Message(chatMessagesID:  chats.first!.messagesID, time: time - i, sender: "me", text: "testMessage\(i)"))
                     }
                     print("created")
                 }label: {
