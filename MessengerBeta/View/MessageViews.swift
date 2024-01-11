@@ -35,7 +35,7 @@ struct MeMSG: View{
     @State var msgWidth = 0.0
     @State var reactionWidth = 0.0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
-    @Binding var scrollTo: UUID
+    @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool
@@ -93,7 +93,7 @@ struct MeMSG: View{
                         }
                     }
                     .padding(10)
-    
+                    
                     Text(reactionContainer)
                         .font(.custom("JetBrainsMono-Regular", size: 13))
                         .padding([.bottom,.trailing,.top] , 2.5)
@@ -165,14 +165,17 @@ struct MeMSG: View{
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
         }
-        .contextMenu{
+        .contextMenu(){
+            Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
             Button(role: .destructive){
-                context.delete(message)
+                ContextHandler.delete(model: message)
             } label: {
                 Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
             }
+            
         }
     }
+
     
     func formatText()-> some View{
         var text = Text("")
@@ -291,7 +294,7 @@ struct YouMSG: View{
     @State var msgWidth = 0.0
     @State var reactionWidth = 0.0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
-    @Binding var scrollTo: UUID
+    @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool

@@ -21,50 +21,79 @@ struct ContentView: View{
     //@Query var msgs: [Message]
     @Environment(\.modelContext) var context
     @State var page: Int = 1
-    @State var scrollTo: UUID = UUID()
+    @State var scrollTo: UUID? = UUID()
     @State var triggerScroll = false
     @State var showLoading: Bool = false
     @State var bottomCardOpen = false
     @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
+    @State var messageInput: String = ""
     
     var body: some View {
         ZStack{
             if !chats.isEmpty{
-                ChatView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading)
-                    .onChange(of: page){
-                        do{
-                            let messagesID = chats.first!.messagesID
-                            let count = try context.fetchCount(FetchDescriptor<Message>(predicate: #Predicate{
-                                $0.chatMessagesID == messagesID
-                            }))
-                            if count > page * 30 + 70{
-                                showLoading = true
+                VStack{
+                    GeometryReader{geometry in
+                        ChatView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading)
+                            .ignoresSafeArea(.keyboard)
+                            .onChange(of: page){
+                                do{
+                                    let messagesID = chats.first!.messagesID
+                                    let count = try context.fetchCount(FetchDescriptor<Message>(predicate: #Predicate{
+                                        $0.chatMessagesID == messagesID
+                                    }))
+                                    if count > page * 30 + 70{
+                                        showLoading = true
+                                    }
+                                    else{
+                                        showLoading = false
+                                    }
+                                }
+                                catch{
+                                    showLoading = false
+                                }
                             }
-                            else{
-                                showLoading = false
+                            .onAppear(){
+                                do{
+                                    let messagesID = chats.first!.messagesID
+                                    let count = try context.fetchCount(FetchDescriptor<Message>(predicate:  #Predicate{
+                                        $0.chatMessagesID == messagesID
+                                    }))
+                                    if count > page * 30 + 70{
+                                        showLoading = true
+                                    }
+                                    else{
+                                        showLoading = false
+                                    }
+                                }
+                                catch{
+                                    showLoading = false
+                                }
                             }
-                        }
-                        catch{
-                            showLoading = false
-                        }
                     }
-                    .onAppear(){
-                        do{
-                            let messagesID = chats.first!.messagesID
-                            let count = try context.fetchCount(FetchDescriptor<Message>(predicate:  #Predicate{
-                                $0.chatMessagesID == messagesID
-                            }))
-                            if count > page * 30 + 70{
-                                showLoading = true
-                            }
-                            else{
-                                showLoading = false
-                            }
+                    HStack{
+                        Button(){
+                            
+                        }label: {
+                            Image(systemName: "plus")
                         }
-                        catch{
-                            showLoading = false
+                        .padding(.horizontal, 5)
+                        TextField(LocalizedStringKey(""), text: $messageInput, axis: .vertical)
+                            .gesture(DragGesture(minimumDistance: 15))
+                            .padding(5)
+                            .lineLimit(3)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 4)
+                        
+                        Button(){
+                            
+                        }label: {
+                            Image(systemName: "paperplane")
                         }
+                        .padding(.horizontal, 5)
                     }
+                    .padding(.horizontal, 10)
+                }
             }
             else{
                 Text("renderfehler")
@@ -85,6 +114,9 @@ struct ContentView: View{
                     .ignoresSafeArea(edges: .bottom)
             }
         }
+    }
+    func hideKeyboard()->Void{
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

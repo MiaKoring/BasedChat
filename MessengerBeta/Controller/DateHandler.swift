@@ -25,4 +25,12 @@ class DateHandler{
         
         return formatter.string(from: Date(timeIntervalSince1970: Double(unixTimestamp)))
     }
+    static func formatBoth(_ unixTimestamp: Int, lang: String)-> String{
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale(identifier: lang)
+        
+        return formatter.string(from: Date(timeIntervalSince1970: Double(unixTimestamp)))
+    }
 }

@@ -91,7 +91,7 @@ struct ChatView: View {
     @Query var messages: [Message]
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
-    @Binding var scrollTo: UUID
+    @Binding var scrollTo: UUID?
     @Binding var triggerScroll:  Bool
     @State var glowOriginMessage: UUID? = nil
     @State var allowPageUp = true
@@ -101,8 +101,9 @@ struct ChatView: View {
     @State var showTime = false
     let page: Int
     @State var timer : Timer? = nil
-    @State var currentMessage : Message = Message(time: 1, sender: "", text: "")
-    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>){
+    @State var currentDate = ""
+    @State var keyboardShown = false
+    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>){
         self.messagesID = messagesID
         self._pageBinding = pageBinding
         self._scrollTo = scrollTo
@@ -144,28 +145,37 @@ struct ChatView: View {
                                     glowOriginMessage: $glowOriginMessage
                                 )
                                 .onAppear(){
-                                    currentMessage = message
+                                    if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
+                                        withAnimation(.easeIn(duration: 0.1)){
+                                            currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
+                                        }
+                                    }
                                 }
                                 .id(message.id)
                                 .onTapGesture(){
-                                    if showTime{
-                                        withAnimation(.easeOut(duration: 0.1)){
-                                            showTime = false
+                                    if !keyboardShown{
+                                        if showTime{
+                                            withAnimation(.easeOut(duration: 0.1)){
+                                                showTime = false
+                                            }
+                                        }
+                                        else{
+                                            withAnimation(.easeIn(duration: 0.1)){
+                                                showTime = true
+                                            }
+                                            if timer != nil && timer!.isValid{
+                                                timer!.invalidate()
+                                            }
+                                            timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                                withAnimation(.easeOut(duration: 0.1)){
+                                                    showTime = false
+                                                    timer.invalidate()
+                                                }
+                                            }
                                         }
                                     }
                                     else{
-                                        withAnimation(.easeIn(duration: 0.1)){
-                                            showTime = true
-                                        }
-                                        if timer != nil && timer!.isValid{
-                                            timer!.invalidate()
-                                        }
-                                        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-                                            withAnimation(.easeOut(duration: 0.1)){
-                                                showTime = false
-                                                timer.invalidate()
-                                            }
-                                        }
+                                        hideKeyboard()
                                     }
                                 }
                             }
@@ -181,28 +191,37 @@ struct ChatView: View {
                                     glowOriginMessage: $glowOriginMessage
                                 )
                                 .onAppear(){
-                                    currentMessage = message
+                                    if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
+                                        withAnimation(.easeIn(duration: 0.1)){
+                                            currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
+                                        }
+                                    }
                                 }
                                 .id(message.id)
                                 .onTapGesture(){
-                                    if showTime{
-                                        withAnimation(.easeOut(duration: 0.1)){
-                                            showTime = false
+                                    if !keyboardShown{
+                                        if showTime{
+                                            withAnimation(.easeOut(duration: 0.1)){
+                                                showTime = false
+                                            }
+                                        }
+                                        else{
+                                            withAnimation(.easeIn(duration: 0.1)){
+                                                showTime = true
+                                            }
+                                            if timer != nil && timer!.isValid{
+                                                timer!.invalidate()
+                                            }
+                                            timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                                withAnimation(.easeOut(duration: 0.1)){
+                                                    showTime = false
+                                                    timer.invalidate()
+                                                }
+                                            }
                                         }
                                     }
                                     else{
-                                        withAnimation(.easeIn(duration: 0.1)){
-                                            showTime = true
-                                        }
-                                        if timer != nil && timer!.isValid{
-                                            timer!.invalidate()
-                                        }
-                                        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-                                            withAnimation(.easeOut(duration: 0.1)){
-                                                showTime = false
-                                                timer.invalidate()
-                                            }
-                                        }
+                                        hideKeyboard()
                                     }
                                 }
                             }
@@ -217,11 +236,12 @@ struct ChatView: View {
                     .onChange(of: triggerScroll){
                         proxy.scrollTo(scrollTo)
                     }
+                    .padding(.bottom, 4)
                 }
             }
             VStack{
                 HStack{
-                    Text(DateHandler.formatDate(currentMessage.time, lang: "de_DE"))
+                    Text(currentDate)
                         .padding(3)
                         .font(.footnote)
                         .background(){
@@ -252,5 +272,14 @@ struct ChatView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
+            self.keyboardShown = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
+            self.keyboardShown = false
+        }
+    }
+    func hideKeyboard()->Void{
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
