@@ -27,49 +27,47 @@ struct ContentView: View{
     @State var bottomCardOpen = false
     @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
     @State var messageInput: String = ""
+    @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
         ZStack{
             if !chats.isEmpty{
                 VStack{
-                    GeometryReader{geometry in
-                        ChatView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading)
-                            .ignoresSafeArea(.keyboard)
-                            .onChange(of: page){
-                                do{
-                                    let messagesID = chats.first!.messagesID
-                                    let count = try context.fetchCount(FetchDescriptor<Message>(predicate: #Predicate{
-                                        $0.chatMessagesID == messagesID
-                                    }))
-                                    if count > page * 30 + 70{
-                                        showLoading = true
-                                    }
-                                    else{
-                                        showLoading = false
-                                    }
+                    ChatView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading)
+                        .onChange(of: page){
+                            do{
+                                let messagesID = chats.first!.messagesID
+                                let count = try context.fetchCount(FetchDescriptor<Message>(predicate: #Predicate{
+                                    $0.chatMessagesID == messagesID
+                                }))
+                                if count > page * 30 + 70{
+                                    showLoading = true
                                 }
-                                catch{
+                                else{
                                     showLoading = false
                                 }
                             }
-                            .onAppear(){
-                                do{
-                                    let messagesID = chats.first!.messagesID
-                                    let count = try context.fetchCount(FetchDescriptor<Message>(predicate:  #Predicate{
-                                        $0.chatMessagesID == messagesID
-                                    }))
-                                    if count > page * 30 + 70{
-                                        showLoading = true
-                                    }
-                                    else{
-                                        showLoading = false
-                                    }
+                            catch{
+                                showLoading = false
+                            }
+                        }
+                        .onAppear(){
+                            do{
+                                let messagesID = chats.first!.messagesID
+                                let count = try context.fetchCount(FetchDescriptor<Message>(predicate:  #Predicate{
+                                    $0.chatMessagesID == messagesID
+                                }))
+                                if count > page * 30 + 70{
+                                    showLoading = true
                                 }
-                                catch{
+                                else{
                                     showLoading = false
                                 }
                             }
-                    }
+                            catch{
+                                showLoading = false
+                            }
+                        }
                     HStack{
                         Button(){
                             
@@ -114,9 +112,22 @@ struct ContentView: View{
                     .ignoresSafeArea(edges: .bottom)
             }
         }
+        .onAppear(){
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                    self.keyboardHeight = keyboardFrame.height
+                }
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                self.keyboardHeight = 0
+            }
+        }
+        .padding(.bottom, 5)
+        .offset(x: 0, y: min(-keyboardHeight + UIApplication.shared.windows.first!.safeAreaInsets.bottom, 0))
+        .ignoresSafeArea(.keyboard)
     }
     func hideKeyboard()->Void{
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-
