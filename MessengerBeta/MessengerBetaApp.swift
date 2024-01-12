@@ -13,7 +13,7 @@ struct MessengerBetaApp: App {
 
     var body: some Scene {
         WindowGroup{
-            ContentView()
+            ChatView()
         }
         .modelContainer(for: [
             Chat.self,

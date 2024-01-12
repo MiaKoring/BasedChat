@@ -16,7 +16,7 @@ let testChatUUID: UUID = UUID()
 
 let testMessagesUUID: UUID = UUID()
 
-struct ContentView: View{
+struct ChatView: View{
     @Query var chats: [Chat]
     //@Query var msgs: [Message]
     @Environment(\.modelContext) var context
@@ -28,12 +28,14 @@ struct ContentView: View{
     @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
     @State var messageInput: String = ""
     @State private var keyboardHeight: CGFloat = 0
+    @State var replyTo: Reply? = nil
+    @FocusState var textFieldFocused
     
     var body: some View {
         ZStack{
             if !chats.isEmpty{
                 VStack{
-                    ChatView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading)
+                    MessageView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
                         .onChange(of: page){
                             do{
                                 let messagesID = chats.first!.messagesID
@@ -68,29 +70,52 @@ struct ContentView: View{
                                 showLoading = false
                             }
                         }
-                    HStack{
-                        Button(){
-                            
-                        }label: {
-                            Image(systemName: "plus")
+                    VStack{
+                        if replyTo != nil{
+                            HStack{
+                                AnswerDisplay(text: replyTo!.text, senderName: replyTo!.sender, originMessageID: replyTo!.originID)
+                                Spacer()
+                                Button{
+                                    withAnimation(.easeOut(duration: 0.15)){
+                                        replyTo = nil
+                                    }
+                                }label: {
+                                    Image(systemName: "xmark.circle")
+                                }
+                            }
+                            .background(Color.init("BottomCardButtonClicked"))
                         }
-                        .padding(.horizontal, 5)
-                        TextField(LocalizedStringKey(""), text: $messageInput, axis: .vertical)
-                            .gesture(DragGesture(minimumDistance: 15))
-                            .padding(5)
-                            .lineLimit(3)
-                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
+                        HStack{
+                            Button(){
+                                
+                            }label: {
+                                Image(systemName: "plus")
+                            }
                             .padding(.horizontal, 5)
-                            .padding(.vertical, 4)
-                        
-                        Button(){
+                            TextField(LocalizedStringKey(""), text: $messageInput, axis: .vertical)
+                                .gesture(DragGesture(minimumDistance: 15))
+                                .padding(5)
+                                .lineLimit(3)
+                                .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 4)
+                                .focused($textFieldFocused)
+                                .onChange(of: replyTo){
+                                    if replyTo != nil{
+                                        textFieldFocused = true
+                                    }
+                                }
                             
-                        }label: {
-                            Image(systemName: "paperplane")
+                            
+                            Button(){
+                                
+                            }label: {
+                                Image(systemName: "paperplane")
+                            }
+                            .padding(.horizontal, 5)
                         }
-                        .padding(.horizontal, 5)
+                        .padding(.horizontal, 10)
                     }
-                    .padding(.horizontal, 10)
                 }
             }
             else{

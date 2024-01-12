@@ -85,7 +85,7 @@ let defaultMessages: [Message] = [Message(chatMessagesID: defaultChat.messagesID
 }*/
 
 
-struct ChatView: View {
+struct MessageView: View {
     let messagesID: UUID
     @Environment(\.modelContext) var context
     @Query var messages: [Message]
@@ -103,7 +103,8 @@ struct ChatView: View {
     @State var timer : Timer? = nil
     @State var currentDate = ""
     @State var keyboardShown = false
-    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>){
+    @Binding var replyTo: Reply?
+    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>){
         self.messagesID = messagesID
         self._pageBinding = pageBinding
         self._scrollTo = scrollTo
@@ -111,6 +112,7 @@ struct ChatView: View {
         self._bottomCardOpen = bottomCardOpen
         self._bottomCardReaction = bottomCardReaction
         self._showLoading = showLoading
+        self._replyTo = replyTo
         self.page = page
         var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .reverse)])
         fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 70 : .none
@@ -142,7 +144,8 @@ struct ChatView: View {
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
                                     showTime: showTime,
-                                    glowOriginMessage: $glowOriginMessage
+                                    glowOriginMessage: $glowOriginMessage,
+                                    replyTo: $replyTo
                                 )
                                 .onAppear(){
                                     if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
@@ -188,7 +191,8 @@ struct ChatView: View {
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
                                     showTime: showTime,
-                                    glowOriginMessage: $glowOriginMessage
+                                    glowOriginMessage: $glowOriginMessage,
+                                    replyTo: $replyTo
                                 )
                                 .onAppear(){
                                     if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
@@ -255,7 +259,6 @@ struct ChatView: View {
         }
         .padding(.horizontal, 10)
         .defaultScrollAnchor(.bottom)
-        .padding(.top, 1)
         .onChange(of: glowOriginMessage){
             let glowMessage = glowOriginMessage
             glowOriginMessage = nil

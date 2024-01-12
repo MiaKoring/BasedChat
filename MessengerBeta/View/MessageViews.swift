@@ -40,71 +40,79 @@ struct MeMSG: View{
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool
     @Binding var glowOriginMessage: UUID?
+    @State var replyOffset: Double = 0
+    @Binding var replyTo: Reply?
     
     var body: some View{
         VStack{
             HStack{
-                Spacer(minLength: UIScreen.main.bounds.width*0.16)
-                ZStack(alignment: .bottomTrailing){
-                    VStack(alignment: .leading){
-                        if message.type == "reply"{
-                            HStack{
-                                ZStack(alignment: .leading){
-                                    Text(message.text)
-                                        .frame(maxHeight: 5)
-                                        .hidden()
-                                    AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
+                Spacer(minLength: UIScreen.main.bounds.width*0.16 - (replyOffset > 0 ? 30 : 0))
+                if replyOffset > 0{
+                    Image(systemName: "arrowshape.turn.up.left")
+                        .font(.system(size: 16))
+                }
+                HStack{
+                    ZStack(alignment: .bottomTrailing){
+                        VStack(alignment: .leading){
+                            if message.type == "reply"{
+                                HStack{
+                                    ZStack(alignment: .leading){
+                                        Text(message.text)
+                                            .frame(maxHeight: 5)
+                                            .hidden()
+                                        AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
+                                    }
+                                }
+                                .onTapGesture {
+                                    scrollTo = message.reply.originID
+                                    triggerScroll.toggle()
+                                    glowOriginMessage = message.reply.originID
+                                }
+                                .background{
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .fill(.gray)
+                                        .opacity(0.5)
                                 }
                             }
-                            .onTapGesture {
-                                scrollTo = message.reply.originID
-                                triggerScroll.toggle()
-                                glowOriginMessage = message.reply.originID
-                            }
-                            .background{
-                                RoundedRectangle(cornerRadius: 5)
-                                    .fill(.gray)
-                                    .opacity(0.5)
-                            }
-                        }
-                        if !reactionContainer.isEmpty{
-                            if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~"){
-                                Text(message.text)
-                                    .padding(.bottom, 14.5)
+                            if !reactionContainer.isEmpty{
+                                if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~"){
+                                    Text(message.text)
+                                        .padding(.bottom, 14.5)
+                                }
+                                else{
+                                    formatText()
+                                        .padding(.bottom, 14.5)
+                                        .onAppear(){
+                                            formattedChars = formatChars(message.text)
+                                        }
+                                }
                             }
                             else{
-                                formatText()
-                                    .padding(.bottom, 14.5)
-                                    .onAppear(){
-                                        formattedChars = formatChars(message.text)
-                                    }
+                                if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~"){
+                                    Text(message.text)
+                                }
+                                else{
+                                    formatText()
+                                        .onAppear(){
+                                            formattedChars = formatChars(message.text)
+                                        }
+                                }
                             }
                         }
-                        else{
-                            if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~"){
-                                Text(message.text)
+                        .padding(10)
+                        
+                        Text(reactionContainer)
+                            .font(.custom("JetBrainsMono-Regular", size: 13))
+                            .padding([.bottom,.trailing,.top] , 2.5)
+                            .padding(.leading, 4)
+                            .background(){
+                                UnevenRoundedRectangle
+                                    .rect(cornerRadii: RectangleCornerRadii(topLeading: 5, bottomLeading: 10, bottomTrailing: 5, topTrailing: 5))
+                                    .fill(Color.init("ReactionDisplay"))
                             }
-                            else{
-                                formatText()
-                                    .onAppear(){
-                                        formattedChars = formatChars(message.text)
-                                    }
-                            }
-                        }
+                            .hidden()
+                        
                     }
-                    .padding(10)
-                    
-                    Text(reactionContainer)
-                        .font(.custom("JetBrainsMono-Regular", size: 13))
-                        .padding([.bottom,.trailing,.top] , 2.5)
-                        .padding(.leading, 4)
-                        .background(){
-                            UnevenRoundedRectangle
-                                .rect(cornerRadii: RectangleCornerRadii(topLeading: 5, bottomLeading: 10, bottomTrailing: 5, topTrailing: 5))
-                                .fill(Color.init("ReactionDisplay"))
-                        }
-                        .hidden()
-                    
                 }
                 .background(
                     UnevenRoundedRectangle
@@ -129,6 +137,7 @@ struct MeMSG: View{
                                     .fill(Color.init("ReactionDisplayMe"))
                             }
                     }
+                    
                     else if !reactionContainer.isEmpty{
                         Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
                             .font(.custom("JetBrainsMono-Regular", size: 13))
@@ -145,7 +154,17 @@ struct MeMSG: View{
                             }
                     }
                 })
+                .contextMenu(){
+                    Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
+                    Button(role: .destructive){
+                        context.delete(message)
+                    } label: {
+                        Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
+                    }
+                    
+                }
             }
+            
             
             HStack{
                 if showTime {
@@ -164,15 +183,29 @@ struct MeMSG: View{
                 reactionData = genReactions()
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
-        }
-        .contextMenu(){
-            Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
-            Button(role: .destructive){
-                context.delete(message)
-            } label: {
-                Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
-            }
             
+        }
+        .background(.background)
+        .offset(x: replyOffset, y: 0)
+        .gesture(DragGesture()
+            .onChanged(){value in
+                let newOffset = value.translation.width
+                replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+            }
+            .onEnded(){value in
+                if replyOffset == UIScreen.main.bounds.width * 0.1{
+                    replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
+                }
+                withAnimation(.easeIn(duration: 0.1)){
+                    replyOffset = 0
+                }
+            }
+        )
+        .onChange(of: replyOffset){
+            if replyOffset == UIScreen.main.bounds.width * 0.1{
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+            }
         }
     }
 
@@ -299,6 +332,8 @@ struct YouMSG: View{
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool
     @Binding var glowOriginMessage: UUID?
+    @State var replyOffset: Double = 0
+    @Binding var replyTo: Reply?
     
     var body: some View{
         VStack{
@@ -351,6 +386,7 @@ struct YouMSG: View{
                         }
                     }
                     .padding(10)
+                    
     
                     Text(reactionContainer)
                         .font(.custom("JetBrainsMono-Regular", size: 13))
@@ -403,7 +439,18 @@ struct YouMSG: View{
                             }
                     }
                 })
-                Spacer(minLength: UIScreen.main.bounds.width*0.16)
+                .contextMenu{
+                    Button(role: .destructive){
+                        context.delete(message)
+                    } label: {
+                        Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
+                    }
+                }
+                if replyOffset > 0 {
+                    Image(systemName: "arrowshape.turn.up.left")
+                        .font(.system(size: 16))
+                }
+                Spacer(minLength: UIScreen.main.bounds.width*0.16 - (replyOffset > 0 ? 30 : 0))
             }
             
             
@@ -426,11 +473,26 @@ struct YouMSG: View{
             }
             
         }
-        .contextMenu{
-            Button(role: .destructive){
-                context.delete(message)
-            } label: {
-                Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
+        .background(.background)
+        .offset(x: replyOffset, y: 0)
+        .gesture(DragGesture()
+            .onChanged(){value in
+                let newOffset = value.translation.width
+                replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+            }
+            .onEnded(){value in
+                if replyOffset == UIScreen.main.bounds.width * 0.1{
+                    replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
+                }
+                withAnimation(.easeIn(duration: 0.1)){
+                    replyOffset = 0
+                }
+            }
+        )
+        .onChange(of: replyOffset){
+            if replyOffset == UIScreen.main.bounds.width * 0.1{
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
             }
         }
     }
