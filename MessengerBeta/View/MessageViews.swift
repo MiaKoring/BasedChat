@@ -46,8 +46,13 @@ struct MeMSG: View{
     var body: some View{
         VStack{
             HStack{
-                Spacer(minLength: UIScreen.main.bounds.width*0.16 - (replyOffset > 0 ? 30 : 0))
-                if replyOffset > 0{
+                Spacer(minLength: UIScreen.main.bounds.width*0.16 - 30)
+                if replyOffset == 0{
+                    Image(systemName: "arrowshape.turn.up.left")
+                        .font(.system(size: 16))
+                        .hidden()
+                }
+                else{
                     Image(systemName: "arrowshape.turn.up.left")
                         .font(.system(size: 16))
                 }
@@ -187,7 +192,7 @@ struct MeMSG: View{
         }
         .background(.background)
         .offset(x: replyOffset, y: 0)
-        .gesture(DragGesture()
+        .gesture(DragGesture(minimumDistance: 10)
             .onChanged(){value in
                 let newOffset = value.translation.width
                 replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
@@ -446,11 +451,16 @@ struct YouMSG: View{
                         Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
                     }
                 }
-                if replyOffset > 0 {
+                if replyOffset == 0{
+                    Image(systemName: "arrowshape.turn.up.left")
+                        .font(.system(size: 16))
+                        .hidden()
+                }
+                else{
                     Image(systemName: "arrowshape.turn.up.left")
                         .font(.system(size: 16))
                 }
-                Spacer(minLength: UIScreen.main.bounds.width*0.16 - (replyOffset > 0 ? 30 : 0))
+                Spacer(minLength: UIScreen.main.bounds.width*0.16 - 30)
             }
             
             
@@ -475,7 +485,7 @@ struct YouMSG: View{
         }
         .background(.background)
         .offset(x: replyOffset, y: 0)
-        .gesture(DragGesture()
+        .gesture(DragGesture(minimumDistance: 10)
             .onChanged(){value in
                 let newOffset = value.translation.width
                 replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
