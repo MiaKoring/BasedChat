@@ -168,7 +168,7 @@ struct MeMSG: View{
         .contextMenu(){
             Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
             Button(role: .destructive){
-                ContextHandler.delete(model: message)
+                context.delete(message)
             } label: {
                 Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
             }
