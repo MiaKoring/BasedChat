@@ -195,7 +195,9 @@ struct MeMSG: View{
         .gesture(DragGesture(minimumDistance: 10)
             .onChanged(){value in
                 let newOffset = value.translation.width
-                replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+                if newOffset > 10 || newOffset == 0{
+                    replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+                }
             }
             .onEnded(){value in
                 if replyOffset == UIScreen.main.bounds.width * 0.1{
@@ -488,7 +490,9 @@ struct YouMSG: View{
         .gesture(DragGesture(minimumDistance: 10)
             .onChanged(){value in
                 let newOffset = value.translation.width
-                replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+                if newOffset > 10 || newOffset == 0{
+                    replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
+                }
             }
             .onEnded(){value in
                 if replyOffset == UIScreen.main.bounds.width * 0.1{
