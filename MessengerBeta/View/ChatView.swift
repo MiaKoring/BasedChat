@@ -230,7 +230,7 @@ struct MessageView: View {
                                 }
                             }
                         }
-                        if page > 1 {
+                        if page > 2 {
                             ProgressView()
                                 .onAppear(){
                                     pageBinding -= 1

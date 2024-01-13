@@ -496,6 +496,7 @@ struct YouMSG: View{
             }
             .onEnded(){value in
                 if replyOffset == UIScreen.main.bounds.width * 0.1{
+                    replyTo = nil
                     replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
                 }
                 withAnimation(.easeIn(duration: 0.1)){
@@ -611,5 +612,22 @@ struct YouMSG: View{
             countString = String(totalCount)+"K"
         }
         return Reaction(mostUsed: reactionCache, countString: countString, emojisCount: emojisCount, differentEmojisCount: differentEmojisCount, peopleReactions: message.reactions)
+    }
+}
+
+
+struct ReplyToDisplay: View {
+    @Binding var replyTo : Reply?
+    var body: some View {
+        if replyTo != nil{
+            VStack(alignment: .leading, spacing: 5){
+                Text(replyTo!.sender)
+                    .bold()
+                    .font(.system(size: 14))
+                Text(replyTo!.text.count > 150 ? "\(replyTo!.text.prefix(150).prefix(upTo: replyTo!.text.prefix(150).lastIndex(of: " ") ?? replyTo!.text.prefix(150).endIndex))..." : replyTo!.text)
+                    .font(.system(size: 12))
+            }
+            .padding(3)
+        }
     }
 }
