@@ -115,7 +115,7 @@ struct MessageView: View {
         self._replyTo = replyTo
         self.page = page
         var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .reverse)])
-        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 70 : .none
+        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 100 : .none
         fetchDescriptor.fetchOffset = page > 2 ? (page - 2) * 30 : 0
         fetchDescriptor.predicate = #Predicate{
             $0.chatMessagesID == messagesID
@@ -127,13 +127,7 @@ struct MessageView: View {
         ZStack(alignment: .bottom){
             ScrollView{
                 ScrollViewReader{proxy in
-                    LazyVStack(spacing: 8){
-                        if showLoading{
-                            ProgressView()
-                                .onAppear(){
-                                    pageBinding += 1
-                                }
-                        }
+                    VStack(spacing: 8){
                         ForEach(messages.sorted(by: {$0.time < $1.time})) {message in
                             if message.sender == "me" {
                                 MeMSG(
@@ -230,18 +224,17 @@ struct MessageView: View {
                                 }
                             }
                         }
-                        if page > 2 {
-                            ProgressView()
-                                .onAppear(){
-                                    pageBinding -= 1
-                                }
-                        }
                     }
                     .onChange(of: triggerScroll){
+                        print("triggered scroll")
                         proxy.scrollTo(scrollTo)
                     }
                     .padding(.bottom, 4)
                 }
+            }
+            .refreshable(){
+                pageBinding += 1
+                print("refreshed \(pageBinding)")
             }
             VStack{
                 HStack{

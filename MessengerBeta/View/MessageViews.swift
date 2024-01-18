@@ -185,6 +185,7 @@ struct MeMSG: View{
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
             .onChange(of: message){
+                print("message changed")
                 reactionData = genReactions()
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
@@ -209,6 +210,7 @@ struct MeMSG: View{
             }
         )
         .onChange(of: replyOffset){
+            print("replyOffset changed")
             if replyOffset == UIScreen.main.bounds.width * 0.1{
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)
@@ -480,6 +482,7 @@ struct YouMSG: View{
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
             .onChange(of: message){
+                print("message changed")
                 reactionData = genReactions()
                 reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
             }
@@ -505,6 +508,7 @@ struct YouMSG: View{
             }
         )
         .onChange(of: replyOffset){
+            print("replyOffset Changed")
             if replyOffset == UIScreen.main.bounds.width * 0.1{
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)
