@@ -40,22 +40,11 @@ struct MeMSG: View{
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool
     @Binding var glowOriginMessage: UUID?
-    @State var replyOffset: Double = 0
-    @Binding var replyTo: Reply?
     
     var body: some View{
         VStack{
             HStack{
-                Spacer(minLength: UIScreen.main.bounds.width*0.16 - 30)
-                if replyOffset == 0{
-                    Image(systemName: "arrowshape.turn.up.left")
-                        .font(.system(size: 16))
-                        .hidden()
-                }
-                else{
-                    Image(systemName: "arrowshape.turn.up.left")
-                        .font(.system(size: 16))
-                }
+                Spacer(minLength: UIScreen.main.bounds.width*0.2)
                 HStack{
                     ZStack(alignment: .bottomTrailing){
                         VStack(alignment: .leading){
@@ -191,31 +180,7 @@ struct MeMSG: View{
             }
             
         }
-        .background(.background)
-        .offset(x: replyOffset, y: 0)
-        .gesture(DragGesture(minimumDistance: 10)
-            .onChanged(){value in
-                let newOffset = value.translation.width
-                if newOffset > 10 || newOffset == 0{
-                    replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
-                }
-            }
-            .onEnded(){value in
-                if replyOffset == UIScreen.main.bounds.width * 0.1{
-                    replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
-                }
-                withAnimation(.easeIn(duration: 0.1)){
-                    replyOffset = 0
-                }
-            }
-        )
-        .onChange(of: replyOffset){
-            print("replyOffset changed")
-            if replyOffset == UIScreen.main.bounds.width * 0.1{
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-            }
-        }
+        .background(Color.init("Background"))
     }
 
     
@@ -341,8 +306,6 @@ struct YouMSG: View{
     @State var formattedChars: [FormattedChar] = []
     let showTime: Bool
     @Binding var glowOriginMessage: UUID?
-    @State var replyOffset: Double = 0
-    @Binding var replyTo: Reply?
     
     var body: some View{
         VStack{
@@ -455,65 +418,30 @@ struct YouMSG: View{
                         Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
                     }
                 }
-                if replyOffset == 0{
-                    Image(systemName: "arrowshape.turn.up.left")
-                        .font(.system(size: 16))
-                        .hidden()
-                }
-                else{
-                    Image(systemName: "arrowshape.turn.up.left")
-                        .font(.system(size: 16))
-                }
-                Spacer(minLength: UIScreen.main.bounds.width*0.16 - 30)
+                Spacer(minLength: UIScreen.main.bounds.width*0.2)
             }
             
-            
-            HStack{
-                if showTime {
+            if showTime {
+                HStack{
                     Text(DateHandler.formatTime(message.time, lang: "de_DE"))
                         .font(Font.custom("JetBrainsMono-Regular", size: 10))
                         .frame(alignment: .bottomTrailing)
                         .opacity(0.75)
+                    Spacer()
                 }
-                Spacer()
-            }
-            .onAppear{
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-            }
-            .onChange(of: message){
-                print("message changed")
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                .onAppear{
+                    reactionData = genReactions()
+                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                }
+                .onChange(of: message){
+                    print("message changed")
+                    reactionData = genReactions()
+                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                }
             }
             
         }
-        .background(.background)
-        .offset(x: replyOffset, y: 0)
-        .gesture(DragGesture(minimumDistance: 10)
-            .onChanged(){value in
-                let newOffset = value.translation.width
-                if newOffset > 10 || newOffset == 0{
-                    replyOffset = max(0, min(newOffset, UIScreen.main.bounds.width * 0.1))
-                }
-            }
-            .onEnded(){value in
-                if replyOffset == UIScreen.main.bounds.width * 0.1{
-                    replyTo = nil
-                    replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
-                }
-                withAnimation(.easeIn(duration: 0.1)){
-                    replyOffset = 0
-                }
-            }
-        )
-        .onChange(of: replyOffset){
-            print("replyOffset Changed")
-            if replyOffset == UIScreen.main.bounds.width * 0.1{
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-            }
-        }
+        .background(Color.init("Background"))
     }
     func formatText()-> some View{
         var text = Text("")

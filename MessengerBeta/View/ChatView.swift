@@ -96,27 +96,21 @@ struct MessageView: View {
     @State var glowOriginMessage: UUID? = nil
     @State var allowPageUp = true
     @State var allowPageDown = false
-    @Binding var pageBinding: Int
     @Binding var showLoading: Bool
     @State var showTime = false
-    let page: Int
     @State var timer : Timer? = nil
     @State var currentDate = ""
     @State var keyboardShown = false
     @Binding var replyTo: Reply?
-    init(messagesID: UUID, pageBinding: Binding<Int>, page: Int, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>){
+    init(messagesID: UUID, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>){
         self.messagesID = messagesID
-        self._pageBinding = pageBinding
         self._scrollTo = scrollTo
         self._triggerScroll = triggerScroll
         self._bottomCardOpen = bottomCardOpen
         self._bottomCardReaction = bottomCardReaction
         self._showLoading = showLoading
         self._replyTo = replyTo
-        self.page = page
-        var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .reverse)])
-        fetchDescriptor.fetchLimit = showLoading.wrappedValue ? 100 : .none
-        fetchDescriptor.fetchOffset = page > 2 ? (page - 2) * 30 : 0
+        var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Message.time, order: .forward)])
         fetchDescriptor.predicate = #Predicate{
             $0.chatMessagesID == messagesID
         }
@@ -125,116 +119,131 @@ struct MessageView: View {
    
     var body: some View {
         ZStack(alignment: .bottom){
-            ScrollView{
-                ScrollViewReader{proxy in
-                    VStack(spacing: 8){
-                        ForEach(messages.sorted(by: {$0.time < $1.time})) {message in
-                            if message.sender == "me" {
-                                MeMSG(
-                                    message: message,
-                                    pos: "top",
-                                    bottomCardOpen: $bottomCardOpen,
-                                    bottomCardReaction: $bottomCardReaction,
-                                    scrollTo: $scrollTo,
-                                    triggerScroll: $triggerScroll,
-                                    showTime: showTime,
-                                    glowOriginMessage: $glowOriginMessage,
-                                    replyTo: $replyTo
-                                )
-                                .onAppear(){
-                                    if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
-                                        withAnimation(.easeIn(duration: 0.1)){
-                                            currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
-                                        }
+            ScrollViewReader{reader in
+                List(messages){message in
+                    if message.sender == "me" {
+                        MeMSG(
+                            message: message,
+                            pos: "top",
+                            bottomCardOpen: $bottomCardOpen,
+                            bottomCardReaction: $bottomCardReaction,
+                            scrollTo: $scrollTo,
+                            triggerScroll: $triggerScroll,
+                            showTime: showTime,
+                            glowOriginMessage: $glowOriginMessage
+                        )
+                        .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 5))
+                        .listRowSeparator(.hidden)
+                        .swipeActions{
+                            Button{
+                                replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
+                            }label: {
+                                Image(systemName: "arrowshape.turn.up.left")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 16))
+                                    .tint(Color.init("Background"))
+                            }
+                        }
+                        .onAppear(){
+                            if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
+                                withAnimation(.easeIn(duration: 0.1)){
+                                    currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
+                                }
+                            }
+                        }
+                        .id(message.id)
+                        .onTapGesture(){
+                            if !keyboardShown{
+                                if showTime{
+                                    withAnimation(.easeOut(duration: 0.1)){
+                                        showTime = false
                                     }
                                 }
-                                .id(message.id)
-                                .onTapGesture(){
-                                    if !keyboardShown{
-                                        if showTime{
-                                            withAnimation(.easeOut(duration: 0.1)){
-                                                showTime = false
-                                            }
-                                        }
-                                        else{
-                                            withAnimation(.easeIn(duration: 0.1)){
-                                                showTime = true
-                                            }
-                                            if timer != nil && timer!.isValid{
-                                                timer!.invalidate()
-                                            }
-                                            timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-                                                withAnimation(.easeOut(duration: 0.1)){
-                                                    showTime = false
-                                                    timer.invalidate()
-                                                }
-                                            }
-                                        }
+                                else{
+                                    withAnimation(.easeIn(duration: 0.1)){
+                                        showTime = true
                                     }
-                                    else{
-                                        hideKeyboard()
+                                    if timer != nil && timer!.isValid{
+                                        timer!.invalidate()
+                                    }
+                                    timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                        withAnimation(.easeOut(duration: 0.1)){
+                                            showTime = false
+                                            timer.invalidate()
+                                        }
                                     }
                                 }
                             }
                             else{
-                                YouMSG(
-                                    message: message,
-                                    pos: "top",
-                                    bottomCardOpen: $bottomCardOpen,
-                                    bottomCardReaction: $bottomCardReaction,
-                                    scrollTo: $scrollTo,
-                                    triggerScroll: $triggerScroll,
-                                    showTime: showTime,
-                                    glowOriginMessage: $glowOriginMessage,
-                                    replyTo: $replyTo
-                                )
-                                .onAppear(){
-                                    if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
-                                        withAnimation(.easeIn(duration: 0.1)){
-                                            currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
-                                        }
-                                    }
-                                }
-                                .id(message.id)
-                                .onTapGesture(){
-                                    if !keyboardShown{
-                                        if showTime{
-                                            withAnimation(.easeOut(duration: 0.1)){
-                                                showTime = false
-                                            }
-                                        }
-                                        else{
-                                            withAnimation(.easeIn(duration: 0.1)){
-                                                showTime = true
-                                            }
-                                            if timer != nil && timer!.isValid{
-                                                timer!.invalidate()
-                                            }
-                                            timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-                                                withAnimation(.easeOut(duration: 0.1)){
-                                                    showTime = false
-                                                    timer.invalidate()
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        hideKeyboard()
-                                    }
-                                }
+                                hideKeyboard()
                             }
                         }
                     }
-                    .onChange(of: triggerScroll){
-                        print("triggered scroll")
-                        proxy.scrollTo(scrollTo)
+                    else{
+                        YouMSG(
+                            message: message,
+                            pos: "top",
+                            bottomCardOpen: $bottomCardOpen,
+                            bottomCardReaction: $bottomCardReaction,
+                            scrollTo: $scrollTo,
+                            triggerScroll: $triggerScroll,
+                            showTime: showTime,
+                            glowOriginMessage: $glowOriginMessage
+                        )
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 0))
+                        .swipeActions{
+                            Button{
+                                replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
+                            }label: {
+                                Image(systemName: "arrowshape.turn.up.left")
+                                    .foregroundColor(Color.init("InvertedBackground"))
+                                    .font(.system(size: 16))
+                                    .tint(Color.init("Background"))
+                            }
+                        }
+                        .onAppear(){
+                            if DateHandler.formatDate(message.time, lang: "de_DE") != currentDate{
+                                withAnimation(.easeIn(duration: 0.1)){
+                                    currentDate = DateHandler.formatDate(message.time, lang: "de_DE")
+                                }
+                            }
+                        }
+                        .id(message.id)
+                        .onTapGesture(){
+                            if !keyboardShown{
+                                if showTime{
+                                    withAnimation(.easeOut(duration: 0.1)){
+                                        showTime = false
+                                    }
+                                }
+                                else{
+                                    withAnimation(.easeIn(duration: 0.1)){
+                                        showTime = true
+                                    }
+                                    if timer != nil && timer!.isValid{
+                                        timer!.invalidate()
+                                    }
+                                    timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+                                        withAnimation(.easeOut(duration: 0.1)){
+                                            showTime = false
+                                            timer.invalidate()
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                hideKeyboard()
+                            }
+                        }
                     }
-                    .padding(.bottom, 4)
                 }
-            }
-            .refreshable(){
-                pageBinding += 1
-                print("refreshed \(pageBinding)")
+                .listStyle(.plain)
+                .listSectionSeparator(.hidden)
+                .onAppear(){
+                    reader.scrollTo(messages.last?.id)
+                }
+                .ignoresSafeArea(edges: .horizontal)
             }
             VStack{
                 HStack{
@@ -250,7 +259,6 @@ struct MessageView: View {
                 Spacer()
             }
         }
-        .padding(.horizontal, 10)
         .defaultScrollAnchor(.bottom)
         .onChange(of: glowOriginMessage){
             let glowMessage = glowOriginMessage

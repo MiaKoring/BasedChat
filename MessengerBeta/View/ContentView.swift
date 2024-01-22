@@ -119,10 +119,9 @@ let testMessagesUUID: UUID = UUID()
 struct ChatView: View{
     @Query var chats: [Chat]
     @Environment(\.modelContext) var context
-    @State var page: Int = 1
     @State var scrollTo: UUID? = UUID()
     @State var triggerScroll = false
-    @State var showLoading: Bool = true
+    @State var showLoading: Bool = false
     @State var bottomCardOpen = false
     @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
     @State var messageInput: String = ""
@@ -133,7 +132,7 @@ struct ChatView: View{
     var body: some View {
         ZStack(alignment: .bottom){
             VStack{
-                MessageView(messagesID: chats.first!.messagesID, pageBinding: $page, page: page, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
+                MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
                 if replyTo != nil{
                     HStack{
                         ReplyToDisplay(replyTo: $replyTo)
