@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		140DD9B72B42EE0F00302447 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DD9B62B42EE0F00302447 /* Music.swift */; };
 		14469B502B40937300835BFC /* MessengerBetaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B4F2B40937300835BFC /* MessengerBetaApp.swift */; };
-		14469B522B40937300835BFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B512B40937300835BFC /* ContentView.swift */; };
+		14469B522B40937300835BFC /* ChatView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B512B40937300835BFC /* ChatView .swift */; };
 		14469B542B40937300835BFC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B532B40937300835BFC /* Item.swift */; };
 		14469B562B40937500835BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B552B40937500835BFC /* Assets.xcassets */; };
 		14469B592B40937500835BFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B582B40937500835BFC /* Preview Assets.xcassets */; };
@@ -24,7 +24,7 @@
 		14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B372B4AE5CB009ED309 /* MessageViews.swift */; };
 		14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B392B4AE637009ED309 /* BottomCard.swift */; };
 		14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */; };
-		14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */; };
+		14DC8B3E2B4AE6AC009ED309 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */; };
 		14E0180A2B4CB2D200A6E379 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018092B4CB2D200A6E379 /* Message.swift */; };
 		14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E0180B2B4CB32500A6E379 /* Chat.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		140DD9B62B42EE0F00302447 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		14469B4C2B40937300835BFC /* MessengerBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessengerBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14469B4F2B40937300835BFC /* MessengerBetaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerBetaApp.swift; sourceTree = "<group>"; };
-		14469B512B40937300835BFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		14469B512B40937300835BFC /* ChatView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatView .swift"; sourceTree = "<group>"; };
 		14469B532B40937300835BFC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		14469B552B40937500835BFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14469B582B40937500835BFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 		14DC8B372B4AE5CB009ED309 /* MessageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViews.swift; sourceTree = "<group>"; };
 		14DC8B392B4AE637009ED309 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
 		14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionsCard.swift; sourceTree = "<group>"; };
-		14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		14E018092B4CB2D200A6E379 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		14E0180B2B4CB32500A6E379 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,11 +194,11 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				14469B512B40937300835BFC /* ContentView.swift */,
+				14469B512B40937300835BFC /* ChatView .swift */,
 				14DC8B372B4AE5CB009ED309 /* MessageViews.swift */,
 				14DC8B392B4AE637009ED309 /* BottomCard.swift */,
 				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
-				14DC8B3D2B4AE6AC009ED309 /* ChatView.swift */,
+				14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14469B522B40937300835BFC /* ContentView.swift in Sources */,
+				14469B522B40937300835BFC /* ChatView .swift in Sources */,
 				145899122B4D91C100A3C836 /* Ternary.swift in Sources */,
 				14469B542B40937300835BFC /* Item.swift in Sources */,
 				14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */,
@@ -296,7 +296,7 @@
 				14E0180A2B4CB2D200A6E379 /* Message.swift in Sources */,
 				145899102B4D8F4800A3C836 /* DateHandler.swift in Sources */,
 				14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */,
-				14DC8B3E2B4AE6AC009ED309 /* ChatView.swift in Sources */,
+				14DC8B3E2B4AE6AC009ED309 /* MessageView.swift in Sources */,
 				14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */,
 				14469B502B40937300835BFC /* MessengerBetaApp.swift in Sources */,
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,

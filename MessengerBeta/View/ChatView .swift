@@ -130,59 +130,70 @@ struct ChatView: View{
     @FocusState var textFieldFocused
     
     var body: some View {
-        ZStack(alignment: .bottom){
-            VStack{
-                MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
-                if replyTo != nil{
-                    HStack{
-                        ReplyToDisplay(replyTo: $replyTo)
-                            .frame(height: 50)
-                        Spacer()
-                        Button{
-                            replyTo = nil
-                        } label: {
-                            Image(systemName: "xmark.circle")
-                        }
-                    }
-                    .background(Color.init("BottomCardButtonClicked"))
-                }
-                HStack{
-                    Image(systemName: "plus")
-                    TextField(LocalizedStringKey("Message"), text: $messageInput, axis: .vertical)
-                        .padding(5)
-                        .lineLimit(3)
-                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 4)
-                        .focused($textFieldFocused)
-                        .onChange(of: replyTo){
-                            if replyTo != nil{
-                                textFieldFocused = true
+        if !chats.isEmpty{
+            ZStack(alignment: .bottom){
+                VStack{
+                    MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
+                    if replyTo != nil{
+                        HStack{
+                            ReplyToDisplay(replyTo: $replyTo)
+                                .frame(height: 50)
+                            Spacer()
+                            Button{
+                                replyTo = nil
+                            } label: {
+                                Image(systemName: "xmark.circle")
                             }
-                            print("replyTo changed")
                         }
-                    Button{
-                        
-                    } label: {
-                        Image(systemName: "paperplane")
+                        .background(Color.init("BottomCardButtonClicked"))
                     }
+                    HStack{
+                        Image(systemName: "plus")
+                        TextField(LocalizedStringKey("Message"), text: $messageInput, axis: .vertical)
+                            .padding(5)
+                            .lineLimit(3)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 4)
+                            .focused($textFieldFocused)
+                            .onChange(of: replyTo){
+                                if replyTo != nil{
+                                    textFieldFocused = true
+                                }
+                                print("replyTo changed")
+                            }
+                        Button{
+                            
+                        } label: {
+                            Image(systemName: "paperplane")
+                        }
+                    }
+                }
+                .padding(.bottom, keyboardShown ? 0 : UIApplication.shared.windows.first!.safeAreaInsets.bottom)
+                if(bottomCardOpen){
+                    BottomCard(content: {ReactionOverview(reaction: $bottomCardReaction, emojis: Array(bottomCardReaction.emojisCount.keys))}, isOpen: $bottomCardOpen)
+                        .ignoresSafeArea(.container)
                 }
             }
-            .padding(.bottom, keyboardShown ? 0 : UIApplication.shared.windows.first!.safeAreaInsets.bottom)
-            if(bottomCardOpen){
-                BottomCard(content: {ReactionOverview(reaction: $bottomCardReaction, emojis: Array(bottomCardReaction.emojisCount.keys))}, isOpen: $bottomCardOpen)
-                    .ignoresSafeArea(.container)
+            .ignoresSafeArea(.container)
+            .onAppear(){
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                    self.keyboardShown = true
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                    self.keyboardShown = false
+                }
             }
         }
-        .ignoresSafeArea(.container)
-        .onAppear(){
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                self.keyboardShown = true
-            }
-            
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-                self.keyboardShown = false
-            }
+        else{
+            Text("creating test data")
+                .onAppear(){
+                    for message in defaultMessages{
+                        context.insert(message)
+                    }
+                    context.insert(defaultChat)
+                }
         }
     }
     func hideKeyboard()->Void{

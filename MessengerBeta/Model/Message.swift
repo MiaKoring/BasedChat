@@ -20,8 +20,9 @@ class Message: Identifiable, ObservableObject{
     var reactions: [String: String]
     var background: String
     var id: UUID = UUID()
+    var messageID: Int
     
-    init(chatMessagesID: UUID = UUID(), time: Int, sender: String, type: String = "normal", reply: Reply = Reply(originID: UUID(), text: "", sender: ""), attachments: [Attachment] = [], text: String, reactions: [String : String] = [:], background: String = "normal", id: UUID = UUID()) {
+    init(chatMessagesID: UUID = UUID(), time: Int, sender: String, type: String = "normal", reply: Reply = Reply(originID: UUID(), text: "", sender: ""), attachments: [Attachment] = [], text: String, reactions: [String : String] = [:], background: String = "normal", id: UUID = UUID(), messageID: Int) {
         self.chatMessagesID = chatMessagesID
         self.time = time
         self.sender = sender
@@ -32,6 +33,7 @@ class Message: Identifiable, ObservableObject{
         self.reactions = reactions
         self.background = background
         self.id = id
+        self.messageID = messageID
     }
 }
 
