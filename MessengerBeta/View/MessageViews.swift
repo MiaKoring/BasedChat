@@ -31,14 +31,11 @@ struct MeMSG: View{
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
     @State var reactionContainer = ""
-    @State var reactionCount: Float = 0
-    @State var msgWidth = 0.0
-    @State var reactionWidth = 0.0
+    var reactionCount: Float = 0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
-    let showTime: Bool
     @Binding var glowOriginMessage: UUID?
     
     var body: some View{
@@ -158,25 +155,11 @@ struct MeMSG: View{
                     
                 }
             }
-            
-            
-            HStack{
-                if showTime {
-                    Spacer()
-                    Text(DateHandler.formatTime(message.time, lang: "de_DE"))
-                        .font(Font.custom("JetBrainsMono-Regular", size: 10))
-                        .frame(alignment: .bottomTrailing)
-                        .opacity(0.75)
-                }
-            }
             .onAppear{
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-            }
-            .onChange(of: message){
-                print("message changed")
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                if !message.reactions.isEmpty{
+                    reactionData = genReactions()
+                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                }
             }
             
         }
@@ -292,19 +275,16 @@ struct MeMSG: View{
 
 struct YouMSG: View{
     @Environment(\.modelContext) var context
-    var message: Message
+    let message: Message
     let pos: String
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
     @State var reactionContainer = ""
-    @State var reactionCount: Float = 0
-    @State var msgWidth = 0.0
-    @State var reactionWidth = 0.0
+    var reactionCount: Float = 0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
-    let showTime: Bool
     @Binding var glowOriginMessage: UUID?
     
     var body: some View{
@@ -420,21 +400,8 @@ struct YouMSG: View{
                 }
                 Spacer(minLength: UIScreen.main.bounds.width*0.2)
             }
-            
-            if showTime {
-                HStack{
-                    Text(DateHandler.formatTime(message.time, lang: "de_DE"))
-                        .font(Font.custom("JetBrainsMono-Regular", size: 10))
-                        .frame(alignment: .bottomTrailing)
-                        .opacity(0.75)
-                    Spacer()
-                }
-                .onAppear{
-                    reactionData = genReactions()
-                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-                }
-                .onChange(of: message){
-                    print("message changed")
+            .onAppear{
+                if !message.reactions.isEmpty{
                     reactionData = genReactions()
                     reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
                 }

@@ -228,6 +228,8 @@
 			dependencies = (
 			);
 			name = MessengerBeta;
+			packageProductDependencies = (
+			);
 			productName = MessengerBeta;
 			productReference = 14469B4C2B40937300835BFC /* MessengerBeta.app */;
 			productType = "com.apple.product-type.application";
@@ -256,6 +258,8 @@
 				de,
 			);
 			mainGroup = 14469B432B40937300835BFC;
+			packageReferences = (
+			);
 			productRefGroup = 14469B4D2B40937300835BFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -127,7 +127,7 @@ struct ChatView: View{
     @State var messageInput: String = ""
     @State private var keyboardShown: Bool = false
     @State var replyTo: Reply? = nil
-    @FocusState var textFieldFocused
+    @State var textFieldFocused: Bool = false
     
     var body: some View {
         if !chats.isEmpty{
@@ -147,6 +147,7 @@ struct ChatView: View{
                         }
                         .background(Color.init("BottomCardButtonClicked"))
                     }
+                    Spacer()
                     HStack{
                         Image(systemName: "plus")
                         TextField(LocalizedStringKey("Message"), text: $messageInput, axis: .vertical)
@@ -155,13 +156,7 @@ struct ChatView: View{
                             .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(Color.gray))
                             .padding(.horizontal, 5)
                             .padding(.vertical, 4)
-                            .focused($textFieldFocused)
-                            .onChange(of: replyTo){
-                                if replyTo != nil{
-                                    textFieldFocused = true
-                                }
-                                print("replyTo changed")
-                            }
+                        
                         Button{
                             
                         } label: {

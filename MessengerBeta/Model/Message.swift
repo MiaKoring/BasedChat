@@ -38,7 +38,11 @@ class Message: Identifiable, ObservableObject{
 }
 
 @Model
-class Attachment: Equatable, Hashable{
+class Attachment: Equatable{
+    static func == (lhs: Attachment, rhs: Attachment) -> Bool {
+        lhs.dataPath == rhs.dataPath
+    }
+    
     let type: String
     let dataPath: String
     init(type: String, dataPath: String) {
@@ -46,9 +50,12 @@ class Attachment: Equatable, Hashable{
         self.dataPath = dataPath
     }
 }
-
 @Model
-class Reply: Equatable, Hashable{
+class Reply: Equatable{
+    static func == (lhs: Reply, rhs: Reply) -> Bool {
+        lhs.originID == rhs.originID
+    }
+    
     var originID: UUID
     var text: String
     var sender: String
@@ -73,3 +80,4 @@ struct FormattedChar{
     let char: String
     let formats: [String]
 }
+
