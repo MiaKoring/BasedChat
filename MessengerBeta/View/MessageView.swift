@@ -34,6 +34,9 @@ struct MessageView: View {
     @State var rangeStart: Int = 0
     @State var rangeEnd: Int = 0
     @State var renderedMessages: [Message] = []
+    @State var tappedID: UUID? = nil
+    @State var replyTimer: Timer? = nil
+    
     init(messagesID: UUID, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>){
         self.messagesID = messagesID
         self._scrollTo = scrollTo
@@ -54,7 +57,7 @@ struct MessageView: View {
             ScrollView{
                 ScrollViewReader{reader in
                     LazyVStack{
-                        ForEach($renderedMessages, id: \.self){message in
+                        ForEach($renderedMessages){message in
                             if message.sender.wrappedValue == "me" {
                                 MeMSG(
                                     message: message.wrappedValue,
@@ -65,25 +68,31 @@ struct MessageView: View {
                                     triggerScroll: $triggerScroll,
                                     glowOriginMessage: $glowOriginMessage
                                 )
+                                .id(message.id)
                                 .rotationEffect(.degrees(180.0))
                                 .onTapGesture(){
                                     if !keyboardShown{
-                                        if showTime{
-                                            withAnimation(.easeOut(duration: 0.1)){
-                                                showTime = false
+                                       if tappedID == message.id{
+                                            if replyTimer != nil{
+                                                replyTimer!.invalidate()
+                                                replyTimer = nil
                                             }
+                                            tappedID = nil
+                                            replyTo = Reply(originID: message.wrappedValue.id, text: message.wrappedValue.text, sender: message.wrappedValue.sender)
                                         }
                                         else{
-                                            withAnimation(.easeIn(duration: 0.1)){
-                                                showTime = true
-                                            }
-                                            if timer != nil && timer!.isValid{
-                                                timer!.invalidate()
-                                            }
-                                            timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-                                                withAnimation(.easeOut(duration: 0.1)){
-                                                    showTime = false
-                                                    timer.invalidate()
+                                            tappedID = message.id
+                                            replyTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false){_ in
+                                                tappedID = nil
+                                                withAnimation {
+                                                    showTime.toggle()
+                                                }
+                                                if showTime{
+                                                    timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){_ in
+                                                        withAnimation {
+                                                            showTime = false
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -92,7 +101,19 @@ struct MessageView: View {
                                         hideKeyboard()
                                     }
                                 }
-                                
+                                .onDisappear(){
+                                    if message.wrappedValue == renderedMessages.first{
+                                        print("disappeared")
+                                    }
+                                }
+                                if showTime{
+                                    HStack(){
+                                        Spacer()
+                                        Text(DateHandler.formatTime(message.time.wrappedValue, lang: "de_DE"))
+                                            .font(.custom("JetBrainsMono-Regular", size: 10))
+                                    }
+                                    .rotationEffect(.degrees(180.0))
+                                }
                             }
                             else{
                                 YouMSG(
@@ -104,6 +125,7 @@ struct MessageView: View {
                                     triggerScroll: $triggerScroll,
                                     glowOriginMessage: $glowOriginMessage
                                 )
+                                .id(message.id)
                                 .rotationEffect(.degrees(180.0))
                                 .onAppear(){
                                     if rangeStart > 0{
@@ -136,6 +158,19 @@ struct MessageView: View {
                                         hideKeyboard()
                                     }
                                 }
+                                .onDisappear(){
+                                    if message.wrappedValue == renderedMessages.first{
+                                        print("disappeared")
+                                    }
+                                }
+                                if showTime{
+                                    HStack(){
+                                        Text(DateHandler.formatTime(message.time.wrappedValue, lang: "de_DE"))
+                                            .font(.custom("JetBrainsMono-Regular", size: 10))
+                                        Spacer()
+                                    }
+                                    .rotationEffect(.degrees(180.0))
+                                }
                             }
                         }
                         if rangeStart > 0{
@@ -146,9 +181,25 @@ struct MessageView: View {
                                     renderedMessages.append(contentsOf: messages[rangeStart...previousStart].reversed())
                                 }
                         }
+                        else{
+                            Rectangle()
+                                .hidden()
+                                .frame(width: 0, height: 0)
+                                .padding(.top, 50)
+                        }
+                    }
+                    .onChange(of: triggerScroll){
+                        if !renderedMessages.contains(where: {$0.id == scrollTo}){
+                            let index = messages.firstIndex(where: {$0.id == scrollTo})
+                            renderedMessages.append(contentsOf: messages[max(index! - 5, 0)...rangeStart - 1].reversed())
+                        }
+                        print("scrolledToOrigin")
+                        reader.scrollTo(scrollTo)
                     }
                 }
             }
+            .scrollIndicators(.hidden)
+            .padding(10)
             .rotationEffect(.degrees(180.0))
             VStack{
                 HStack{
@@ -168,11 +219,6 @@ struct MessageView: View {
             rangeStart = messages.count - 51
             rangeEnd = messages.count - 1
             renderedMessages = Array(messages[rangeStart...rangeEnd]).reversed()
-            /*DispatchQueue.main.asyncAfter(deadline: .now() + 5.0){
-                let previousStart = rangeStart - 1
-                rangeStart = max(rangeStart - 50, 0)
-                renderedMessages.append(contentsOf: messages[rangeStart...previousStart].reversed())
-            }*/
         }
         .defaultScrollAnchor(.top)
         .onChange(of: glowOriginMessage){
