@@ -21,8 +21,9 @@ class Message: Identifiable, ObservableObject{
     var background: String
     var id: UUID = UUID()
     var messageID: Int
+    var isRead: Bool = true
     
-    init(chatMessagesID: UUID = UUID(), time: Int, sender: String, type: String = "normal", reply: Reply = Reply(originID: UUID(), text: "", sender: ""), attachments: [Attachment] = [], text: String, reactions: [String : String] = [:], background: String = "normal", id: UUID = UUID(), messageID: Int) {
+    init(chatMessagesID: UUID = UUID(), time: Int, sender: String, type: String = "normal", reply: Reply = Reply(originID: UUID(), text: "", sender: ""), attachments: [Attachment] = [], text: String, reactions: [String : String] = [:], background: String = "normal", id: UUID = UUID(), messageID: Int, isRead: Bool = true) {
         self.chatMessagesID = chatMessagesID
         self.time = time
         self.sender = sender
@@ -34,6 +35,7 @@ class Message: Identifiable, ObservableObject{
         self.background = background
         self.id = id
         self.messageID = messageID
+        self.isRead = isRead
     }
 }
 
