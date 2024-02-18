@@ -36,8 +36,12 @@ struct MessageView: View {
     @State var renderedMessages: [Message] = []
     @State var tappedID: UUID? = nil
     @State var replyTimer: Timer? = nil
+    @State var showBottomscrollButton = false
+    @State var triggerBottomScroll = false
+    @Binding var newMessageSent: Bool
+    @State var messageToDelete: Message? = nil
     
-    init(messagesID: UUID, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>){
+    init(messagesID: UUID, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>, newMessageSent: Binding<Bool>){
         self.messagesID = messagesID
         self._scrollTo = scrollTo
         self._triggerScroll = triggerScroll
@@ -49,7 +53,8 @@ struct MessageView: View {
         fetchDescriptor.predicate = #Predicate{
             $0.chatMessagesID == messagesID
         }
-        _messages = Query(fetchDescriptor)
+        self._messages = Query(fetchDescriptor)
+        self._newMessageSent = newMessageSent
     }
    
     var body: some View {
@@ -66,10 +71,21 @@ struct MessageView: View {
                                     bottomCardReaction: $bottomCardReaction,
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
-                                    glowOriginMessage: $glowOriginMessage
+                                    glowOriginMessage: $glowOriginMessage,
+                                    messageToDelete: $messageToDelete
                                 )
                                 .id(message.id)
                                 .rotationEffect(.degrees(180.0))
+                                .onDisappear(){
+                                    if message.wrappedValue == renderedMessages.first{
+                                        showBottomscrollButton = true
+                                    }
+                                }
+                                .onAppear(){
+                                    if message.wrappedValue == renderedMessages.first{
+                                        showBottomscrollButton = false
+                                    }
+                                }
                                 .onTapGesture(){
                                     if !keyboardShown{
                                        if tappedID == message.id{
@@ -101,11 +117,6 @@ struct MessageView: View {
                                         hideKeyboard()
                                     }
                                 }
-                                .onDisappear(){
-                                    if message.wrappedValue == renderedMessages.first{
-                                        print("disappeared")
-                                    }
-                                }
                                 if showTime{
                                     HStack(){
                                         Spacer()
@@ -123,7 +134,8 @@ struct MessageView: View {
                                     bottomCardReaction: $bottomCardReaction,
                                     scrollTo: $scrollTo,
                                     triggerScroll: $triggerScroll,
-                                    glowOriginMessage: $glowOriginMessage
+                                    glowOriginMessage: $glowOriginMessage,
+                                    messageToDelete: $messageToDelete
                                 )
                                 .id(message.id)
                                 .rotationEffect(.degrees(180.0))
@@ -160,7 +172,12 @@ struct MessageView: View {
                                 }
                                 .onDisappear(){
                                     if message.wrappedValue == renderedMessages.first{
-                                        print("disappeared")
+                                        showBottomscrollButton = true
+                                    }
+                                }
+                                .onAppear(){
+                                    if message.wrappedValue == renderedMessages.first{
+                                        showBottomscrollButton = false
                                     }
                                 }
                                 if showTime{
@@ -188,13 +205,37 @@ struct MessageView: View {
                                 .padding(.top, 50)
                         }
                     }
-                    .onChange(of: triggerScroll){
-                        if !renderedMessages.contains(where: {$0.id == scrollTo}){
-                            let index = messages.firstIndex(where: {$0.id == scrollTo})
-                            renderedMessages.append(contentsOf: messages[max(index! - 5, 0)...rangeStart - 1].reversed())
+                    .onChange(of: triggerBottomScroll){
+                        withAnimation(.smooth(duration: 0.3)){
+                            reader.scrollTo(renderedMessages.first?.id)
                         }
-                        print("scrolledToOrigin")
-                        reader.scrollTo(scrollTo)
+                    }
+                    .onChange(of: triggerScroll){
+                        if renderedMessages.firstIndex(where: {$0.id == scrollTo}) == nil{
+                            let index = messages.firstIndex(where: {$0.id == scrollTo})
+                            if index == nil { return }
+                            let previousStart = rangeStart
+                            rangeStart = max(index! - 5, 0)
+                            renderedMessages.append(contentsOf: messages[rangeStart...previousStart - 1].reversed())
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                            reader.scrollTo(scrollTo)
+                        }
+                    }
+                    .onChange(of: newMessageSent){
+                        triggerBottomScroll.toggle()
+                        rangeStart = messages.count - 51
+                        rangeEnd = messages.count - 1
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                            withAnimation(.smooth(duration: 0.3)){
+                                renderedMessages = messages[rangeStart...rangeEnd].reversed()
+                            }
+                        }
+                    }
+                    .onChange(of: messageToDelete){
+                        if messageToDelete == nil { return }
+                        renderedMessages.removeAll(where: {$0.id == messageToDelete!.id})
+                        context.delete(messageToDelete!)
                     }
                 }
             }
@@ -242,6 +283,24 @@ struct MessageView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
             self.keyboardShown = false
+        }
+        .overlay(alignment: .bottomTrailing){
+            if showBottomscrollButton{
+                Circle()
+                    .fill(.blue)
+                    .frame(width: 50, height: 50)
+                    .overlay{
+                        Image(systemName: "arrowtriangle.down")
+                            .allowsHitTesting(false)
+                    }
+                    .onTapGesture{
+                        triggerBottomScroll.toggle()
+                        rangeStart = messages.count - 51
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                            renderedMessages = messages[rangeStart...rangeEnd].reversed()
+                        }
+                    }
+            }
         }
     }
     

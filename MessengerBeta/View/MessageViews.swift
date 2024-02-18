@@ -37,6 +37,7 @@ struct MeMSG: View{
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
     @Binding var glowOriginMessage: UUID?
+    @Binding var messageToDelete: Message?
     
     var body: some View{
         VStack{
@@ -45,7 +46,7 @@ struct MeMSG: View{
                 HStack{
                     ZStack(alignment: .bottomTrailing){
                         VStack(alignment: .leading){
-                            if message.type == "reply"{
+                            if message.type == "reply" && !message.reply.isDeleted{
                                 HStack{
                                     ZStack(alignment: .leading){
                                         Text(message.text)
@@ -148,7 +149,7 @@ struct MeMSG: View{
                 .contextMenu(){
                     Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
                     Button(role: .destructive){
-                        context.delete(message)
+                        messageToDelete = message
                     } label: {
                         Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
                     }
@@ -286,6 +287,7 @@ struct YouMSG: View{
     @Binding var triggerScroll: Bool
     @State var formattedChars: [FormattedChar] = []
     @Binding var glowOriginMessage: UUID?
+    @Binding var messageToDelete: Message?
     
     var body: some View{
         VStack{
@@ -393,7 +395,7 @@ struct YouMSG: View{
                 })
                 .contextMenu{
                     Button(role: .destructive){
-                        context.delete(message)
+                        messageToDelete = message
                     } label: {
                         Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
                     }

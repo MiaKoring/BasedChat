@@ -128,12 +128,14 @@ struct ChatView: View{
     @State private var keyboardShown: Bool = false
     @State var replyTo: Reply? = nil
     @State var textFieldFocused: Bool = false
+    @State var showMessageEmptyAlert = false
+    @State var newMessageSent = false
     
     var body: some View {
         if !chats.isEmpty{
             ZStack(alignment: .bottom){
                 VStack{
-                    MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo)
+                    MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo, newMessageSent: $newMessageSent)
                     if replyTo != nil{
                         HStack{
                             ReplyToDisplay(replyTo: $replyTo)
@@ -158,9 +160,26 @@ struct ChatView: View{
                             .padding(.vertical, 4)
                         
                         Button{
-                            
+                            if messageInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                                showMessageEmptyAlert = true
+                                return
+                            }
+                            var msg: Message? = nil
+                            if replyTo == nil{
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", text: messageInput, messageID: 1000)
+                            }
+                            else{
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1000)
+                            }
+                            context.insert(msg!)
+                            newMessageSent.toggle()
+                            messageInput = ""
+                            hideKeyboard()
                         } label: {
                             Image(systemName: "paperplane")
+                        }
+                        .alert(LocalizedStringKey("EmptyMessageAlert"), isPresented: $showMessageEmptyAlert){
+                            Button("OK", role: .cancel){}
                         }
                     }
                 }
