@@ -151,7 +151,25 @@ struct ChatView: View{
                     }
                     Spacer()
                     HStack{
-                        Image(systemName: "plus")
+                        Button{
+                            if messageInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                                showMessageEmptyAlert = true
+                                return
+                            }
+                            var msg: Message? = nil
+                            if replyTo == nil{
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "you", text: messageInput, messageID: 1010, isRead: false)
+                            }
+                            else{
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1010, isRead: false)
+                            }
+                            context.insert(msg!)
+                            newMessageSent.toggle()
+                            messageInput = ""
+                            hideKeyboard()
+                        }label: {
+                            Image(systemName: "plus")
+                        }
                         TextField(LocalizedStringKey("Message"), text: $messageInput, axis: .vertical)
                             .padding(5)
                             .lineLimit(3)
@@ -166,10 +184,10 @@ struct ChatView: View{
                             }
                             var msg: Message? = nil
                             if replyTo == nil{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", text: messageInput, messageID: 1000)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", text: messageInput, messageID: 1020)
                             }
                             else{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1000)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1020)
                             }
                             context.insert(msg!)
                             newMessageSent.toggle()

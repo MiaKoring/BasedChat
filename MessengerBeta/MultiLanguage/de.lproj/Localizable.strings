@@ -10,3 +10,4 @@
 "DeleteMessage" = "Bist du sicher, dass du diese Nachricht löschen möchtest?";
 "Message" = "Nachricht";
 "EmptyMessageAlert" = "Nachricht darf nicht leer sein";
+"NewMessages" = "NEUE NACHRICHTEN";

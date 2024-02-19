@@ -10,3 +10,4 @@
 "DeleteMessage" = "Are you sure you want to delete this message?";
 "Message" = "Message";
 "EmptyMessageAlert" = "Message can't be empty";
+"NewMessages" = "NEW MESSAGES";

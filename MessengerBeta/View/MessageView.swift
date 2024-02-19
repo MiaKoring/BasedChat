@@ -15,6 +15,7 @@ let defaultMessages: [Message] = [Message(chatMessagesID: defaultChat.messagesID
 struct MessageView: View {
     let messagesID: UUID
     @Environment(\.modelContext) var context
+    @Environment(\.scenePhase) private var scenePhase
     @Query var messages: [Message]
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction
@@ -189,6 +190,21 @@ struct MessageView: View {
                                     .rotationEffect(.degrees(180.0))
                                 }
                             }
+                            if renderedMessages.contains(where: {!$0.isRead}) && renderedMessages.lastIndex(where: {!$0.isRead}) == renderedMessages.firstIndex(where: {$0.id == message.id}){
+                                HStack {
+                                    Spacer()
+                                    Text(LocalizedStringKey("NewMessages"))
+                                        .font(.custom("JetBrainsMono-Regular", size: 10))
+                                    Spacer()
+                                }
+                                .padding(3)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 15.0)
+                                        .fill(Color.gray)
+                                        .opacity(0.4)
+                                )
+                                .rotationEffect(.degrees(180.0))
+                            }
                         }
                         if rangeStart > 0{
                             ProgressView()
@@ -262,6 +278,24 @@ struct MessageView: View {
             rangeEnd = messages.count - 1
             renderedMessages = Array(messages[rangeStart...rangeEnd]).reversed()
         }
+        .onDisappear(){
+            markAllRead()
+        }
+        .onChange(of: scenePhase) { newScenePhase in
+            switch newScenePhase {
+            case .active:
+                break
+            case .inactive:
+                markAllRead()
+                break
+            case .background:
+                markAllRead()
+                break
+            @unknown default:
+                // Handhabung für zukünftige Szenenphasen
+                break
+            }
+        }
         .defaultScrollAnchor(.top)
         .onChange(of: glowOriginMessage){
             let glowMessage = glowOriginMessage
@@ -307,5 +341,16 @@ struct MessageView: View {
     
     func hideKeyboard()->Void{
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    func markAllRead(){
+        for message in (messages.compactMap{message in
+            if !message.isRead{
+                return message
+            }
+            return nil
+        }){
+            message.isRead = true
+        }
     }
 }
