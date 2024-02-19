@@ -236,6 +236,7 @@ struct MessageView: View {
                         if messageToDelete == nil { return }
                         renderedMessages.removeAll(where: {$0.id == messageToDelete!.id})
                         context.delete(messageToDelete!)
+                        rangeEnd = messages.count - 1
                     }
                 }
             }

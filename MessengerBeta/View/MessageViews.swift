@@ -38,6 +38,7 @@ struct MeMSG: View{
     @State var formattedChars: [FormattedChar] = []
     @Binding var glowOriginMessage: UUID?
     @Binding var messageToDelete: Message?
+    @State var URLs: [URLRepresentable] = []
     
     var body: some View{
         VStack{
@@ -46,6 +47,63 @@ struct MeMSG: View{
                 HStack{
                     ZStack(alignment: .bottomTrailing){
                         VStack(alignment: .leading){
+                            if !URLs.isEmpty{
+                                if URLs.count == 1{
+                                    if let url = URL(string: URLs.first!.urlstr) {
+                                        HStack{
+                                            ZStack(alignment: .leading){
+                                                Text(message.text)
+                                                    .frame(maxHeight: 5)
+                                                    .hidden()
+                                                Text(String(url.host ?? "Couldn't decode URL"))
+                                                    .padding(5)
+                                            }
+                                        }
+                                        .onTapGesture {
+                                            if let url = URL(string: URLs.first!.urlstr) {
+                                                UIApplication.shared.open(url)
+                                            }
+                                        }
+                                        .background{
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .fill(.gray)
+                                                .opacity(0.5)
+                                        }
+                                        .contextMenu {
+                                            Text(URLs.first!.urlstr)
+                                        }
+                                    }
+                                }
+                                else{
+                                    if let url = URL(string: URLs.first!.urlstr){
+                                        HStack{
+                                            ZStack(alignment: .leading){
+                                                Text(message.text)
+                                                    .frame(maxHeight: 5)
+                                                    .hidden()
+                                                Text("\(url.host ?? "undecodable url") +\(URLs.count - 1)")
+                                                    .padding(5)
+                                            }
+                                        }
+                                        .background{
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .fill(.gray)
+                                                .opacity(0.5)
+                                        }
+                                        .contextMenu {
+                                            ForEach(URLs) { representable in
+                                                if let url = URL(string: representable.urlstr){
+                                                    Button{
+                                                        UIApplication.shared.open(url)
+                                                    }label:{
+                                                        Text(representable.urlstr)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             if message.type == "reply" && !message.reply.isDeleted{
                                 HStack{
                                     ZStack(alignment: .leading){
@@ -165,6 +223,9 @@ struct MeMSG: View{
             
         }
         .background(Color.init("Background"))
+        .onAppear(){
+            URLs = extractURLs(from: message.text)
+        }
     }
 
     
@@ -270,6 +331,27 @@ struct MeMSG: View{
         }
         return Reaction(mostUsed: reactionCache, countString: countString, emojisCount: emojisCount, differentEmojisCount: differentEmojisCount, peopleReactions: message.reactions)
     }
+    func extractURLs(from string: String) -> [URLRepresentable] {
+        var urls: [URLRepresentable] = []
+        do {
+            let pattern = "https?://([-\\w\\.]+)+(:\\d+)?(/([\\w/_\\.]*(\\?\\S+)?)?)?"
+            
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            
+            let matches = regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+            
+            for match in matches {
+                if let range = Range(match.range, in: string) {
+                    let url = URLRepresentable(urlstr: String(string[range]))
+                    urls.append(url)
+                }
+            }
+        } catch {
+            print("Fehler beim Extrahieren der URLs: \(error)")
+        }
+        
+        return urls
+    }
 }
 
 
@@ -288,12 +370,70 @@ struct YouMSG: View{
     @State var formattedChars: [FormattedChar] = []
     @Binding var glowOriginMessage: UUID?
     @Binding var messageToDelete: Message?
+    @State var URLs: [URLRepresentable] = []
     
     var body: some View{
         VStack{
             HStack{
                 ZStack(alignment: .bottomLeading){
                     VStack(){
+                        if !URLs.isEmpty{
+                            if URLs.count == 1{
+                                if let url = URL(string: URLs.first!.urlstr) {
+                                    HStack{
+                                        ZStack(alignment: .leading){
+                                            Text(message.text)
+                                                .frame(maxHeight: 5)
+                                                .hidden()
+                                            Text(String(url.host ?? "Couldn't decode URL"))
+                                                .padding(5)
+                                        }
+                                    }
+                                    .onTapGesture {
+                                        if let url = URL(string: URLs.first!.urlstr) {
+                                            UIApplication.shared.open(url)
+                                        }
+                                    }
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .fill(.gray)
+                                            .opacity(0.5)
+                                    }
+                                    .contextMenu {
+                                        Text(URLs.first!.urlstr)
+                                    }
+                                }
+                            }
+                            else{
+                                if let url = URL(string: URLs.first!.urlstr){
+                                    HStack{
+                                        ZStack(alignment: .leading){
+                                            Text(message.text)
+                                                .frame(maxHeight: 5)
+                                                .hidden()
+                                            Text("\(url.host ?? "undecodable url") +\(URLs.count - 1)")
+                                                .padding(5)
+                                        }
+                                    }
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .fill(.gray)
+                                            .opacity(0.5)
+                                    }
+                                    .contextMenu {
+                                        ForEach(URLs) { representable in
+                                            if let url = URL(string: representable.urlstr){
+                                                Button{
+                                                    UIApplication.shared.open(url)
+                                                }label:{
+                                                    Text(representable.urlstr)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         if message.type == "reply"{
                             HStack{
                                 ZStack(alignment: .leading){
@@ -411,6 +551,9 @@ struct YouMSG: View{
             
         }
         .background(Color.init("Background"))
+        .onAppear(){
+            URLs = extractURLs(from: message.text)
+        }
     }
     func formatText()-> some View{
         var text = Text("")
@@ -514,6 +657,27 @@ struct YouMSG: View{
         }
         return Reaction(mostUsed: reactionCache, countString: countString, emojisCount: emojisCount, differentEmojisCount: differentEmojisCount, peopleReactions: message.reactions)
     }
+    func extractURLs(from string: String) -> [URLRepresentable] {
+        var urls: [URLRepresentable] = []
+        do {
+            let pattern = "https?://([-\\w\\.]+)+(:\\d+)?(/([\\w/_\\.]*(\\?\\S+)?)?)?"
+            
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            
+            let matches = regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+            
+            for match in matches {
+                if let range = Range(match.range, in: string) {
+                    let url = URLRepresentable(urlstr: String(string[range]))
+                    urls.append(url)
+                }
+            }
+        } catch {
+            print("Fehler beim Extrahieren der URLs: \(error)")
+        }
+        
+        return urls
+    }
 }
 
 
@@ -531,4 +695,9 @@ struct ReplyToDisplay: View {
             .padding(3)
         }
     }
+}
+
+struct URLRepresentable: Identifiable{
+    let id: UUID = UUID()
+    let urlstr: String
 }
