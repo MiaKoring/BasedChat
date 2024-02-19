@@ -41,6 +41,8 @@ struct MessageView: View {
     @State var triggerBottomScroll = false
     @Binding var newMessageSent: Bool
     @State var messageToDelete: Message? = nil
+    @State var containsUnread = false
+    @State var lastUnreadIndex: Int? = nil
     
     init(messagesID: UUID, scrollTo: Binding<UUID?>, triggerScroll: Binding<Bool>, bottomCardOpen: Binding<Bool>, bottomCardReaction: Binding<Reaction>, showLoading: Binding<Bool>, replyTo: Binding<Reply?>, newMessageSent: Binding<Bool>){
         self.messagesID = messagesID
@@ -78,7 +80,7 @@ struct MessageView: View {
                                 .id(message.id)
                                 .rotationEffect(.degrees(180.0))
                                 .onDisappear(){
-                                    if message.wrappedValue == renderedMessages.first{
+                                    if !showBottomscrollButton && message.wrappedValue == renderedMessages.first{
                                         showBottomscrollButton = true
                                     }
                                 }
@@ -172,7 +174,7 @@ struct MessageView: View {
                                     }
                                 }
                                 .onDisappear(){
-                                    if message.wrappedValue == renderedMessages.first{
+                                    if !showBottomscrollButton && message.wrappedValue == renderedMessages.first{
                                         showBottomscrollButton = true
                                     }
                                 }
@@ -190,7 +192,7 @@ struct MessageView: View {
                                     .rotationEffect(.degrees(180.0))
                                 }
                             }
-                            if renderedMessages.contains(where: {!$0.isRead}) && renderedMessages.lastIndex(where: {!$0.isRead}) == renderedMessages.firstIndex(where: {$0.id == message.id}){
+                            if containsUnread && lastUnreadIndex == renderedMessages.firstIndex(where: {$0.id == message.id}){
                                 HStack {
                                     Spacer()
                                     Text(LocalizedStringKey("NewMessages"))
@@ -277,6 +279,8 @@ struct MessageView: View {
             rangeStart = messages.count - 51
             rangeEnd = messages.count - 1
             renderedMessages = Array(messages[rangeStart...rangeEnd]).reversed()
+            containsUnread = renderedMessages.contains(where: {!$0.isRead})
+            lastUnreadIndex = containsUnread ? renderedMessages.lastIndex(where: {!$0.isRead}) : nil
         }
         .onDisappear(){
             markAllRead()
@@ -295,6 +299,10 @@ struct MessageView: View {
                 // Handhabung für zukünftige Szenenphasen
                 break
             }
+        }
+        .onChange(of: renderedMessages){
+            containsUnread = renderedMessages.contains(where: {!$0.isRead})
+            lastUnreadIndex = containsUnread ? renderedMessages.lastIndex(where: {!$0.isRead}) : nil
         }
         .defaultScrollAnchor(.top)
         .onChange(of: glowOriginMessage){
