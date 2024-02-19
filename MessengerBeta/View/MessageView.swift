@@ -196,7 +196,7 @@ struct MessageView: View {
                                 HStack {
                                     Spacer()
                                     Text(LocalizedStringKey("NewMessages"))
-                                        .font(.custom("JetBrainsMono-Regular", size: 10))
+                                        .font(.custom("JetBrainsMono-Regular", size: 11.75))
                                     Spacer()
                                 }
                                 .padding(3)
