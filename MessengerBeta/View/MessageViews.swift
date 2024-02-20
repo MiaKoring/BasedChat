@@ -52,7 +52,9 @@ struct MeMSG: View{
                                     if let url = URL(string: URLs.first!.urlstr) {
                                         HStack{
                                             ZStack(alignment: .leading){
-                                                Text(message.text)
+                                                ScrollView{
+                                                    Text(message.text)
+                                                }
                                                     .frame(maxHeight: 5)
                                                     .hidden()
                                                 Text(String(url.host ?? "Couldn't decode URL"))
@@ -78,10 +80,12 @@ struct MeMSG: View{
                                     if let url = URL(string: URLs.first!.urlstr){
                                         HStack{
                                             ZStack(alignment: .leading){
-                                                Text(message.text)
+                                                ScrollView{
+                                                    Text(message.text)
+                                                }
                                                     .frame(maxHeight: 5)
                                                     .hidden()
-                                                Text("\(url.host ?? "undecodable url") +\(URLs.count - 1)")
+                                                Text("\(url.host ?? "undecodable url")")
                                                     .padding(5)
                                             }
                                         }
@@ -89,6 +93,15 @@ struct MeMSG: View{
                                             RoundedRectangle(cornerRadius: 5)
                                                 .fill(.gray)
                                                 .opacity(0.5)
+                                        }
+                                        .overlay(alignment: .trailing){
+                                            Text("+\(URLs.count - 1)")
+                                                .padding(3)
+                                                .background{
+                                                    RoundedRectangle(cornerRadius: 50)
+                                                        .fill(.gray)
+                                                }
+                                                .padding(3)
                                         }
                                         .contextMenu {
                                             ForEach(URLs) { representable in
@@ -107,7 +120,9 @@ struct MeMSG: View{
                             if message.type == "reply" && !message.reply.isDeleted{
                                 HStack{
                                     ZStack(alignment: .leading){
-                                        Text(message.text)
+                                        ScrollView{
+                                            Text(message.text)
+                                        }
                                             .frame(maxHeight: 5)
                                             .hidden()
                                         AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
@@ -382,7 +397,9 @@ struct YouMSG: View{
                                 if let url = URL(string: URLs.first!.urlstr) {
                                     HStack{
                                         ZStack(alignment: .leading){
-                                            Text(message.text)
+                                            ScrollView{
+                                                Text(message.text)
+                                            }
                                                 .frame(maxHeight: 5)
                                                 .hidden()
                                             Text(String(url.host ?? "Couldn't decode URL"))
@@ -408,17 +425,33 @@ struct YouMSG: View{
                                 if let url = URL(string: URLs.first!.urlstr){
                                     HStack{
                                         ZStack(alignment: .leading){
-                                            Text(message.text)
+                                            ScrollView{
+                                                Text(message.text)
+                                            }
                                                 .frame(maxHeight: 5)
                                                 .hidden()
-                                            Text("\(url.host ?? "undecodable url") +\(URLs.count - 1)")
-                                                .padding(5)
+                                            HStack{
+                                                Text("\(url.host ?? "undecodable url")")
+                                                    .padding(5)
+                                                Spacer()
+                                                Text("+\(URLs.count - 1)")
+                                                    .padding(5)
+                                            }
                                         }
                                     }
                                     .background{
                                         RoundedRectangle(cornerRadius: 5)
                                             .fill(.gray)
                                             .opacity(0.5)
+                                    }
+                                    .overlay(alignment: .trailing){
+                                        Text("+\(URLs.count - 1)")
+                                            .padding(3)
+                                            .background{
+                                                RoundedRectangle(cornerRadius: 50)
+                                                    .fill(.gray)
+                                            }
+                                            .padding(3)
                                     }
                                     .contextMenu {
                                         ForEach(URLs) { representable in
@@ -437,7 +470,9 @@ struct YouMSG: View{
                         if message.type == "reply"{
                             HStack{
                                 ZStack(alignment: .leading){
-                                    Text(message.text)
+                                    ScrollView{
+                                        Text(message.text)
+                                    }
                                         .frame(maxHeight: 5)
                                         .hidden()
                                     AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
