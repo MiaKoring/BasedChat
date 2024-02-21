@@ -136,6 +136,7 @@ struct ChatView: View{
             ZStack(alignment: .bottom){
                 VStack{
                     MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo, newMessageSent: $newMessageSent)
+                        .padding(.top, 40)
                     if replyTo != nil{
                         HStack{
                             ReplyToDisplay(replyTo: $replyTo)
@@ -161,7 +162,8 @@ struct ChatView: View{
                                 msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "you", text: messageInput, messageID: 1010, isRead: false)
                             }
                             else{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1010, isRead: false)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "you", type: "reply", reply: replyTo!, text: messageInput, messageID: 1010, isRead: false)
+                                replyTo = nil
                             }
                             context.insert(msg!)
                             newMessageSent.toggle()
@@ -188,6 +190,7 @@ struct ChatView: View{
                             }
                             else{
                                 msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1020)
+                                replyTo = nil
                             }
                             context.insert(msg!)
                             newMessageSent.toggle()

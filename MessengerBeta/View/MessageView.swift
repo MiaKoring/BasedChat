@@ -236,8 +236,10 @@ struct MessageView: View {
                             rangeStart = max(index! - 5, 0)
                             renderedMessages.append(contentsOf: messages[rangeStart...previousStart - 1].reversed())
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                            reader.scrollTo(scrollTo)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                            withAnimation(.smooth(duration: 0.2)){
+                                reader.scrollTo(scrollTo, anchor: .top)
+                            }
                         }
                     }
                     .onChange(of: newMessageSent){
@@ -261,7 +263,7 @@ struct MessageView: View {
             .scrollIndicators(.hidden)
             .padding(10)
             .rotationEffect(.degrees(180.0))
-            VStack{
+            /*VStack{
                 HStack{
                     Text(currentDate)
                         .padding(3)
@@ -273,7 +275,7 @@ struct MessageView: View {
                 }
                 .padding(.top, 10)
                 Spacer()
-            }
+            }*/
         }
         .onAppear(){
             rangeStart = messages.count - 51
@@ -309,11 +311,11 @@ struct MessageView: View {
             let glowMessage = glowOriginMessage
             glowOriginMessage = nil
             if glowMessage != nil && messages.contains(where: {$0.id == glowMessage!}){
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
                     withAnimation(.easeIn){
                         messages.first(where: {$0.id == glowMessage})!.background = "glow"
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.25){
                         withAnimation(.easeIn){
                             messages.first(where: {$0.id == glowMessage})!.background = "normal"
                         }
