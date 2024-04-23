@@ -1,13 +1,6 @@
-//
-//  DateHandler.swift
-//  MessengerBeta
-//
-//  Created by Mia Koring on 09.01.24.
-//
-
 import Foundation
 
-class DateHandler{
+public class DateHandler{
     static func formatDate(_ unixTimestamp: Int, lang: String)-> String{
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

@@ -1,15 +1,6 @@
 import SwiftUI
 import SwiftData
 
-extension Dictionary where Value: Equatable{
-    func keys(forValue value: Value)-> [Key]{
-        return compactMap{ (key, element) in
-            return element == value ? key : nil
-            
-        }
-    }
-}
-
 let testMessageUUID: UUID = UUID()
 
 let testChatUUID: UUID = UUID()
@@ -135,8 +126,8 @@ struct ChatView: View{
         if !chats.isEmpty{
             ZStack(alignment: .bottom){
                 VStack{
-                    MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo, newMessageSent: $newMessageSent)
-                        .padding(.top, 40)
+                    //MessageView(messagesID: chats.first!.messagesID, scrollTo: $scrollTo, triggerScroll: $triggerScroll, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, showLoading: $showLoading, replyTo: $replyTo, newMessageSent: $newMessageSent)
+                        //.padding(.top, 40)
                     if replyTo != nil{
                         HStack{
                             ReplyToDisplay(replyTo: $replyTo)
@@ -159,10 +150,10 @@ struct ChatView: View{
                             }
                             var msg: Message? = nil
                             if replyTo == nil{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "you", text: messageInput, messageID: 1010, isRead: false)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: 2, text: messageInput, messageID: 1010, isRead: false)
                             }
                             else{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "you", type: "reply", reply: replyTo!, text: messageInput, messageID: 1010, isRead: false)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: 2, type: "reply", reply: replyTo!, text: messageInput, messageID: 1010, isRead: false)
                                 replyTo = nil
                             }
                             context.insert(msg!)
@@ -186,10 +177,10 @@ struct ChatView: View{
                             }
                             var msg: Message? = nil
                             if replyTo == nil{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", text: messageInput, messageID: 1020)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: 1, text: messageInput, messageID: 1020)
                             }
                             else{
-                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: "me", type: "reply", reply: replyTo!, text: messageInput, messageID: 1020)
+                                msg = Message(chatMessagesID: chats.first!.messagesID, time: Int(Date().timeIntervalSince1970), sender: 1, type: "reply", reply: replyTo!, text: messageInput, messageID: 1020)
                                 replyTo = nil
                             }
                             context.insert(msg!)
@@ -224,10 +215,10 @@ struct ChatView: View{
         else{
             Text("creating test data")
                 .onAppear(){
-                    for message in defaultMessages{
+                   /* for message in defaultMessages{
                         context.insert(message)
                     }
-                    context.insert(defaultChat)
+                    context.insert(defaultChat)*/
                 }
         }
     }

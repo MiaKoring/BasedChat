@@ -8,22 +8,6 @@
 import SwiftUI
 import SwiftData
 
-struct AnswerDisplay: View {
-    @State var text: String
-    @State var senderName: String
-    @State var originMessageID: UUID
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5){
-            Text(senderName)
-                .bold()
-                .font(.system(size: 14))
-            Text(text.count > 150 ? "\(text.prefix(150).prefix(upTo: text.prefix(150).lastIndex(of: " ") ?? text.prefix(150).endIndex))..." : text)
-                .font(.system(size: 12))
-        }
-        .padding(3)
-    }
-}
-
 struct MeMSG: View{
     @Environment(\.modelContext) var context
     var message: Message
@@ -628,7 +612,6 @@ struct YouMSG: View{
         var currentFormats: [String] = []
         var blockAdding = false
         let input = str.replacingOccurrences(of: "\n", with: "￿")
-        
         let allowedSurroundingChars = ["", " ", "￿", ".", ",", ":", ";", "\"", "'", "*", "_", "~"]
         for i in 0..<input.count {
             let atm =  String(input[input.index(input.startIndex, offsetBy: i)])
@@ -732,7 +715,3 @@ struct ReplyToDisplay: View {
     }
 }
 
-struct URLRepresentable: Identifiable{
-    let id: UUID = UUID()
-    let urlstr: String
-}

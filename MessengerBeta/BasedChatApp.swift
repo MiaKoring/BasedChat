@@ -7,13 +7,16 @@
 
 import SwiftUI
 import SwiftData
+import Security
 
 @main
-struct MessengerBetaApp: App {
-
+struct BasedChatApp: App {
+    @State public static var currentUserID: Int? = 1
+    @State public static var currentToken: String? = nil
     var body: some Scene {
         WindowGroup{
-            ChatView()
+            BubblePreviewProvider()
+            //ChatView()
         }
         .modelContainer(for: [
             Chat.self,

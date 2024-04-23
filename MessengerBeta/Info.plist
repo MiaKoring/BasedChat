@@ -9,7 +9,5 @@
 		<string>JetBrainsMono-Italic.ttf</string>
 		<string>JetBrainsMono-BoldItalic.ttf</string>
 	</array>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>To controll music played by other apps inside the messenger</string>
 </dict>
 </plist>
