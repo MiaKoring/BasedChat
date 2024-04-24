@@ -22,4 +22,60 @@ extension Bubble{
         
         return urls
     }
+    
+    func toggleTime(animated: Bool = true){
+        if !keyboardShown{
+            if animated {
+                animatedTimeToggle()
+                return
+            }
+            timeToggle()
+            return
+        }
+        else{
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+    
+    private func animatedTimeToggle(){
+        if showTime{
+            withAnimation(.easeOut(duration: 0.1)){
+                showTime = false
+            }
+            return
+        }
+        
+        withAnimation(.easeIn(duration: 0.1)){
+            showTime = true
+        }
+        
+        if timer != nil && timer!.isValid{
+            timer!.invalidate()
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+            withAnimation(.easeOut(duration: 0.1)){
+                showTime = false
+                timer.invalidate()
+            }
+        }
+    }
+    
+    private func timeToggle(){
+        if showTime{
+            showTime = false
+            return
+        }
+        
+        showTime = true
+        
+        if timer != nil && timer!.isValid{
+            timer!.invalidate()
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+            showTime = false
+            timer.invalidate()
+        }
+    }
 }

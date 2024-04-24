@@ -350,9 +350,6 @@ struct MessageView: View {
         }
     }
     
-    func hideKeyboard()->Void{
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
     
     func markAllRead(){
         for message in (messages.compactMap{message in

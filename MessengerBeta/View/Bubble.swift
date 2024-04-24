@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-public struct Bubble: View, ReactionInfluenced {
+struct Bubble: View, ReactionInfluenced {
     let minSpacerWidth: Double
     @Environment(\.modelContext) var context
     var message: Message
@@ -17,55 +17,47 @@ public struct Bubble: View, ReactionInfluenced {
     @Binding var messageToDelete: Message?
     @State var reactionContainer = ""
     @State var URLs: [URLRepresentable] = []
-    public var body: some View {
-        Text("Test")
+    @Binding var showTime: Bool
+    @Binding var keyboardShown: Bool
+    @Binding var timer: Timer?
+    
+    var body: some View {
         VStack{
             HStack{
-                if message.sender.isCurrentUser {
-                    Spacer(minLength: minSpacerWidth)
-                }
-                HStack{
-                    ZStack(alignment: .bottomTrailing){
-                        VStack(alignment: .leading){
-                            LinkView(URLs: URLs, messageText: message.text)
-                            ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
-                            MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
-                            
-                        }
-                        .padding(10)
-                        
-                        ReactionDisplay(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
-                            .hidden()
+                if message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
+                ZStack(alignment: .bottomTrailing){
+                    VStack(alignment: .leading){
+                        LinkView(URLs: URLs, messageText: message.text)
+                        ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
+                        MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
                         
                     }
+                    .padding(10)
+                    
+                    ReactionDisplay(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                        .hidden()
                 }
                 .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)//TODO: Replace true
                 .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing, content: {
                     ReactionDisplay(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
                 })
                 .contextMenu(){
-                    //TODO: Make seperate View for context menu
-                    Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
-                    Button(role: .destructive){
-                        messageToDelete = message
-                    } label: {
-                        Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
-                    }
-                    
+                    BubbleContextMenu(message: message)
                 }
-                if !message.sender.isCurrentUser {
-                    Spacer(minLength: minSpacerWidth)
+                if !message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
+            }
+            .background(Color.init("Background"))
+            .onTapGesture {
+                toggleTime()
+            }
+            .onAppear(){
+                if !message.reactions.isEmpty{
+                    reactionData = genReactions()
+                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
                 }
+                URLs = extractURLs(from: message.text)
             }
-            
-        }
-        .background(Color.init("Background"))
-        .onAppear(){
-            if !message.reactions.isEmpty{
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-            }
-            URLs = extractURLs(from: message.text)
+            if showTime{ BubbleTimeDisplay(message: message) }
         }
     }
 }
@@ -78,8 +70,11 @@ struct BubblePreviewProvider: View {
     @State var triggerScroll: Bool = false
     @State var glowOriginMessage: UUID? = nil
     @State var messageToDelete: Message? = nil
+    @State var showTime: Bool = false
+    @State var keyboardShown = false
+    @State var timer: Timer? = nil
     var body: some View {
-         Bubble(minSpacerWidth: 20, message: Message(chatMessagesID: defaultChat.messagesID, time: 1704126197, sender: 2, text: "Gute Nacht", reactions: ["\(1)": "🙃", "\(2)": "😆"], messageID: 1), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, reactionCount: 2, reactionData: Reaction(mostUsed: "🙃😆", countString: "2", emojisCount: ["🙃": 1, "😆": 1], differentEmojisCount: 2, peopleReactions: ["\(1)": "🙃", "\(2)": "😆"]), scrollTo: $scrollTo, triggerScroll: $triggerScroll, formattedChars: [FormattedChar(char: "Gute Nacht", formats: [])], glowOriginMessage: $glowOriginMessage, messageToDelete: $messageToDelete, URLs: [])
+        Bubble(minSpacerWidth: 20, message: Message(chatMessagesID: defaultChat.messagesID, time: 1704126197, sender: 2, text: "Gute Nacht", reactions: ["\(1)": "🙃", "\(2)": "😆"], messageID: 1), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, reactionCount: 2, reactionData: Reaction(mostUsed: "🙃😆", countString: "2", emojisCount: ["🙃": 1, "😆": 1], differentEmojisCount: 2, peopleReactions: ["\(1)": "🙃", "\(2)": "😆"]), scrollTo: $scrollTo, triggerScroll: $triggerScroll, formattedChars: [FormattedChar(char: "Gute Nacht", formats: [])], glowOriginMessage: $glowOriginMessage, messageToDelete: $messageToDelete, URLs: [], showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer)
     }
 }
 
