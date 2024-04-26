@@ -8,8 +8,13 @@
 import Foundation
 import SwiftUI
 
-struct BubbleTimeDisplay: View {
+struct BubbleTimeDisplayView: View {
+    //MARK: - Parameters
+    
     let message: Message
+    
+    //MARK: - Body
+    
     var body: some View {
         HStack{
             if message.sender.isCurrentUser {

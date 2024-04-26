@@ -29,7 +29,7 @@
 		14CB69DE2BD2ECAB00516D28 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69DD2BD2ECAB00516D28 /* Reply.swift */; };
 		14CB69E02BD2ED4C00516D28 /* URLRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69DF2BD2ED4C00516D28 /* URLRepresentable.swift */; };
 		14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E12BD2ED5700516D28 /* Reaction.swift */; };
-		14CB69E42BD2ED6000516D28 /* AnswerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E32BD2ED6000516D28 /* AnswerDisplay.swift */; };
+		14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E32BD2ED6000516D28 /* AnswerDisplayView.swift */; };
 		14CB69E62BD2ED6600516D28 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E52BD2ED6600516D28 /* Bubble.swift */; };
 		14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */; };
 		14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E82BD2ED8200516D28 /* DateHandler.swift */; };
@@ -42,7 +42,7 @@
 		14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69FA2BD2FC4E00516D28 /* MessageTextView.swift */; };
 		14CB69FD2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */; };
 		14CB69FF2BD3011000516D28 /* ReactionFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69FE2BD3011000516D28 /* ReactionFunctions.swift */; };
-		14CB6A012BD302D700516D28 /* ReactionDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB6A002BD302D700516D28 /* ReactionDisplay.swift */; };
+		14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB6A002BD302D700516D28 /* ReactionDisplayView.swift */; };
 		14DC8B382B4AE5CB009ED309 /* MessageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B372B4AE5CB009ED309 /* MessageViews.swift */; };
 		14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B392B4AE637009ED309 /* BottomCard.swift */; };
 		14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */; };
@@ -107,7 +107,7 @@
 		14CB69DD2BD2ECAB00516D28 /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		14CB69DF2BD2ED4C00516D28 /* URLRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRepresentable.swift; sourceTree = "<group>"; };
 		14CB69E12BD2ED5700516D28 /* Reaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
-		14CB69E32BD2ED6000516D28 /* AnswerDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerDisplay.swift; sourceTree = "<group>"; };
+		14CB69E32BD2ED6000516D28 /* AnswerDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerDisplayView.swift; sourceTree = "<group>"; };
 		14CB69E52BD2ED6600516D28 /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleFunctions.swift; sourceTree = "<group>"; };
 		14CB69E82BD2ED8200516D28 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 		14CB69FA2BD2FC4E00516D28 /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
 		14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionInfluencedProtocol.swift; sourceTree = "<group>"; };
 		14CB69FE2BD3011000516D28 /* ReactionFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionFunctions.swift; sourceTree = "<group>"; };
-		14CB6A002BD302D700516D28 /* ReactionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionDisplay.swift; sourceTree = "<group>"; };
+		14CB6A002BD302D700516D28 /* ReactionDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionDisplayView.swift; sourceTree = "<group>"; };
 		14DC8B372B4AE5CB009ED309 /* MessageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViews.swift; sourceTree = "<group>"; };
 		14DC8B392B4AE637009ED309 /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
 		14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionsCard.swift; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 		14469B4E2B40937300835BFC /* MessengerBeta */ = {
 			isa = PBXGroup;
 			children = (
+				146F74FF2BD91BAB00E0C10B /* Features */,
 				14CB69E92BD2ED8200516D28 /* Utils */,
 				1473EA0F2B40D0D900667053 /* Info.plist */,
 				14469B4F2B40937300835BFC /* BasedChatApp.swift */,
@@ -182,6 +183,13 @@
 				14469B582B40937500835BFC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		146F74FF2BD91BAB00E0C10B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 		148FC7A42B440137007E3546 /* ttf */ = {
@@ -231,6 +239,29 @@
 			path = MultiLanguage;
 			sourceTree = "<group>";
 		};
+		14BE37F12BDBB2CC0078D49B /* Bubble */ = {
+			isa = PBXGroup;
+			children = (
+				14BE37F22BDBB2DC0078D49B /* Children */,
+				14CB69E52BD2ED6600516D28 /* Bubble.swift */,
+			);
+			path = Bubble;
+			sourceTree = "<group>";
+		};
+		14BE37F22BDBB2DC0078D49B /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				14CB69FA2BD2FC4E00516D28 /* MessageTextView.swift */,
+				14CB6A002BD302D700516D28 /* ReactionDisplayView.swift */,
+				146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */,
+				14CB69F62BD2F9EB00516D28 /* ReplyView.swift */,
+				14CB69F22BD2F42300516D28 /* MatchWidthView.swift */,
+				14CB69EC2BD2F08800516D28 /* LinkView.swift */,
+				14CB69E32BD2ED6000516D28 /* AnswerDisplayView.swift */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
 		14CB69E92BD2ED8200516D28 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,22 +280,15 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				14CB69E32BD2ED6000516D28 /* AnswerDisplay.swift */,
+				14BE37F12BDBB2CC0078D49B /* Bubble */,
 				14469B512B40937300835BFC /* ChatView .swift */,
 				14DC8B372B4AE5CB009ED309 /* MessageViews.swift */,
-				14CB69E52BD2ED6600516D28 /* Bubble.swift */,
 				14DC8B392B4AE637009ED309 /* BottomCard.swift */,
 				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
 				14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */,
-				14CB69EC2BD2F08800516D28 /* LinkView.swift */,
-				14CB69F22BD2F42300516D28 /* MatchWidthView.swift */,
 				14CB69F42BD2F64B00516D28 /* LinkStringDisplay.swift */,
-				14CB69F62BD2F9EB00516D28 /* ReplyView.swift */,
 				14CB69F82BD2FB1400516D28 /* ViewExtensions.swift */,
-				14CB69FA2BD2FC4E00516D28 /* MessageTextView.swift */,
-				14CB6A002BD302D700516D28 /* ReactionDisplay.swift */,
 				144F38F82BD848DB00770A79 /* TextExtensions.swift */,
-				146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */,
 				146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */,
 			);
 			path = View;
@@ -317,7 +341,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					14469B4B2B40937300835BFC = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -331,6 +355,7 @@
 			knownRegions = (
 				en,
 				de,
+				Base,
 			);
 			mainGroup = 14469B432B40937300835BFC;
 			packageReferences = (
@@ -385,11 +410,11 @@
 				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
 				14CB69D82BD2EC7F00516D28 /* DictionaryExtension.swift in Sources */,
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
-				14CB69E42BD2ED6000516D28 /* AnswerDisplay.swift in Sources */,
+				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
 				14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */,
 				14CB69E62BD2ED6600516D28 /* Bubble.swift in Sources */,
-				14CB6A012BD302D700516D28 /* ReactionDisplay.swift in Sources */,
+				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
 				14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */,
 				14DC8B3A2B4AE637009ED309 /* BottomCard.swift in Sources */,
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
@@ -427,6 +452,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -491,6 +517,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

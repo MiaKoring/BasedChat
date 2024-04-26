@@ -2,9 +2,8 @@ import Foundation
 import SwiftUI
 
 struct LinkView: View {
-    let URLs: [URLRepresentable]
-    let messageText: String
-    @State var showURLInvalidAlert = false
+    //MARK: - Body
+    
     var body: some View {
         HStack{
             if !URLs.isEmpty{
@@ -50,4 +49,11 @@ struct LinkView: View {
                 }
             }//TODO: Change to localized String
     }
+    
+    //MARK: - Parameters
+    let URLs: [URLRepresentable]
+    let messageText: String
+    @State var showURLInvalidAlert = false
+    
+    //MARK: -
 }

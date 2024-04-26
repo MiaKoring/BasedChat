@@ -1,10 +1,9 @@
 import Foundation
 import SwiftUI
 
-public struct AnswerDisplay: View {
-    @State var text: String
-    @State var senderName: String
-    @State var originMessageID: UUID
+public struct AnswerDisplayView: View {
+    //MARK: - Body
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 5){
             Text(senderName)
@@ -15,4 +14,12 @@ public struct AnswerDisplay: View {
         }
         .padding(3)
     }
+    
+    //MARK: - Parameters
+    
+    @State var text: String
+    @State var senderName: String
+    @State var originMessageID: UUID
+    
+    //MARK: -
 }

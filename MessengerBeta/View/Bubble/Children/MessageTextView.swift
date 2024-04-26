@@ -2,9 +2,8 @@ import Foundation
 import SwiftUI
 
 struct MessageTextView: View, ReactionInfluenced {
-    var message: Message
-    @Binding var reactionContainer: String
-    @Binding var formattedChars: [FormattedChar]
+    //MARK: - Body
+    
     var body: some View {
         HStack{
             if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~"){
@@ -20,4 +19,12 @@ struct MessageTextView: View, ReactionInfluenced {
             }
         }
     }
+    
+    //MARK: - Parameters
+    
+    var message: Message
+    @Binding var reactionContainer: String
+    @Binding var formattedChars: [FormattedChar]
+    
+    //MARK: -
 }
