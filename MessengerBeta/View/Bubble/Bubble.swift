@@ -59,7 +59,6 @@ struct Bubble: View, ReactionInfluenced {
     @Binding var message: Message
     @Binding var bottomCardOpen: Bool
     @Binding var bottomCardReaction: Reaction?
-    var reactionCount: Float = 0
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool

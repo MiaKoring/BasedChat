@@ -15,6 +15,24 @@ struct ChatView: View {
         .onChange(of: messageToDelete){
             deleteMessage()
         }
+        .sheet(isPresented: $bottomCardOpen){
+            VStack{
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(.gray)//TODO: Replace
+                    .opacity(0.7)
+                    .frame(width: 50, height: 5)
+                    .padding()
+                if bottomCardReaction != nil{
+                    ReactionSheetView(reaction: bottomCardReaction!, selected: bottomCardReaction!.emojisCount.keys.sorted(by: {bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1}).first!)
+                }
+            }
+            .presentationDetents([.medium])
+            .presentationBackground(.regularMaterial)
+        }
+        .onChange(of: bottomCardReaction){
+            print("Changed, cardState: \(bottomCardOpen)")
+        }
+        
     }
     
     //MARK: - Parameters
@@ -25,7 +43,7 @@ struct ChatView: View {
     @State var triggerScroll = false
     @State var showLoading: Bool = false
     @State var bottomCardOpen = false
-    @State var bottomCardReaction: Reaction?  = nil
+    @State var bottomCardReaction: Reaction? = nil
     @State var messageInput: String = ""
     @State private var keyboardShown: Bool = false
     @State var replyTo: Reply? = nil
@@ -33,6 +51,5 @@ struct ChatView: View {
     @State var showMessageEmptyAlert = false
     @State var newMessageSent = false
     @State var messageToDelete: Message? = nil
-    
     //MARK: -
 }

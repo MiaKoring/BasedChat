@@ -14,14 +14,15 @@ extension Text{
             .font(.custom("JetBrainsMono-Regular", size: 13))
             .padding([.bottom,.leading,.top] , 2.5)
             .padding(.trailing, 4)
+            .allowsHitTesting(false)
             .background(){
                 UnevenRoundedRectangle
                     .rect(cornerRadii: RectangleCornerRadii(topLeading: 5, bottomLeading: senderIsCurrent ? 10 : 5, bottomTrailing: senderIsCurrent ? 5 : 10, topTrailing: 5))
                     .fill(senderIsCurrent ? Color.init("ReactionDisplayMe") : Color.init("ReactionDisplay"))
-            }
-            .onTapGesture {
-                bottomCardReaction.wrappedValue = reactionData
-                bottomCardOpen.wrappedValue.toggle()
+                    .onTapGesture {
+                        bottomCardReaction.wrappedValue = reactionData
+                        bottomCardOpen.wrappedValue.toggle()
+                    }
             }
     }
 }

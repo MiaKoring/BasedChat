@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-
+/*
 struct ReactionOverview: View {
-    @State var showView: String = "overview"
-    @Binding var reaction: Reaction
-    @State var emojis: [String]
-    @State var buttonTapped: [String: Bool] = [:]
+    //MARK: - Body
+    
     var body: some View {
         if showView == "overview"{
             VStack{
@@ -49,6 +47,15 @@ struct ReactionOverview: View {
             SpecificReaction(relevantUsers: reaction.peopleReactions.keys(forValue: showView), showView: $showView)
         }
     }
+    
+    //MARK: - Parameters
+    
+    @State var showView: String = "overview"
+    @Binding var reaction: Reaction
+    @State var emojis: [String]
+    @State var buttonTapped: [String: Bool] = [:]
+    
+    //MARK: -
 }
 
 struct SpecificReaction: View {
@@ -72,3 +79,4 @@ struct SpecificReaction: View {
         }
     }
 }
+*/
