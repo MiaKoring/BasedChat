@@ -31,7 +31,7 @@ struct LinkView: View {
                             ForEach(URLs, id: \.self) { representable in
                                 if let url = URL(string: representable.urlstr){
                                     Button{
-                                        showURLInvalidAlert =  URLHandler.openURL(representable.urlstr)
+                                        URLHandler.open(url)
                                     }label:{
                                         Text(representable.urlstr)
                                     }

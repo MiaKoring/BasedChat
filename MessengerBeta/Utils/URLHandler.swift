@@ -19,4 +19,14 @@ class URLHandler{
         #endif
         return true
     }
+    
+    public static func open(_ url: URL){
+        #if canImport(UIKit)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+        #elseif canImport(AppKit)
+        NSWorkspace.shared.open(url)
+        #endif
+    }
 }

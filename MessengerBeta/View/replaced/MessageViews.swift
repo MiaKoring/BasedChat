@@ -4,10 +4,7 @@
 //
 //  Created by Mia Koring on 07.01.24.
 //
-
-import SwiftUI
-import SwiftData
-
+/*
 struct MeMSG: View{
     @Environment(\.modelContext) var context
     var message: Message
@@ -109,7 +106,7 @@ struct MeMSG: View{
                                         }
                                             .frame(maxHeight: 5)
                                             .hidden()
-                                        AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
+                                        AnswerDisplayView(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
                                     }
                                 }
                                 .onTapGesture {
@@ -459,7 +456,7 @@ struct YouMSG: View{
                                     }
                                         .frame(maxHeight: 5)
                                         .hidden()
-                                    AnswerDisplay(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
+                                    AnswerDisplayView(text: message.reply.text, senderName: message.reply.sender, originMessageID: message.reply.originID)
                                 }
                             }
                             .onTapGesture {
@@ -715,3 +712,4 @@ struct ReplyToDisplay: View {
     }
 }
 
+*/

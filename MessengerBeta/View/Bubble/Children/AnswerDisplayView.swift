@@ -6,7 +6,7 @@ public struct AnswerDisplayView: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 5){
-            Text(senderName)
+            Text(sender == 1 ? "me": "you")
                 .bold()
                 .font(.system(size: 14))
             Text(text.count > 150 ? "\(text.prefix(150).prefix(upTo: text.prefix(150).lastIndex(of: " ") ?? text.prefix(150).endIndex))..." : text)
@@ -18,7 +18,7 @@ public struct AnswerDisplayView: View {
     //MARK: - Parameters
     
     @State var text: String
-    @State var senderName: String
+    @State var sender: Int
     @State var originMessageID: UUID
     
     //MARK: -

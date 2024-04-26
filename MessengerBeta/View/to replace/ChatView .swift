@@ -1,26 +1,7 @@
-import SwiftUI
-import SwiftData
 
-let testMessageUUID: UUID = UUID()
-
-let testChatUUID: UUID = UUID()
-
-let testMessagesUUID: UUID = UUID()
-
-struct ChatView: View{
-    @Query var chats: [Chat]
-    @Environment(\.modelContext) var context
-    @State var scrollTo: UUID? = UUID()
-    @State var triggerScroll = false
-    @State var showLoading: Bool = false
-    @State var bottomCardOpen = false
-    @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
-    @State var messageInput: String = ""
-    @State private var keyboardShown: Bool = false
-    @State var replyTo: Reply? = nil
-    @State var textFieldFocused: Bool = false
-    @State var showMessageEmptyAlert = false
-    @State var newMessageSent = false
+/*
+struct ChatViewOld: View{
+    //MARK: - Body
     
     var body: some View {
         if !chats.isEmpty{
@@ -30,8 +11,8 @@ struct ChatView: View{
                         //.padding(.top, 40)
                     if replyTo != nil{
                         HStack{
-                            ReplyToDisplay(replyTo: $replyTo)
-                                .frame(height: 50)
+                            /*ReplyToDisplay(replyTo: $replyTo)
+                                .frame(height: 50)*/
                             Spacer()
                             Button{
                                 replyTo = nil
@@ -95,7 +76,9 @@ struct ChatView: View{
                         }
                     }
                 }
-                .padding(.bottom, keyboardShown ? 0 : UIApplication.shared.windows.first!.safeAreaInsets.bottom)
+                #if canImport(UIKit)
+                .padding(.bottom, keyboardShown ? 0 : safeAreaInsets.bottom)
+                #endif
                 if(bottomCardOpen){
                     BottomCard(content: {ReactionOverview(reaction: $bottomCardReaction, emojis: Array(bottomCardReaction.emojisCount.keys))}, isOpen: $bottomCardOpen)
                         .ignoresSafeArea(.container)
@@ -125,4 +108,23 @@ struct ChatView: View{
     func hideKeyboard()->Void{
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
+    //MARK: - Parameters
+    @Query var chats: [Chat]
+    @Environment(\.modelContext) var context
+    @Environment(\.safeAreaInsets) var safeAreaInsets
+    @State var scrollTo: UUID? = UUID()
+    @State var triggerScroll = false
+    @State var showLoading: Bool = false
+    @State var bottomCardOpen = false
+    @State var bottomCardReaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 1, peopleReactions: [:])
+    @State var messageInput: String = ""
+    @State private var keyboardShown: Bool = false
+    @State var replyTo: Reply? = nil
+    @State var textFieldFocused: Bool = false
+    @State var showMessageEmptyAlert = false
+    @State var newMessageSent = false
+    
+    //MARK: -
 }
+*/

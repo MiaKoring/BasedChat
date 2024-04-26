@@ -6,17 +6,24 @@ struct BubbleContextMenu: View {
     
     var body: some View {
         Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
-        Button(role: .destructive){
-            context.delete(message)
-        } label: {
-            Label(NSLocalizedString("Delete", comment: ""), systemImage: "trash")
+        Button{
+            replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
+        }label: {
+            Label(LocalizedStringKey("Reply"), systemImage: "arrowshape.turn.up.left")
         }
+        Button(role: .destructive){
+            deleteAlertPresented = true
+        } label: {
+            Label(LocalizedStringKey("Delete"), systemImage: "trash")
+        }
+        
     }
-    
     //MARK: - Parameters
     
     let message: Message
     @Environment(\.modelContext) var context
+    @Binding var replyTo: Reply?
+    @Binding var deleteAlertPresented: Bool
     
     //MARK: -
 }

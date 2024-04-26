@@ -1,16 +1,15 @@
 import Foundation
 import SwiftData
+
 @Model
-class Reply: Equatable{
-    static func == (lhs: Reply, rhs: Reply) -> Bool {
-        lhs.originID == rhs.originID
-    }
-    
+final class Reply: Identifiable{
+    var id: UUID
     var originID: UUID
     var text: String
-    var sender: String
+    var sender: Int
     
-    init(originID: UUID, text: String, sender: String) {
+    init(id: UUID = UUID(), originID: UUID, text: String, sender: Int) {
+        self.id = id
         self.originID = originID
         self.text = text
         self.sender = sender

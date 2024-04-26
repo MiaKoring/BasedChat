@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-
+/*
 struct BottomCard<Content: View>: View {
     @Environment(\.modelContext) var context
     @ViewBuilder let content: Content
@@ -90,7 +90,7 @@ struct BottomCard<Content: View>: View {
                 Button(){
                     for i in 0...100{
                         let nextID = chats[0].currentMessageID + 1
-                        context.insert(Message(chatMessagesID:  chats.first!.messagesID, time: nextID, sender: 1, text: "testMessage\(i)", messageID: nextID))
+                        context.insert(Message(chat: <#Chat#>, chatMessagesID:  chats.first!.messagesID, time: nextID, sender: 1, text: "testMessage\(i)", messageID: nextID))
                         chats[0].currentMessageID = nextID
                     }
                     print("created")
@@ -126,3 +126,4 @@ struct BottomCard<Content: View>: View {
         }
     }
 }
+*/
