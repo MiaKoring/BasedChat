@@ -1,10 +1,3 @@
-//
-//  Chat.swift
-//  MessengerBeta
-//
-//  Created by Mia Koring on 08.01.24.
-//
-
 import Foundation
 import SwiftData
 

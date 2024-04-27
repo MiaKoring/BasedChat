@@ -1,4 +1,5 @@
 import Foundation
+
 public struct Reaction: Equatable{
     public var mostUsed: String
     public var countString: String

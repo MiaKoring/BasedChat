@@ -1,10 +1,3 @@
-//
-//  Credentials.swift
-//  MessengerBeta
-//
-//  Created by Mia Koring on 22.04.24.
-//
-
 import Foundation
 
 struct Credentials: Codable{
