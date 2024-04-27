@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140936B92BDDB3CF009F667B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140936B82BDDB3CF009F667B /* Message.swift */; };
 		140DD9B72B42EE0F00302447 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DD9B62B42EE0F00302447 /* Music.swift */; };
 		140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DE7182BDBD13D00B59A25 /* MessageView.swift */; };
 		140DE71B2BDBD67300B59A25 /* MessageScrollViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DE71A2BDBD67300B59A25 /* MessageScrollViewExtensions.swift */; };
@@ -41,7 +42,6 @@
 		14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69D52BD2EC7900516D28 /* Attachment.swift */; };
 		14CB69D82BD2EC7F00516D28 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69D72BD2EC7F00516D28 /* DictionaryExtension.swift */; };
 		14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69D92BD2EC9000516D28 /* FormattedChar.swift */; };
-		14CB69DC2BD2EC9900516D28 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69DB2BD2EC9800516D28 /* Message.swift */; };
 		14CB69DE2BD2ECAB00516D28 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69DD2BD2ECAB00516D28 /* Reply.swift */; };
 		14CB69E02BD2ED4C00516D28 /* URLRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69DF2BD2ED4C00516D28 /* URLRepresentable.swift */; };
 		14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E12BD2ED5700516D28 /* Reaction.swift */; };
@@ -67,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140936B82BDDB3CF009F667B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		140DD9B62B42EE0F00302447 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		140DE7182BDBD13D00B59A25 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		140DE71A2BDBD67300B59A25 /* MessageScrollViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageScrollViewExtensions.swift; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		14CB69D52BD2EC7900516D28 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		14CB69D72BD2EC7F00516D28 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		14CB69D92BD2EC9000516D28 /* FormattedChar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormattedChar.swift; sourceTree = "<group>"; };
-		14CB69DB2BD2EC9800516D28 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = ../../../BasedChatComponents/Sources/BasedChatComponents/Model/Message.swift; sourceTree = "<group>"; };
 		14CB69DD2BD2ECAB00516D28 /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 		14CB69DF2BD2ED4C00516D28 /* URLRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRepresentable.swift; sourceTree = "<group>"; };
 		14CB69E12BD2ED5700516D28 /* Reaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
@@ -423,7 +423,6 @@
 			children = (
 				14CB69DD2BD2ECAB00516D28 /* Reply.swift */,
 				14CB69E12BD2ED5700516D28 /* Reaction.swift */,
-				14CB69DB2BD2EC9800516D28 /* Message.swift */,
 				14CB69D92BD2EC9000516D28 /* FormattedChar.swift */,
 				14CB69D72BD2EC7F00516D28 /* DictionaryExtension.swift */,
 				14CB69D52BD2EC7900516D28 /* Attachment.swift */,
@@ -431,6 +430,7 @@
 				14E0180B2B4CB32500A6E379 /* Chat.swift */,
 				14F35B772BD6A33F00D41949 /* Credentials.swift */,
 				1498761E2BDD20E3001CE1C5 /* Contact.swift */,
+				140936B82BDDB3CF009F667B /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -544,10 +544,10 @@
 				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
 				14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */,
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
+				140936B92BDDB3CF009F667B /* Message.swift in Sources */,
 				1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */,
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
 				14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */,
-				14CB69DC2BD2EC9900516D28 /* Message.swift in Sources */,
 				140DE71D2BDBD73B00B59A25 /* MessageScrollView.swift in Sources */,
 				14CB69F92BD2FB1400516D28 /* ViewExtensions.swift in Sources */,
 				14BE38002BDBBB150078D49B /* ChatView.swift in Sources */,
