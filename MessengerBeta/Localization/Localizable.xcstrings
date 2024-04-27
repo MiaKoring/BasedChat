@@ -115,6 +115,7 @@
       }
     },
     "me" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -184,9 +185,6 @@
           }
         }
       }
-    },
-    "you" : {
-
     }
   },
   "version" : "1.0"

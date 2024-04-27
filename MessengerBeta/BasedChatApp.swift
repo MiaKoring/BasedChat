@@ -44,7 +44,7 @@ struct FirstView: View{
                         context.insert(Chat(title: "Test", participants: [1, 2]))
                     }
             }
-            else if chats.first!.messages.isEmpty{
+            if chats.first!.messages.isEmpty{
                 Text("creating messages...")
                     .onAppear(){
                         for message in defaultMessages{
@@ -52,7 +52,7 @@ struct FirstView: View{
                         }
                     }
             }
-            else if contacts.isEmpty{
+            if contacts.isEmpty{
                 if contacts.isEmpty{
                     Text("creating contacts")
                         .onAppear(){
@@ -61,7 +61,7 @@ struct FirstView: View{
                         }
                 }
             }
-            else{
+            if !chats.isEmpty && !chats.first!.messages.isEmpty && !contacts.isEmpty{
                 //BubblePreviewProvider()
                 ChatView(chat: chats.first!)
             }
