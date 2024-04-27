@@ -30,6 +30,11 @@ extension MessageScrollView{
     
     func setup(){
         rangeStart = max(messages.count - 51, 0)
+        if messages.count == 0{
+            rangeEnd = 0
+            renderedMessages = []
+            return
+        }
         rangeEnd = max(messages.count - 1, 0)
         renderedMessages = messages[rangeStart...rangeEnd].reversed()
         containsUnread = renderedMessages.contains(where: {!$0.isRead})

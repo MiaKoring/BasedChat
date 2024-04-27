@@ -7,7 +7,7 @@ struct ReactionSheetView: View {
         VStack{
             ScrollView(.horizontal){
                 HStack{
-                    ForEach(reaction.emojisCount.keys.sorted(by: {reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1}), id: \.self){emoji in
+                    ForEach(emojisSorted, id: \.self){emoji in
                         HStack{
                             Text(emoji)
                             Text("\(reaction.emojisCount[emoji]!)")
@@ -16,12 +16,12 @@ struct ReactionSheetView: View {
                         .allowsHitTesting(false)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(selected == emoji ? .thickMaterial : .ultraThinMaterial)//TODO: Replace Material
+                                .fill(selected == emoji ? .ultraThinMaterial : .thickMaterial)
                                 .onTapGesture(){
                                     selected = emoji
                                 }
                         }
-                        
+                        .padding(.leading, emoji == emojisSorted.first ? 10 : 0)
                     }
                 }
             }
@@ -35,12 +35,16 @@ struct ReactionSheetView: View {
                 }
             }
         }
+        .onAppear(){
+            emojisSorted = reaction.emojisCount.keys.sorted(by: {reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1})
+        }
     }
     
     //MARK: - Parameters
     
     @State var reaction: Reaction
     @State var selected: String = ""
+    @State var emojisSorted: [String] = []
     
     //MARK: -
 }

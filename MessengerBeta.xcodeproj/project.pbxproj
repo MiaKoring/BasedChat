@@ -26,6 +26,10 @@
 		148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */; };
 		148FC7C82B44016C007E3546 /* JetBrainsMonoNL-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7B12B440137007E3546 /* JetBrainsMonoNL-BoldItalic.ttf */; };
 		148FC7C92B4401FD007E3546 /* JetBrainsMono-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */; };
+		149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149876152BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift */; };
+		149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149876172BDD1EA7001CE1C5 /* ReplyToDisplayView.swift */; };
+		1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498761C2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift */; };
+		1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498761E2BDD20E3001CE1C5 /* Contact.swift */; };
 		14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37F72BDBB97A0078D49B /* UIApplicationExtension.swift */; };
 		14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37F92BDBB9C00078D49B /* SafeAreaInsetsKey.swift */; };
 		14BE37FC2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37FB2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift */; };
@@ -111,6 +115,10 @@
 		148FC7C22B440137007E3546 /* JetBrainsMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-Medium.ttf"; sourceTree = "<group>"; };
 		148FC7C32B440137007E3546 /* JetBrainsMono-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-BoldItalic.ttf"; sourceTree = "<group>"; };
 		148FC7C42B440137007E3546 /* JetBrainsMonoNL-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMonoNL-Bold.ttf"; sourceTree = "<group>"; };
+		149876152BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleExtensions.swift; sourceTree = "<group>"; };
+		149876172BDD1EA7001CE1C5 /* ReplyToDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyToDisplayView.swift; sourceTree = "<group>"; };
+		1498761C2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyToDisplayExtensions.swift; sourceTree = "<group>"; };
+		1498761E2BDD20E3001CE1C5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		14BE37F72BDBB97A0078D49B /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		14BE37F92BDBB9C00078D49B /* SafeAreaInsetsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaInsetsKey.swift; sourceTree = "<group>"; };
 		14BE37FB2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtension.swift; sourceTree = "<group>"; };
@@ -161,10 +169,9 @@
 		140DE7172BDBD12900B59A25 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				149876192BDD1F9A001CE1C5 /* ReplyToDisplay */,
+				1498761A2BDD1FB1001CE1C5 /* MessageScroll */,
 				140DE7402BDC318000B59A25 /* ReactionSheet */,
-				140DE7182BDBD13D00B59A25 /* MessageView.swift */,
-				140DE71A2BDBD67300B59A25 /* MessageScrollViewExtensions.swift */,
-				140DE71C2BDBD73B00B59A25 /* MessageScrollView.swift */,
 			);
 			path = Children;
 			sourceTree = "<group>";
@@ -266,6 +273,33 @@
 			path = ttf;
 			sourceTree = "<group>";
 		};
+		149876192BDD1F9A001CE1C5 /* ReplyToDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				149876172BDD1EA7001CE1C5 /* ReplyToDisplayView.swift */,
+				1498761C2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift */,
+			);
+			path = ReplyToDisplay;
+			sourceTree = "<group>";
+		};
+		1498761A2BDD1FB1001CE1C5 /* MessageScroll */ = {
+			isa = PBXGroup;
+			children = (
+				1498761B2BDD1FD1001CE1C5 /* Children */,
+				140DE71A2BDBD67300B59A25 /* MessageScrollViewExtensions.swift */,
+				140DE71C2BDBD73B00B59A25 /* MessageScrollView.swift */,
+			);
+			path = MessageScroll;
+			sourceTree = "<group>";
+		};
+		1498761B2BDD1FD1001CE1C5 /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				140DE7182BDBD13D00B59A25 /* MessageView.swift */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
 		14BD72682B4A37CC00334D69 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +345,7 @@
 		14BE37F42BDBB5A70078D49B /* replaced */ = {
 			isa = PBXGroup;
 			children = (
+				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
 				14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */,
 				14DC8B372B4AE5CB009ED309 /* MessageViews.swift */,
 			);
@@ -320,7 +355,6 @@
 		14BE37F52BDBB5BB0078D49B /* to replace */ = {
 			isa = PBXGroup;
 			children = (
-				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
 				14469B512B40937300835BFC /* ChatView .swift */,
 			);
 			path = "to replace";
@@ -363,6 +397,7 @@
 				14CB69F82BD2FB1400516D28 /* ViewExtensions.swift */,
 				144F38F82BD848DB00770A79 /* TextExtensions.swift */,
 				146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */,
+				149876152BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,6 +414,7 @@
 				14CB69DF2BD2ED4C00516D28 /* URLRepresentable.swift */,
 				14E0180B2B4CB32500A6E379 /* Chat.swift */,
 				14F35B772BD6A33F00D41949 /* Credentials.swift */,
+				1498761E2BDD20E3001CE1C5 /* Contact.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -481,8 +517,11 @@
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplay.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
+				149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */,
 				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
+				1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */,
 				14CB69D82BD2EC7F00516D28 /* DictionaryExtension.swift in Sources */,
+				149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */,
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
@@ -499,6 +538,7 @@
 				14BE38002BDBBB150078D49B /* ChatView.swift in Sources */,
 				14469B502B40937300835BFC /* BasedChatApp.swift in Sources */,
 				14BE37FE2BDBBA600078D49B /* EnvironmentValuesExtension.swift in Sources */,
+				1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */,
 				14CB69F52BD2F64B00516D28 /* LinkStringDisplay.swift in Sources */,
 				140DE7422BDC31A200B59A25 /* ReactionSheetView.swift in Sources */,
 				140DE71B2BDBD67300B59A25 /* MessageScrollViewExtensions.swift in Sources */,

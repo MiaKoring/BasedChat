@@ -5,38 +5,50 @@ struct ChatView: View {
     //MARK: - Body
     
     var body: some View {
-        MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, messageToDelete: $messageToDelete)
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
-            self.keyboardShown = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
-            self.keyboardShown = false
-        }
-        .onChange(of: messageToDelete){
-            deleteMessage()
-        }
-        .sheet(isPresented: $bottomCardOpen){
-            VStack{
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(.gray)//TODO: Replace
-                    .opacity(0.7)
-                    .frame(width: 50, height: 5)
-                    .padding()
-                if bottomCardReaction != nil{
-                    ReactionSheetView(reaction: bottomCardReaction!, selected: bottomCardReaction!.emojisCount.keys.sorted(by: {bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1}).first!)
+        ZStack(alignment: .bottom){
+            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, messageToDelete: $messageToDelete)
+            if replyTo != nil{
+                HStack{
+                    ReplyToDisplayView(replyTo: $replyTo)
+                        .frame(height: 50)
+                    Spacer()
+                    Button{
+                        replyTo = nil
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                    }
                 }
+                .background(Color.init("BottomCardButtonClicked"))
             }
-            .presentationDetents([.medium])
-            .presentationBackground(.regularMaterial)
         }
-        .onChange(of: bottomCardReaction){
-            print("Changed, cardState: \(bottomCardOpen)")
-        }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
+                self.keyboardShown = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
+                self.keyboardShown = false
+            }
+            .onChange(of: messageToDelete){
+                deleteMessage()
+            }
+            .sheet(isPresented: $bottomCardOpen){
+                VStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .pullbarStyle()
+                    if bottomCardReaction != nil{
+                        ReactionSheetView(reaction: bottomCardReaction!, selected: bottomCardReaction!.emojisCount.keys.sorted(by: {bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1}).first!)
+                    }
+                }
+                .presentationDetents([.medium])
+                .presentationBackground(.ultraThickMaterial)
+            }
+            .onChange(of: replyTo){
+                print("changed")
+            }
         
     }
     
     //MARK: - Parameters
-    var chat: Chat
+    @State var chat: Chat
     @Environment(\.modelContext) var context
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @State var scrollTo: UUID? = UUID()

@@ -27,13 +27,14 @@ struct BasedChatApp: App {
     var body: some Scene {
         WindowGroup{
             FirstView()
-                .modelContainer(for: Chat.self)
+                .modelContainer(for: [Chat.self, Contact.self])
         }
     }
 }
 
 struct FirstView: View{
-    @Query() var chats: [Chat]
+    @Query var chats: [Chat]
+    @Query var contacts: [Contact]
     @Environment(\.modelContext) var context
     var body: some View{
         HStack{
@@ -50,6 +51,15 @@ struct FirstView: View{
                             chats.first!.messages.append(message)
                         }
                     }
+            }
+            else if contacts.isEmpty{
+                if contacts.isEmpty{
+                    Text("creating contacts")
+                        .onAppear(){
+                            context.insert(Contact(userID: 1, username: "mia", publicKey: "abc", savedAs: "Mia", isLocalUser: true))
+                            context.insert(Contact(userID: 2, username: "eli", publicKey: "def", savedAs: "Eli"))
+                        }
+                }
             }
             else{
                 //BubblePreviewProvider()

@@ -18,7 +18,7 @@ final class Chat: Identifiable{
     var pinned: Int?
     var currentMessageID: Int
     
-    init(id: UUID = UUID(), title: String, participants: [Int], messages: [Message] = [], pinned: Int? = nil, currentMessageID: Int = 0) {
+    init(id: UUID = UUID(), title: String, participants: [Int] = [], messages: [Message] = [], pinned: Int? = nil, currentMessageID: Int = 0) {
         self.id = id
         self.title = title
         self.participants = participants
