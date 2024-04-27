@@ -32,7 +32,15 @@ struct Bubble: View, ReactionInfluenced {
             }
             .background(Color.init("Background"))
             .onTapGesture {
+                #if canImport(UIKit)
+                if !keyboardShown{
+                    toggleTime()
+                    return
+                }
+                hideKeyboard()
+                #else
                 toggleTime()
+                #endif
             }
             .onAppear(){
                 if !message.reactions.isEmpty{

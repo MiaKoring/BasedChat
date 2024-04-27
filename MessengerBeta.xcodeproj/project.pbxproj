@@ -17,8 +17,10 @@
 		140DE7452BDC328700B59A25 /* SpecificReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140DE7442BDC328700B59A25 /* SpecificReactionView.swift */; };
 		14469B502B40937300835BFC /* BasedChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14469B4F2B40937300835BFC /* BasedChatApp.swift */; };
 		14469B562B40937500835BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B552B40937500835BFC /* Assets.xcassets */; };
+		144D31AE2BDD7DD400D1427F /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31AD2BDD7DD400D1427F /* ChatInputView.swift */; };
+		144D31B02BDD7E3B00D1427F /* ChatInputViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31AF2BDD7E3B00D1427F /* ChatInputViewExtensions.swift */; };
+		144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */; };
 		144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F38F82BD848DB00770A79 /* TextExtensions.swift */; };
-		145899122B4D91C100A3C836 /* Ternary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145899112B4D91C100A3C836 /* Ternary.swift */; };
 		146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */; };
 		146F74F62BD9087F00E0C10B /* BubbleTimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */; };
 		148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */; };
@@ -30,6 +32,7 @@
 		149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149876172BDD1EA7001CE1C5 /* ReplyToDisplayView.swift */; };
 		1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498761C2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift */; };
 		1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498761E2BDD20E3001CE1C5 /* Contact.swift */; };
+		1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1498763A2BDD7215001CE1C5 /* DateExtensions.swift */; };
 		14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37F72BDBB97A0078D49B /* UIApplicationExtension.swift */; };
 		14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37F92BDBB9C00078D49B /* SafeAreaInsetsKey.swift */; };
 		14BE37FC2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE37FB2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift */; };
@@ -56,7 +59,6 @@
 		14CB69FD2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */; };
 		14CB69FF2BD3011000516D28 /* ReactionFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69FE2BD3011000516D28 /* ReactionFunctions.swift */; };
 		14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB6A002BD302D700516D28 /* ReactionDisplayView.swift */; };
-		14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */; };
 		14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E0180B2B4CB32500A6E379 /* Chat.swift */; };
 		14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */; };
 		14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B722BD6712800D41949 /* CredentialHandler.swift */; };
@@ -78,8 +80,10 @@
 		14469B512B40937300835BFC /* ChatView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatView .swift"; sourceTree = "<group>"; };
 		14469B552B40937500835BFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14469B582B40937500835BFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		144D31AD2BDD7DD400D1427F /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		144D31AF2BDD7E3B00D1427F /* ChatInputViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewExtensions.swift; sourceTree = "<group>"; };
+		144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		144F38F82BD848DB00770A79 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
-		145899112B4D91C100A3C836 /* Ternary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ternary.swift; sourceTree = "<group>"; };
 		146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleContextMenu.swift; sourceTree = "<group>"; };
 		146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTimeDisplay.swift; sourceTree = "<group>"; };
 		1473EA0F2B40D0D900667053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 		149876172BDD1EA7001CE1C5 /* ReplyToDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyToDisplayView.swift; sourceTree = "<group>"; };
 		1498761C2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyToDisplayExtensions.swift; sourceTree = "<group>"; };
 		1498761E2BDD20E3001CE1C5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		1498763A2BDD7215001CE1C5 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		14BE37F72BDBB97A0078D49B /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		14BE37F92BDBB9C00078D49B /* SafeAreaInsetsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaInsetsKey.swift; sourceTree = "<group>"; };
 		14BE37FB2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtension.swift; sourceTree = "<group>"; };
@@ -169,6 +174,7 @@
 		140DE7172BDBD12900B59A25 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				144D31AC2BDD7DC300D1427F /* ChatInput */,
 				149876192BDD1F9A001CE1C5 /* ReplyToDisplay */,
 				1498761A2BDD1FB1001CE1C5 /* MessageScroll */,
 				140DE7402BDC318000B59A25 /* ReactionSheet */,
@@ -232,6 +238,16 @@
 				14469B582B40937500835BFC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		144D31AC2BDD7DC300D1427F /* ChatInput */ = {
+			isa = PBXGroup;
+			children = (
+				144D31AD2BDD7DD400D1427F /* ChatInputView.swift */,
+				144D31AF2BDD7E3B00D1427F /* ChatInputViewExtensions.swift */,
+				144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */,
+			);
+			path = ChatInput;
 			sourceTree = "<group>";
 		};
 		148FC7A42B440137007E3546 /* ttf */ = {
@@ -321,6 +337,8 @@
 		14BE37F22BDBB2DC0078D49B /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */,
+				14CB69F42BD2F64B00516D28 /* LinkStringDisplay.swift */,
 				14CB69FA2BD2FC4E00516D28 /* MessageTextView.swift */,
 				14CB6A002BD302D700516D28 /* ReactionDisplayView.swift */,
 				146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */,
@@ -345,6 +363,7 @@
 		14BE37F42BDBB5A70078D49B /* replaced */ = {
 			isa = PBXGroup;
 			children = (
+				14469B512B40937300835BFC /* ChatView .swift */,
 				14DC8B3B2B4AE686009ED309 /* ReactionsCard.swift */,
 				14DC8B3D2B4AE6AC009ED309 /* MessageView.swift */,
 				14DC8B372B4AE5CB009ED309 /* MessageViews.swift */,
@@ -355,7 +374,6 @@
 		14BE37F52BDBB5BB0078D49B /* to replace */ = {
 			isa = PBXGroup;
 			children = (
-				14469B512B40937300835BFC /* ChatView .swift */,
 			);
 			path = "to replace";
 			sourceTree = "<group>";
@@ -375,13 +393,13 @@
 			isa = PBXGroup;
 			children = (
 				14BE37F62BDBB93E0078D49B /* SafeAreaInsets */,
-				145899112B4D91C100A3C836 /* Ternary.swift */,
 				14CB69E82BD2ED8200516D28 /* DateHandler.swift */,
 				14CB69EE2BD2F12800516D28 /* URLHandler.swift */,
 				14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */,
 				14CB69FE2BD3011000516D28 /* ReactionFunctions.swift */,
 				14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */,
 				14F35B722BD6712800D41949 /* CredentialHandler.swift */,
+				1498763A2BDD7215001CE1C5 /* DateExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -393,10 +411,8 @@
 				14BE37F42BDBB5A70078D49B /* replaced */,
 				14BE37F32BDBB5940078D49B /* Chat */,
 				14BE37F12BDBB2CC0078D49B /* Bubble */,
-				14CB69F42BD2F64B00516D28 /* LinkStringDisplay.swift */,
 				14CB69F82BD2FB1400516D28 /* ViewExtensions.swift */,
 				144F38F82BD848DB00770A79 /* TextExtensions.swift */,
-				146F74F52BD9087F00E0C10B /* BubbleTimeDisplay.swift */,
 				149876152BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift */,
 			);
 			path = View;
@@ -506,14 +522,12 @@
 				14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */,
 				14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */,
 				14CB69DE2BD2ECAB00516D28 /* Reply.swift in Sources */,
-				145899122B4D91C100A3C836 /* Ternary.swift in Sources */,
 				14BE37FC2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift in Sources */,
 				14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */,
 				146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */,
 				14CB69EF2BD2F12800516D28 /* URLHandler.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
-				14DC8B3C2B4AE686009ED309 /* ReactionsCard.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplay.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
@@ -530,6 +544,7 @@
 				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
 				14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */,
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
+				1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */,
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
 				14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */,
 				14CB69DC2BD2EC9900516D28 /* Message.swift in Sources */,
@@ -537,8 +552,10 @@
 				14CB69F92BD2FB1400516D28 /* ViewExtensions.swift in Sources */,
 				14BE38002BDBBB150078D49B /* ChatView.swift in Sources */,
 				14469B502B40937300835BFC /* BasedChatApp.swift in Sources */,
+				144D31B02BDD7E3B00D1427F /* ChatInputViewExtensions.swift in Sources */,
 				14BE37FE2BDBBA600078D49B /* EnvironmentValuesExtension.swift in Sources */,
 				1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */,
+				144D31AE2BDD7DD400D1427F /* ChatInputView.swift in Sources */,
 				14CB69F52BD2F64B00516D28 /* LinkStringDisplay.swift in Sources */,
 				140DE7422BDC31A200B59A25 /* ReactionSheetView.swift in Sources */,
 				140DE71B2BDBD67300B59A25 /* MessageScrollViewExtensions.swift in Sources */,
@@ -547,6 +564,7 @@
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
 				140DE7452BDC328700B59A25 /* SpecificReactionView.swift in Sources */,
 				140DE73F2BDC26E700B59A25 /* ChatViewExtensions.swift in Sources */,
+				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
 				14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

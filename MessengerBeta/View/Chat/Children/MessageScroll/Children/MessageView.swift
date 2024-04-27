@@ -53,7 +53,7 @@ struct MessageView: View {
     @Binding var glowOriginMessage: UUID?
     @State var showTime = false
     @State var timer : Timer? = nil
-    @State var keyboardShown = false
+    @Binding var keyboardShown: Bool
     @Binding var replyTo: Reply?
     @State var tappedID: UUID? = nil
     @State var replyTimer: Timer? = nil

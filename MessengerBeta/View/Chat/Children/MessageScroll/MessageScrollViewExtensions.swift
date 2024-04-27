@@ -65,8 +65,8 @@ extension MessageScrollView{
     
     func newMessage(){
         triggerBottomScroll.toggle()
-        rangeStart = messages.count - 51
-        rangeEnd = messages.count - 1
+        rangeStart = max(messages.count - 51, 0)
+        rangeEnd = max(messages.count - 1, 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
             withAnimation(.smooth(duration: 0.3)){
                 renderedMessages = messages[rangeStart...rangeEnd].reversed()

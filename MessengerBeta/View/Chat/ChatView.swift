@@ -5,8 +5,8 @@ struct ChatView: View {
     //MARK: - Body
     
     var body: some View {
-        ZStack(alignment: .bottom){
-            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, messageToDelete: $messageToDelete)
+        VStack{
+            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
             if replyTo != nil{
                 HStack{
                     ReplyToDisplayView(replyTo: $replyTo)
@@ -20,7 +20,9 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
+            ChatInputView(replyTo: $replyTo, newMessage: $newMessage, chat: $chat)
         }
+        .padding(.horizontal, 10)
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
                 self.keyboardShown = true
             }
@@ -44,6 +46,12 @@ struct ChatView: View {
             .onChange(of: replyTo){
                 print("changed")
             }
+            .onChange(of: newMessage){
+                sendMessage(newMessage)
+            }
+            .onAppear(){
+                chat.currentMessageID = max(chat.currentMessageID, 100)
+            }
         
     }
     
@@ -56,12 +64,10 @@ struct ChatView: View {
     @State var showLoading: Bool = false
     @State var bottomCardOpen = false
     @State var bottomCardReaction: Reaction? = nil
-    @State var messageInput: String = ""
     @State private var keyboardShown: Bool = false
     @State var replyTo: Reply? = nil
-    @State var textFieldFocused: Bool = false
-    @State var showMessageEmptyAlert = false
     @State var newMessageSent = false
     @State var messageToDelete: Message? = nil
+    @State var newMessage: Message? = nil
     //MARK: -
 }

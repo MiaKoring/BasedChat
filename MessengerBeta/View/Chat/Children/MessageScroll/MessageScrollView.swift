@@ -7,7 +7,7 @@ struct MessageScrollView: View {
         ZStack(alignment: .bottom){
             ScrollView{
                 ScrollViewReader{reader in
-                    MessageView(bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
+                    MessageView(bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
                         .onChange(of: triggerBottomScroll){
                             withAnimation(.smooth(duration: 0.3)){
                                 reader.scrollTo(renderedMessages.first?.id)
@@ -36,12 +36,12 @@ struct MessageScrollView: View {
                             .frame(width: 0, height: 0)
                             .padding(.top, 50)
                     }
+                    Spacer()
                 }
             }
             .defaultScrollAnchor(.top)
             .scrollIndicators(.hidden)
         }
-        .padding(10)
         .rotationEffect(.degrees(180.0))
         .overlay(alignment: .bottomTrailing){
             bottomScrollOverlay()
@@ -68,7 +68,7 @@ struct MessageScrollView: View {
     @State var scrollTo: UUID? = nil
     @State var triggerScroll: Bool = false
     @Binding var replyTo: Reply?
-    @State var newMessageSent: Bool = false
+    @Binding var newMessageSent: Bool
     @State var showBottomScrollButton = false
     @State var triggerBottomScroll = false
     @State var renderedMessages: [Message] = []
@@ -86,6 +86,7 @@ struct MessageScrollView: View {
     @Environment(\.modelContext) var context
     @Environment(\.scenePhase) var scenePhase
     @Binding var messageToDelete: Message?
+    @Binding var keyboardShown: Bool
     
     //MARK: -
 }
