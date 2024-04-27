@@ -23,12 +23,14 @@ struct ChatView: View {
             ChatInputView(replyTo: $replyTo, newMessage: $newMessage, chat: $chat)
         }
         .padding(.horizontal, 10)
+        #if canImport(UIKit)
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
                 self.keyboardShown = true
             }
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
                 self.keyboardShown = false
             }
+        #endif
             .onChange(of: messageToDelete){
                 deleteMessage()
             }
@@ -58,7 +60,9 @@ struct ChatView: View {
     //MARK: - Parameters
     @State var chat: Chat
     @Environment(\.modelContext) var context
+    #if canImport(UIKit)
     @Environment(\.safeAreaInsets) var safeAreaInsets
+    #endif
     @State var scrollTo: UUID? = UUID()
     @State var triggerScroll = false
     @State var showLoading: Bool = false

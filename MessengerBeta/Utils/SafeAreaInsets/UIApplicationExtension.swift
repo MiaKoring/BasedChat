@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if canImport(UIKit)
 public extension UIApplication {
     var keyWindow: UIWindow? {
         connectedScenes
@@ -15,3 +16,4 @@ public extension UIApplication {
     }
     
 }
+#endif
