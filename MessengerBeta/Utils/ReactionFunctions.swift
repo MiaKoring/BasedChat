@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 extension ReactionInfluenced {
-    func formatText()-> some View {
+    /*func formatText()-> some View {
         var text = Text("")
         for i in 0..<formattedChars.count {
             if formattedChars[i].formats.contains("*") && formattedChars[i].formats.contains("_") && formattedChars[i].formats.contains("~") {
@@ -32,6 +32,21 @@ extension ReactionInfluenced {
         }
         return text
     }
+    */
+    
+    func formatText()-> some View{
+        let collection = StringFormatterCollection()
+        collection.addFormatter(BoldStringFormatter())
+        collection.addFormatter(ItalicStringFormatter())
+        collection.addFormatter(StrikethroughStringFormatter())
+        
+        var text = Text("")
+        
+        for i in 0..<formattedChars.count{
+            text = text + collection.addFormats(formattedChar: formattedChars[i])
+        }
+        return text
+    }
     
     func formatChars(_ str: String) -> [FormattedChar] {
         var formattedChars: [FormattedChar] = []
@@ -43,7 +58,6 @@ extension ReactionInfluenced {
         let allowedSurroundingChars = ["", " ", "￿", ".", ",", ":", ";", "\"", "'", "*", "_", "~"]
         
         for i in 0..<input.count {
-            
             let atm =  String(input[input.index(input.startIndex, offsetBy: i)])
             let next = i + 1 < input.count ? String(input[input.index(input.startIndex, offsetBy: i+1)]) : ""
             

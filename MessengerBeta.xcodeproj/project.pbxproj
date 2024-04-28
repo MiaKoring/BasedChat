@@ -23,6 +23,9 @@
 		144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F38F82BD848DB00770A79 /* TextExtensions.swift */; };
 		146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */; };
 		146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */; };
+		1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */; };
+		1478813C2BDE96BA009EE6B0 /* StringFormatterCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */; };
+		1478813E2BDE99B6009EE6B0 /* StringFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478813D2BDE99B6009EE6B0 /* StringFormats.swift */; };
 		148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */; };
 		148FC7C62B44016C007E3546 /* JetBrainsMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */; };
 		148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 148FC7A92B440137007E3546 /* JetBrainsMono-Regular.ttf */; };
@@ -85,6 +88,9 @@
 		146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleContextMenu.swift; sourceTree = "<group>"; };
 		146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTimeDisplayView.swift; sourceTree = "<group>"; };
 		1473EA0F2B40D0D900667053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatterProtocol.swift; sourceTree = "<group>"; };
+		1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatterCollection.swift; sourceTree = "<group>"; };
+		1478813D2BDE99B6009EE6B0 /* StringFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormats.swift; sourceTree = "<group>"; };
 		148FC7A52B440137007E3546 /* JetBrainsMono-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-Thin.ttf"; sourceTree = "<group>"; };
 		148FC7A62B440137007E3546 /* JetBrainsMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-Bold.ttf"; sourceTree = "<group>"; };
 		148FC7A72B440137007E3546 /* JetBrainsMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-Italic.ttf"; sourceTree = "<group>"; };
@@ -395,6 +401,9 @@
 				14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */,
 				14F35B722BD6712800D41949 /* CredentialHandler.swift */,
 				1498763A2BDD7215001CE1C5 /* DateExtensions.swift */,
+				147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */,
+				1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */,
+				1478813D2BDE99B6009EE6B0 /* StringFormats.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -529,8 +538,10 @@
 				149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */,
 				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
 				1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */,
+				1478813E2BDE99B6009EE6B0 /* StringFormats.swift in Sources */,
 				14CB69D82BD2EC7F00516D28 /* DictionaryExtension.swift in Sources */,
 				149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */,
+				1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */,
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
@@ -560,6 +571,7 @@
 				140DE73F2BDC26E700B59A25 /* ChatViewExtensions.swift in Sources */,
 				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
 				14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */,
+				1478813C2BDE96BA009EE6B0 /* StringFormatterCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
