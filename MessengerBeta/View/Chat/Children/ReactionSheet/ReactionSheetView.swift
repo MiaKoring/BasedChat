@@ -24,8 +24,10 @@ struct ReactionSheetView: View {
                         .padding(.leading, emoji == emojisSorted.first ? 10 : 0)
                     }
                 }
+                .scrollTargetLayout()
             }
             .scrollIndicators(.hidden)
+            .scrollTargetBehavior(.viewAligned)
             
             Divider()
             
