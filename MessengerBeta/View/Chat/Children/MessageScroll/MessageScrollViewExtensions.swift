@@ -23,7 +23,7 @@ extension MessageScrollView {
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
                     withAnimation(.easeIn) {
-                        messages.first(where: {$0.id == glowMessage})!.background = "normal"
+                        messages.first(where: {$0.id == glowMessage})!.background = "default"
                     }
                 }
             }
