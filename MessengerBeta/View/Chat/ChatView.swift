@@ -39,7 +39,13 @@ struct ChatView: View {
                     RoundedRectangle(cornerRadius: 25)
                         .pullbarStyle()
                     if bottomCardReaction != nil {
-                        ReactionSheetView(reaction: bottomCardReaction!, selected: bottomCardReaction!.emojisCount.keys.sorted(by: {bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1}).first!)
+                        ReactionSheetView(
+                            reaction: bottomCardReaction!,
+                            selected:
+                                bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 }).first!,
+                            emojisSorted:
+                                bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 })
+                        )
                     }
                 }
                 .presentationDetents([.medium])
@@ -54,7 +60,7 @@ struct ChatView: View {
             .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
             }
-        
+            .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
     }
     
     //MARK: - Parameters
