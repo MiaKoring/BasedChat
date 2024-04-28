@@ -1,6 +1,6 @@
 import Foundation
 
-struct FormattedChar{
+struct FormattedChar {
     let char: String
     let formats: [String]
 }

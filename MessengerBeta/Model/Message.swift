@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Message: Identifiable{
+final class Message: Identifiable {
     var time: Int
     var sender: Int
     var type: String

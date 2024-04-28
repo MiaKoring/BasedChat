@@ -16,15 +16,19 @@ struct BubbleTimeDisplayView: View {
     //MARK: - Body
     
     var body: some View {
-        HStack{
+        HStack {
             if message.sender.isCurrentUser {
                 Spacer()
             }
+            
             Text(DateHandler.formatTime(message.time, lang: "de_DE"))
                 .font(.custom("JetBrainsMono-Regular", size: 10))
+            
             if !message.sender.isCurrentUser {
                 Spacer()
             }
         }
     }
+    
+    //MARK: -
 }

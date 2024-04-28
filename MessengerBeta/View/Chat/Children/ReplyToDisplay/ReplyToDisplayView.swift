@@ -5,8 +5,8 @@ struct ReplyToDisplayView: View {
     //MARK: - Body
     
     var body: some View {
-        if replyTo != nil{
-            VStack(alignment: .leading, spacing: 5){
+        if replyTo != nil {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(originSenderName)
                     .bold()
                     .font(.system(size: 14))
@@ -14,7 +14,7 @@ struct ReplyToDisplayView: View {
                     .font(.system(size: 12))
             }
             .padding(3)
-            .onAppear(){
+            .onAppear() {
                 originSenderName = (contacts.first?.savedAs ?? contacts.first?.username) ?? "unknown"
                 originMessage = getText()
             }
@@ -29,6 +29,7 @@ struct ReplyToDisplayView: View {
     @Query var contacts: [Contact]
     
     //MARK: - Initializer
+    
     init(replyTo: Binding<Reply?>, originSenderName: String = "", originMessage: String = "") {
         self._replyTo = replyTo
         self.originSenderName = originSenderName
@@ -38,4 +39,6 @@ struct ReplyToDisplayView: View {
             $0.userID == sender
         })
     }
+    
+    //MARK: -
 }

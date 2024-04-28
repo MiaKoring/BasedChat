@@ -4,20 +4,20 @@ struct ReactionSheetView: View {
     //MARK: - Body
     
     var body: some View {
-        VStack{
-            ScrollView(.horizontal){
-                HStack{
-                    ForEach(emojisSorted, id: \.self){emoji in
-                        HStack{
+        VStack {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(emojisSorted, id: \.self) { emoji in
+                        HStack {
                             Text(emoji)
                             Text("\(reaction.emojisCount[emoji]!)")
                         }
                         .padding()
                         .allowsHitTesting(false)
-                        .background{
+                        .background {
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(selected == emoji ? .ultraThinMaterial : .thickMaterial)
-                                .onTapGesture(){
+                                .onTapGesture() {
                                     selected = emoji
                                 }
                         }
@@ -26,17 +26,19 @@ struct ReactionSheetView: View {
                 }
             }
             .scrollIndicators(.hidden)
+            
             Divider()
-            ScrollView{
-                VStack{
-                    ForEach(reaction.peopleReactions.keys(forValue: selected), id: \.self){person in
+            
+            ScrollView {
+                VStack {
+                    ForEach(reaction.peopleReactions.keys(forValue: selected), id: \.self) { person in
                         Text("\(person)")
                     }
                 }
             }
         }
-        .onAppear(){
-            emojisSorted = reaction.emojisCount.keys.sorted(by: {reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1})
+        .onAppear() {
+            emojisSorted = reaction.emojisCount.keys.sorted(by: { reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1 })
         }
     }
     

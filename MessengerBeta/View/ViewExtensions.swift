@@ -4,8 +4,8 @@ import SwiftUI
 import UIKit
 #endif
 
-extension View{
-    func messageExtrasBackground() -> some View{
+extension View {
+    func messageExtrasBackground()-> some View {
         self
             .background{
                 RoundedRectangle(cornerRadius: 5)
@@ -13,8 +13,9 @@ extension View{
                     .opacity(0.5)
             }
     }
-    func bubbleBackground(isCurrent: Bool, background: String = "default") -> some View{
-        if isCurrent{
+    
+    func bubbleBackground(isCurrent: Bool, background: String = "default")-> some View {
+        if isCurrent {
             return self
                 .background(
                     UnevenRoundedRectangle
@@ -35,7 +36,7 @@ extension View{
         
     }
 
-    func hideKeyboard()->Void{
+    func hideKeyboard()-> Void {
         #if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         #endif

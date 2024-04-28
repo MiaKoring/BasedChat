@@ -1,0 +1,5 @@
+project: MessengerBeta.xcodeproj
+schemes:
+- MessengerBeta
+targets:
+- MessengerBeta

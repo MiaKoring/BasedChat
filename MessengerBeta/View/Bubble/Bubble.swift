@@ -6,11 +6,11 @@ struct Bubble: View, ReactionInfluenced {
     //MARK: - Body
     
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 if message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
-                ZStack(alignment: .bottomTrailing){
-                    VStack(alignment: .leading){
+                ZStack(alignment: .bottomTrailing) {
+                    VStack(alignment: .leading) {
                         LinkView(URLs: URLs, messageText: message.text)
                         ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
                         MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
@@ -21,11 +21,11 @@ struct Bubble: View, ReactionInfluenced {
                     ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
                         .hidden()
                 }
-                .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)//TODO: Replace true
-                .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing, content: {
+                .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)
+                .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing) {
                     ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
-                })
-                .contextMenu(){
+                }
+                .contextMenu() {
                     BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
                 }
                 if !message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
@@ -33,7 +33,7 @@ struct Bubble: View, ReactionInfluenced {
             .background(Color.init("Background"))
             .onTapGesture {
                 #if canImport(UIKit)
-                if !keyboardShown{
+                if !keyboardShown {
                     toggleTime()
                     return
                 }
@@ -42,8 +42,8 @@ struct Bubble: View, ReactionInfluenced {
                 toggleTime()
                 #endif
             }
-            .onAppear(){
-                if !message.reactions.isEmpty{
+            .onAppear() {
+                if !message.reactions.isEmpty {
                     reactionData = genReactions()
                     reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
                 }
@@ -51,10 +51,10 @@ struct Bubble: View, ReactionInfluenced {
             }
             if showTime{ BubbleTimeDisplayView(message: message) }
         }
-        .alert(LocalizedStringKey("DeleteAlert"), isPresented: $deleteAlertPresented){
-            Button(role: .destructive){
+        .alert(LocalizedStringKey("DeleteAlert"), isPresented: $deleteAlertPresented) {
+            Button(role: .destructive) {
                 messageToDelete = message
-            }label: {
+            } label: {
                 Text(LocalizedStringKey("Delete"))
             }
         }

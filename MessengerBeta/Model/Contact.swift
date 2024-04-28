@@ -2,7 +2,7 @@ import SwiftData
 import Foundation
 
 @Model
-final class Contact: Identifiable{
+final class Contact: Identifiable {
     var userID: Int
     var username: String
     var publicKey: String

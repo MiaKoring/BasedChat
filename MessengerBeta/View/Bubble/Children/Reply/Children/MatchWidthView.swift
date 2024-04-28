@@ -2,11 +2,10 @@ import Foundation
 import SwiftUI
 
 struct MatchWidthView: View {
-    
     let text: String
     
     var body: some View {
-        ScrollView{
+        ScrollView {
             Text(text)
         }
         .frame(maxHeight: 5)

@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Reply: Identifiable{
+final class Reply: Identifiable {
     var id: UUID
     var originID: UUID
     var text: String

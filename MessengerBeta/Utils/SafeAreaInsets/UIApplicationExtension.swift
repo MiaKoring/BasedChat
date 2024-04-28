@@ -14,6 +14,5 @@ public extension UIApplication {
                 $0.isKeyWindow
             }
     }
-    
 }
 #endif

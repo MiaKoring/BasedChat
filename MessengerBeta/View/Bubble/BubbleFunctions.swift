@@ -1,8 +1,9 @@
 import SwiftUI
 
-extension Bubble{
-    func extractURLs(from string: String) -> [URLRepresentable] {
+extension Bubble {
+    func extractURLs(from string: String)-> [URLRepresentable] {
         var urls: [URLRepresentable] = []
+        
         do {
             let pattern = "https?://([-\\w\\.]+)+(:\\d+)?(/([\\w/_\\.]*(\\?\\S+)?)?)?"
             
@@ -23,59 +24,55 @@ extension Bubble{
         return urls
     }
     
-    func toggleTime(animated: Bool = true){
-        if !keyboardShown{
-            if animated {
-                animatedTimeToggle()
-                return
-            }
-            timeToggle()
+    func toggleTime(animated: Bool = true) {
+        if keyboardShown {
+            hideKeyboard()
             return
         }
-        else{
-            #if canImport(UIKit)
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            #endif
+        if animated {
+            animatedTimeToggle()
+            return
         }
+        timeToggle()
     }
     
-    private func animatedTimeToggle(){
-        if showTime{
-            withAnimation(.easeOut(duration: 0.1)){
+    private func animatedTimeToggle() {
+        if showTime {
+            withAnimation(.easeOut(duration: 0.1)) {
                 showTime = false
             }
             return
         }
         
-        withAnimation(.easeIn(duration: 0.1)){
+        withAnimation(.easeIn(duration: 0.1)) {
             showTime = true
         }
         
-        if timer != nil && timer!.isValid{
+        if timer != nil && timer!.isValid {
             timer!.invalidate()
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
-            withAnimation(.easeOut(duration: 0.1)){
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+            withAnimation(.easeOut(duration: 0.1)) {
                 showTime = false
                 timer.invalidate()
             }
         }
     }
     
-    private func timeToggle(){
-        if showTime{
+    private func timeToggle() {
+        if showTime {
             showTime = false
             return
         }
         
         showTime = true
         
-        if timer != nil && timer!.isValid{
+        if timer != nil && timer!.isValid {
             timer!.invalidate()
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
             showTime = false
             timer.invalidate()
         }

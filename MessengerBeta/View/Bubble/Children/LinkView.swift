@@ -5,9 +5,9 @@ struct LinkView: View {
     //MARK: - Body
     
     var body: some View {
-        HStack{
-            if !URLs.isEmpty{
-                if URLs.count == 1{
+        HStack {
+            if !URLs.isEmpty {
+                if URLs.count == 1 {
                     LinkStringDisplay(messageText: messageText, url: URLs.first?.urlstr)
                         .onTapGesture {
                             showURLInvalidAlert = !URLHandler.openURL(URLs.first!.urlstr)
@@ -16,12 +16,12 @@ struct LinkView: View {
                             Text(URLs.first!.urlstr)
                         }
                 }
-                else{
+                else {
                     LinkStringDisplay(messageText: messageText, url: URLs.first?.urlstr)
-                        .overlay(alignment: .trailing){
+                        .overlay(alignment: .trailing) {
                             Text("+\(URLs.count - 1)")
                                 .padding(3)
-                                .background{
+                                .background {
                                     RoundedRectangle(cornerRadius: 50)
                                         .fill(.gray)
                                 }
@@ -29,10 +29,10 @@ struct LinkView: View {
                         }
                         .contextMenu {
                             ForEach(URLs, id: \.self) { representable in
-                                if let url = URL(string: representable.urlstr){
-                                    Button{
+                                if let url = URL(string: representable.urlstr) {
+                                    Button {
                                         URLHandler.open(url)
-                                    }label:{
+                                    } label: {
                                         Text(representable.urlstr)
                                     }
                                 }
@@ -41,16 +41,17 @@ struct LinkView: View {
                 }
             }
         }
-            .alert("Invalid URL", isPresented: $showURLInvalidAlert){
-                Button{
+            .alert("Invalid URL", isPresented: $showURLInvalidAlert) {
+                Button {
                     showURLInvalidAlert = false
-                }label: {
+                } label: {
                     Text("OK")
                 }
             }//TODO: Change to localized String
     }
     
     //MARK: - Parameters
+    
     let URLs: [URLRepresentable]
     let messageText: String
     @State var showURLInvalidAlert = false

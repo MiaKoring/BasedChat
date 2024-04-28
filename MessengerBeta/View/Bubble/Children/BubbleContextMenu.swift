@@ -6,20 +6,22 @@ struct BubbleContextMenu: View {
     
     var body: some View {
         Text(DateHandler.formatBoth(message.time, lang: "de_DE"))
-        Button{
+        
+        Button {
             replyTo = nil
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 replyTo = Reply(originID: message.id, text: message.text, sender: message.sender)
             }
-        }label: {
+        } label: {
             Label(LocalizedStringKey("Reply"), systemImage: "arrowshape.turn.up.left")
         }
-        Button(role: .destructive){
+        
+        Button(role: .destructive) {
             deleteAlertPresented = true
         } label: {
             Label(LocalizedStringKey("Delete"), systemImage: "trash")
         }
-        
     }
     //MARK: - Parameters
     

@@ -5,14 +5,14 @@ struct ChatView: View {
     //MARK: - Body
     
     var body: some View {
-        VStack{
+        VStack {
             MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
-            if replyTo != nil{
-                HStack{
+            if replyTo != nil {
+                HStack {
                     ReplyToDisplayView(replyTo: $replyTo)
                         .frame(height: 50)
                     Spacer()
-                    Button{
+                    Button {
                         replyTo = nil
                     } label: {
                         Image(systemName: "xmark.circle")
@@ -22,42 +22,43 @@ struct ChatView: View {
             }
             ChatInputView(replyTo: $replyTo, newMessage: $newMessage, chat: $chat)
         }
-        .padding(.horizontal, 10)
+            .padding(.horizontal, 10)
         #if canImport(UIKit)
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)){_ in
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                 self.keyboardShown = true
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)){_ in
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                 self.keyboardShown = false
             }
         #endif
-            .onChange(of: messageToDelete){
+            .onChange(of: messageToDelete) {
                 deleteMessage()
             }
-            .sheet(isPresented: $bottomCardOpen){
-                VStack{
+            .sheet(isPresented: $bottomCardOpen) {
+                VStack {
                     RoundedRectangle(cornerRadius: 25)
                         .pullbarStyle()
-                    if bottomCardReaction != nil{
+                    if bottomCardReaction != nil {
                         ReactionSheetView(reaction: bottomCardReaction!, selected: bottomCardReaction!.emojisCount.keys.sorted(by: {bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1}).first!)
                     }
                 }
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThickMaterial)
             }
-            .onChange(of: replyTo){
+            .onChange(of: replyTo) {
                 print("changed")
             }
-            .onChange(of: newMessage){
+            .onChange(of: newMessage) {
                 sendMessage(newMessage)
             }
-            .onAppear(){
+            .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
             }
         
     }
     
     //MARK: - Parameters
+    
     @State var chat: Chat
     @Environment(\.modelContext) var context
     #if canImport(UIKit)
@@ -73,5 +74,6 @@ struct ChatView: View {
     @State var newMessageSent = false
     @State var messageToDelete: Message? = nil
     @State var newMessage: Message? = nil
+    
     //MARK: -
 }

@@ -2,23 +2,24 @@ import SwiftUI
 
 struct MessageView: View {
     //MARK: - Body
+    
     var body: some View {
-        LazyVStack{
-            ForEach($renderedMessages){message in
+        LazyVStack {
+            ForEach($renderedMessages) { message in
                 Bubble(minSpacerWidth: minSpacerWidth, message: message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)
                     .id(message.id)
                     .rotationEffect(.degrees(180.0))
-                    .onDisappear(){
-                        if !showBottomScrollButton && message.wrappedValue == renderedMessages.first{
+                    .onDisappear() {
+                        if !showBottomScrollButton && message.wrappedValue == renderedMessages.first {
                             showBottomScrollButton = true
                         }
                     }
-                    .onAppear(){
-                        if message.wrappedValue == renderedMessages.first{
+                    .onAppear() {
+                        if message.wrappedValue == renderedMessages.first {
                             showBottomScrollButton = false
                         }
                     }
-                if containsUnread && lastUnreadIndex == renderedMessages.firstIndex(where: {$0.id == message.id}){
+                if containsUnread && lastUnreadIndex == renderedMessages.firstIndex(where: {$0.id == message.id}) {
                     HStack {
                         Spacer()
                         Text(LocalizedStringKey("NewMessages"))
@@ -34,9 +35,9 @@ struct MessageView: View {
                     .rotationEffect(.degrees(180.0))
                 }
             }
-            .onChange(of: messageToDelete){
+            .onChange(of: messageToDelete) {
                 if messageToDelete == nil { return }
-                renderedMessages.removeAll(where: {$0.id == messageToDelete!.id})
+                renderedMessages.removeAll(where: { $0.id == messageToDelete!.id })
             }
         }
         
@@ -67,5 +68,6 @@ struct MessageView: View {
     #else
     @State var minSpacerWidth: Double = 200.0
     #endif
+    
     //MARK: -
 }

@@ -1,12 +1,12 @@
 import Foundation
 
-extension ChatInputView{
-    func createMessage(_ sender: Int = BasedChatApp.currentUserID ?? 0){
-        if messageInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+extension ChatInputView {
+    func createMessage(_ sender: Int = BasedChatApp.currentUserID ?? 0) {
+        if messageInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             showMessageEmptyAlert = true
             return
         }
-        if replyTo == nil{
+        if replyTo == nil {
             newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false)
             messageInput = ""
             return

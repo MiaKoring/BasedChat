@@ -4,27 +4,28 @@ struct MessageScrollView: View {
     //MARK: - Body
     
     var body: some View {
-        ZStack(alignment: .bottom){
-            ScrollView{
-                ScrollViewReader{reader in
+        ZStack(alignment: .bottom) {
+            ScrollView {
+                ScrollViewReader { reader in
                     MessageView(bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
-                        .onChange(of: triggerBottomScroll){
-                            withAnimation(.smooth(duration: 0.3)){
+                        .onChange(of: triggerBottomScroll) {
+                            withAnimation(.smooth(duration: 0.3)) {
                                 reader.scrollTo(renderedMessages.first?.id)
                             }
                         }
-                        .onChange(of: triggerScroll){
+                        .onChange(of: triggerScroll) {
                             loadScrollDestination()
-                            withAnimation(.smooth(duration: 0.2)){
+                            
+                            withAnimation(.smooth(duration: 0.2)) {
                                 reader.scrollTo(scrollTo, anchor: .top)
                             }
                         }
-                        .onChange(of: newMessageSent){
+                        .onChange(of: newMessageSent) {
                             newMessage()
                         }
-                    if rangeStart > 0{
+                    if rangeStart > 0 {
                         ProgressView()
-                            .onAppear(){
+                            .onAppear() {
                                 let previousStart = rangeStart - 1
                                 rangeStart = max(rangeStart - 50, 0)
                                 renderedMessages.append(contentsOf: messages[rangeStart...previousStart].reversed())
@@ -43,20 +44,20 @@ struct MessageScrollView: View {
             .scrollIndicators(.hidden)
         }
         .rotationEffect(.degrees(180.0))
-        .overlay(alignment: .bottomTrailing){
+        .overlay(alignment: .bottomTrailing) {
             bottomScrollOverlay()
         }
-        .onAppear(){
+        .onAppear() {
             setup()
         }
-        .onDisappear(){
+        .onDisappear() {
             markAllRead()
         }
         .onChange(of: scenePhase) { newScenePhase, _ in
             scenePhaseChanged(newScenePhase: newScenePhase)
         }
-        .onChange(of: messageToDelete){
-            
+        .onChange(of: glowOriginMessage) {
+            messageGlow()
         }
     }
     
@@ -72,11 +73,7 @@ struct MessageScrollView: View {
     @State var showBottomScrollButton = false
     @State var triggerBottomScroll = false
     @State var renderedMessages: [Message] = []
-    @State var glowOriginMessage: UUID? = nil {
-        didSet{
-            messageGlow()
-        }
-    }
+    @State var glowOriginMessage: UUID? = nil
     @State var startIndex = 500000
     @State var endIndex = 500000
     @State var rangeStart: Int = 0

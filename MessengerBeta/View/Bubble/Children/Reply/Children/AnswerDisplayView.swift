@@ -6,7 +6,7 @@ public struct AnswerDisplayView: View {
     //MARK: - Body
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 5){
+        VStack(alignment: .leading, spacing: 5) {
             Text(senderName)
                 .bold()
                 .font(.system(size: 14))
@@ -14,7 +14,7 @@ public struct AnswerDisplayView: View {
                 .font(.system(size: 12))
         }
         .padding(3)
-        .onAppear(){
+        .onAppear() {
             senderName = (contacts.first?.savedAs ?? contacts.first?.username) ?? "unknown"
         }
     }
@@ -38,4 +38,6 @@ public struct AnswerDisplayView: View {
             $0.userID == sender
         })
     }
+    
+    //MARK: -
 }

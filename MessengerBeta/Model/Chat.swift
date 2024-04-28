@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model 
-final class Chat: Identifiable{
+final class Chat: Identifiable {
     var id: UUID
     var title: String
     var participants: [Int]

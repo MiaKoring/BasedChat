@@ -1,10 +1,3 @@
-//
-//  MessengerBetaApp.swift
-//  MessengerBeta
-//
-//  Created by Mia Koring on 30.12.23.
-//
-
 import SwiftUI
 import SwiftData
 import Security
@@ -25,26 +18,27 @@ struct BasedChatApp: App {
     
     
     var body: some Scene {
-        WindowGroup{
+        WindowGroup {
             FirstView()
                 .modelContainer(for: [Chat.self, Contact.self])
         }
     }
 }
 
-struct FirstView: View{
+struct FirstView: View {
     @Query var chats: [Chat]
     @Query var contacts: [Contact]
     @Environment(\.modelContext) var context
-    var body: some View{
-        HStack{
-            if chats.isEmpty{
+    
+    var body: some View {
+        HStack {
+            if chats.isEmpty {
                 Text("creating chat...")
                     .onAppear(){
                         context.insert(Chat(title: "Test", participants: [1, 2]))
                     }
             }
-            if chats.first!.messages.isEmpty{
+            if chats.first!.messages.isEmpty {
                 Text("creating messages...")
                     .onAppear(){
                         for message in defaultMessages{
@@ -52,7 +46,7 @@ struct FirstView: View{
                         }
                     }
             }
-            if contacts.isEmpty{
+            if contacts.isEmpty {
                 if contacts.isEmpty{
                     Text("creating contacts")
                         .onAppear(){
@@ -61,7 +55,7 @@ struct FirstView: View{
                         }
                 }
             }
-            if !chats.isEmpty && !chats.first!.messages.isEmpty && !contacts.isEmpty{
+            if !chats.isEmpty && !chats.first!.messages.isEmpty && !contacts.isEmpty {
                 //BubblePreviewProvider()
                 ChatView(chat: chats.first!)
             }
