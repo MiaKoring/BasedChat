@@ -23,6 +23,12 @@
 		144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F38F82BD848DB00770A79 /* TextExtensions.swift */; };
 		146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */; };
 		146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */; };
+		147333AA2BE046CD0075530D /* CommandProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333A92BE046CD0075530D /* CommandProtocol.swift */; };
+		147333AD2BE0470F0075530D /* CommandParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333AC2BE0470F0075530D /* CommandParameter.swift */; };
+		147333AF2BE047280075530D /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333AE2BE047280075530D /* Permissions.swift */; };
+		147333B12BE047460075530D /* CommandParameterDatatype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333B02BE047460075530D /* CommandParameterDatatype.swift */; };
+		147333B32BE0475B0075530D /* CommandError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333B22BE0475B0075530D /* CommandError.swift */; };
+		147333B52BE047E80075530D /* CommandCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147333B42BE047E80075530D /* CommandCollection.swift */; };
 		1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */; };
 		1478813C2BDE96BA009EE6B0 /* StringFormatterCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */; };
 		1478813E2BDE99B6009EE6B0 /* StringFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478813D2BDE99B6009EE6B0 /* StringFormats.swift */; };
@@ -87,6 +93,12 @@
 		144F38F82BD848DB00770A79 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleContextMenu.swift; sourceTree = "<group>"; };
 		146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTimeDisplayView.swift; sourceTree = "<group>"; };
+		147333A92BE046CD0075530D /* CommandProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProtocol.swift; sourceTree = "<group>"; };
+		147333AC2BE0470F0075530D /* CommandParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandParameter.swift; sourceTree = "<group>"; };
+		147333AE2BE047280075530D /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		147333B02BE047460075530D /* CommandParameterDatatype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandParameterDatatype.swift; sourceTree = "<group>"; };
+		147333B22BE0475B0075530D /* CommandError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandError.swift; sourceTree = "<group>"; };
+		147333B42BE047E80075530D /* CommandCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandCollection.swift; sourceTree = "<group>"; };
 		1473EA0F2B40D0D900667053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatterProtocol.swift; sourceTree = "<group>"; };
 		1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatterCollection.swift; sourceTree = "<group>"; };
@@ -253,6 +265,18 @@
 			path = ChatInput;
 			sourceTree = "<group>";
 		};
+		147333AB2BE046DE0075530D /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				147333A92BE046CD0075530D /* CommandProtocol.swift */,
+				147333AC2BE0470F0075530D /* CommandParameter.swift */,
+				147333B02BE047460075530D /* CommandParameterDatatype.swift */,
+				147333B22BE0475B0075530D /* CommandError.swift */,
+				147333B42BE047E80075530D /* CommandCollection.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		148FC7A42B440137007E3546 /* ttf */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,7 +417,9 @@
 		14CB69E92BD2ED8200516D28 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				147333AB2BE046DE0075530D /* Commands */,
 				14BE37F62BDBB93E0078D49B /* SafeAreaInsets */,
+				147333AE2BE047280075530D /* Permissions.swift */,
 				14CB69E82BD2ED8200516D28 /* DateHandler.swift */,
 				14CB69EE2BD2F12800516D28 /* URLHandler.swift */,
 				14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */,
@@ -536,6 +562,7 @@
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
 				149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */,
+				147333B52BE047E80075530D /* CommandCollection.swift in Sources */,
 				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
 				1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */,
 				1478813E2BDE99B6009EE6B0 /* StringFormats.swift in Sources */,
@@ -543,6 +570,9 @@
 				149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */,
 				1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */,
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
+				147333B32BE0475B0075530D /* CommandError.swift in Sources */,
+				147333B12BE047460075530D /* CommandParameterDatatype.swift in Sources */,
+				147333AF2BE047280075530D /* Permissions.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
 				14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */,
@@ -552,12 +582,14 @@
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
 				140936B92BDDB3CF009F667B /* Message.swift in Sources */,
 				1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */,
+				147333AD2BE0470F0075530D /* CommandParameter.swift in Sources */,
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
 				14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */,
 				140DE71D2BDBD73B00B59A25 /* MessageScrollView.swift in Sources */,
 				14CB69F92BD2FB1400516D28 /* ViewExtensions.swift in Sources */,
 				14BE38002BDBBB150078D49B /* ChatView.swift in Sources */,
 				14469B502B40937300835BFC /* BasedChatApp.swift in Sources */,
+				147333AA2BE046CD0075530D /* CommandProtocol.swift in Sources */,
 				144D31B02BDD7E3B00D1427F /* ChatInputViewExtensions.swift in Sources */,
 				14BE37FE2BDBBA600078D49B /* EnvironmentValuesExtension.swift in Sources */,
 				1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */,
