@@ -1,5 +1,5 @@
 {
-  "originHash" : "379830b20f63c3bd19e6bfff9ae222a55b14462ed8f412dc2335d2fff2755362",
+  "originHash" : "35a22f97d054f6cb2247d197fb405a732a939c172fb5a33a774adb3c94f85b78",
   "pins" : [
     {
       "identity" : "keychainaccess",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "master",
         "revision" : "e0c7eebc5a4465a3c4680764f26b7a61f567cdaf"
+      }
+    },
+    {
+      "identity" : "slashcommands",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MiaKoring/SlashCommands.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "79cf1f7deb78d39f619189053b61b89185644196"
       }
     }
   ],
