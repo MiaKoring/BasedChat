@@ -25,5 +25,24 @@ extension Text {
                     }
             }
     }
+    
+    func boldSubheadline()-> some View {
+        self
+            .font(.subheadline)
+            .bold()
+    }
+    
+    func commandOwnerStyle()-> some View {
+        self
+        .padding(3)
+        .bold()
+        .font(.footnote)
+        .background(){
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(.thinMaterial)
+        }
+        .padding(.horizontal, 5)
+        .allowsHitTesting(false)
+    }
 }
 

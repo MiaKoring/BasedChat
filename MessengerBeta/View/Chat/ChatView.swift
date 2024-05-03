@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import SlashCommands
 
 struct ChatView: View {
     //MARK: - Body
@@ -7,6 +8,16 @@ struct ChatView: View {
     var body: some View {
         VStack {
             MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
+                .overlay(alignment: .bottom) {
+                    VStack{
+                        if currentCommand == nil {
+                            CommandList(relevantCommands: $relevantCommands, currentCommand: $currentCommand, commandInput: $messageInput)
+                                .frame(height: commandListHeight())
+                        }
+                        CommandDetailView(commandInput: $messageInput, collection: $collection, currentCommand: $currentCommand, relevantCommands: $relevantCommands)
+                    }
+                    .background(.ultraThickMaterial)
+                }
             if replyTo != nil {
                 HStack {
                     ReplyToDisplayView(replyTo: $replyTo)
@@ -20,7 +31,7 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
-            ChatInputView(replyTo: $replyTo, newMessage: $newMessage, chat: $chat)
+            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender)
         }
             .padding(.horizontal, 10)
         #if canImport(UIKit)
@@ -54,13 +65,19 @@ struct ChatView: View {
             .onChange(of: replyTo) {
                 print("changed")
             }
-            .onChange(of: newMessage) {
-                sendMessage(newMessage)
+            .onChange(of: messageSent) {
+                DispatchQueue.main.async {
+                    handleMessageSend()
+                }
             }
             .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
+                collection = CommandCollection(commands: [Bababa(completion: complete), Tableflip(completion: comp), Unflip(completion: unflipComplete)])
             }
             .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
+            .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){
+                
+            }
     }
     
     //MARK: - Parameters
@@ -79,7 +96,14 @@ struct ChatView: View {
     @State var replyTo: Reply? = nil
     @State var newMessageSent = false
     @State var messageToDelete: Message? = nil
-    @State var newMessage: Message? = nil
+    @State var relevantCommands: [any Command] = []
+    @State var messageInput: String = ""
+    @State var collection: CommandCollection = CommandCollection(commands: [])
+    @State var currentCommand: (any Command)? = nil
+    @State var sender: Int = 0 //TODO: Only Test
+    @State var messageSent = false
+    @State var commandErrorShown = false
+    @State var commandError: CommandError? = nil
     
     //MARK: -
 }

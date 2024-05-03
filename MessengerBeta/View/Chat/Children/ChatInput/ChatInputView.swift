@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import SlashCommands
 
 struct ChatInputView: View {
     //MARK: - Body
@@ -8,7 +9,6 @@ struct ChatInputView: View {
         HStack {
             Button {
                 createMessage(2)
-                print("should be stored")
             } label: {
                 Image(systemName: "plus")
             }
@@ -28,10 +28,11 @@ struct ChatInputView: View {
     //MARK: - Parameters
     
     @Binding var replyTo: Reply?
-    @Binding var newMessage: Message?
-    @State var messageInput: String = ""
+    @Binding var messageInput: String
     @State var showMessageEmptyAlert = false
     @Binding var chat: Chat
+    @Binding var messageSent: Bool
+    @Binding var sender: Int //TODO: Only Test
     
     //MARK: -
 }

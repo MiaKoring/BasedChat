@@ -4,11 +4,31 @@
     "" : {
 
     },
+    "/ %@" : {
+
+    },
     "%lld" : {
 
     },
     "+%lld" : {
 
+    },
+    "BababaDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fügt deiner Nachricht eine sprechende Katze hinzu"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attaches talking cat to your message"
+          }
+        }
+      }
     },
     "Cancel" : {
       "extractionState" : "manual",
@@ -23,6 +43,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "CommandCheckError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim prüfen des Befehls ist ein Fehler aufgetreten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error occured while checking command"
           }
         }
       }
@@ -104,23 +141,29 @@
         }
       }
     },
+    "integrated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INTEGRIER"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INTEGRATED"
+          }
+        }
+      }
+    },
     "Invalid URL" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ungültige URL"
-          }
-        }
-      }
-    },
-    "me" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Du"
           }
         }
       }
@@ -138,6 +181,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Message"
+          }
+        }
+      }
+    },
+    "MessageParamDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Nachricht"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Message"
           }
         }
       }
@@ -182,6 +242,60 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reply"
+          }
+        }
+      }
+    },
+    "Report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Melden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "send" : {
+
+    },
+    "TableFlipDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hängt (╯°□°)╯︵ ┻━┻ an deine Nachricht an"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attaches (╯°□°)╯︵ ┻━┻ to your message"
+          }
+        }
+      }
+    },
+    "UnflipDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hängt ┬─┬ノ( º _ ºノ) an deine Nachricht an"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attaches ┬─┬ノ( º _ ºノ) to your message"
           }
         }
       }
