@@ -74,7 +74,7 @@ extension ChatView {
             sendMessage(newMessage)
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: true)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
         sendMessage(newMessage)
         return
     }
@@ -92,7 +92,7 @@ extension ChatView {
             sendMessage(newMessage)
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: true)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
         sendMessage(newMessage)
         return
     }
@@ -110,7 +110,7 @@ extension ChatView {
             sendMessage(newMessage)
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: true)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
         sendMessage(newMessage)
         return
     }
