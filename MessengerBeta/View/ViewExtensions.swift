@@ -37,9 +37,11 @@ extension View {
     }
 
     func hideKeyboard()-> Void {
-        #if canImport(UIKit)
+        DispatchQueue.main.async {
+#if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        #endif
+#endif
+        }
     }
 
 }

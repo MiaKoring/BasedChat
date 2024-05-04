@@ -6,17 +6,11 @@ struct MessageTextView: View, ReactionInfluenced {
     
     var body: some View {
         HStack {
-            if !message.text.contains("*") && !message.text.contains("_") && !message.text.contains("~") {
-                Text(message.text)
-                    .padding(.bottom, reactionContainer.isEmpty ? 0 : 14.5)
-            }
-            else {
-                formatText()
-                    .padding(.bottom, reactionContainer.isEmpty ? 0 : 14.5)
-                    .onAppear() {
-                        formattedChars = self.formatChars(message.text)
-                    }
-            }
+            formatText()
+                .padding(.bottom, reactionContainer.isEmpty ? 0 : 14.5)
+        }
+        .onAppear(){
+            formattedChars = message.formattedChars.sorted(by: {$0.id < $1.id})
         }
     }
     
@@ -25,6 +19,12 @@ struct MessageTextView: View, ReactionInfluenced {
     var message: Message
     @Binding var reactionContainer: String
     @Binding var formattedChars: [FormattedChar]
+    
+    init(message: Message, reactionContainer: Binding<String>, formattedChars: Binding<[FormattedChar]>) {
+        self.message = message
+        self._reactionContainer = reactionContainer
+        self._formattedChars = formattedChars
+    }
     
     //MARK: -
 }

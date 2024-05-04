@@ -44,8 +44,13 @@ extension CommandDetailView {
         let lastIndex = suffixLastIndex()
         
         let commandprefix = String(commandInput[commandInput.startIndex...lastIndex])
-        
-        relevantCommands = collection.commands(for: commandprefix, highestPermission: .none)
+        DispatchQueue.global(qos: .background).async {
+            let relevant = collection.commands(for: commandprefix, highestPermission: .none)
+            
+            DispatchQueue.main.async {
+                relevantCommands = relevant
+            }
+        }
         
         if commandprefix == "/" {
             currentCommand = nil
@@ -63,9 +68,15 @@ extension CommandDetailView {
     }
     
     fileprivate func handleParams() {
-        setParams = paramNames()
-        if !setParams.contains(currentParam?.name ?? ""){
-            currentParam = nil
+        DispatchQueue.global(qos: .background).async {
+            let params = paramNames()
+            
+            DispatchQueue.main.async {
+                setParams = params
+                if !setParams.contains(currentParam?.name ?? ""){
+                    currentParam = nil
+                }
+            }
         }
     }
     

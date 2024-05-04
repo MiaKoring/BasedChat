@@ -10,32 +10,42 @@ extension ChatView {
     }
     
     func deleteMessage() {
-        if messageToDelete == nil { return }
-        chat.messages.removeAll(where: {$0.id == messageToDelete!.id})
+        DispatchQueue.main.async {
+            if messageToDelete == nil { return }
+            chat.messages.removeAll(where: {$0.id == messageToDelete!.id})
+        }
     }
     
     func handleMessageSend() {
-        if handleCommand() {
-            currentCommand = nil
-            replyTo = nil
-            messageInput = ""
-            return
+        DispatchQueue.global(qos: .background).async {
+            if handleCommand() {
+                DispatchQueue.main.async {
+                    currentCommand = nil
+                    replyTo = nil
+                    messageInput = ""
+                }
+                return
+            }
+            
+            let newMessage = generateMessage()
+            DispatchQueue.main.async {
+                replyTo = nil
+                messageInput = ""
+                sendMessage(newMessage)
+            }
         }
-        
-        let newMessage = generateMessage()
-        sendMessage(newMessage)
     }
     
     fileprivate func generateMessage()-> Message {
         var newMessage: Message? = nil
+        let formattedChars = StringFormatterCollection.formatChars(messageInput)
+        
         if replyTo == nil {
-            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false)
+            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
         }
         else {
-            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false)
+            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
         }
-        replyTo = nil
-        messageInput = ""
         return newMessage!
     }
     
@@ -69,13 +79,18 @@ extension ChatView {
         else {
             msgStr = "\(params["message"] as! String) (╯°□°)╯︵ ┻━┻"
         }
+        let formattedChars = StringFormatterCollection.formatChars(msgStr)
         if replyTo == nil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
-            sendMessage(newMessage)
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+            DispatchQueue.main.async {
+                sendMessage(newMessage)
+            }
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
-        sendMessage(newMessage)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        DispatchQueue.main.async {
+            sendMessage(newMessage)
+        }
         return
     }
     
@@ -87,13 +102,18 @@ extension ChatView {
         else {
             msgStr = "\(params["message"] as! String) bababa"
         }
+        let formattedChars = StringFormatterCollection.formatChars(msgStr)
         if replyTo == nil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
-            sendMessage(newMessage)
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+            DispatchQueue.main.async {
+                sendMessage(newMessage)
+            }
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
-        sendMessage(newMessage)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        DispatchQueue.main.async {
+            sendMessage(newMessage)
+        }
         return
     }
     
@@ -105,13 +125,16 @@ extension ChatView {
         else {
             msgStr = "\(params["message"] as! String) ┬─┬ノ( º _ ºノ)"
         }
+        let formattedChars = StringFormatterCollection.formatChars(msgStr)
         if replyTo == nil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
             sendMessage(newMessage)
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true)
-        sendMessage(newMessage)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        DispatchQueue.main.async {
+            sendMessage(newMessage)
+        }
         return
     }
 }

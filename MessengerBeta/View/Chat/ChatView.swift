@@ -62,9 +62,6 @@ struct ChatView: View {
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThickMaterial)
             }
-            .onChange(of: replyTo) {
-                print("changed")
-            }
             .onChange(of: messageSent) {
                 DispatchQueue.main.async {
                     handleMessageSend()
