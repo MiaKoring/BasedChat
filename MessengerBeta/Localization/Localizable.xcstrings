@@ -263,9 +263,6 @@
         }
       }
     },
-    "send" : {
-
-    },
     "TableFlipDescription" : {
       "extractionState" : "manual",
       "localizations" : {

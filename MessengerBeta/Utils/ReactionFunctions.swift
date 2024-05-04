@@ -49,49 +49,56 @@ extension ReactionInfluenced {
     }
     
     func formatChars(_ str: String) -> [FormattedChar] {
-        var formattedChars: [FormattedChar] = []
-        var currentChar = ""
-        var previousChar = ""
-        var currentFormats: [String] = []
-        var blockAdding = false
-        let input = str.replacingOccurrences(of: "\n", with: "￿")
-        let allowedSurroundingChars = ["", " ", "￿", ".", ",", ":", ";", "\"", "'", "*", "_", "~"]
-        
-        for i in 0..<input.count {
-            let atm =  String(input[input.index(input.startIndex, offsetBy: i)])
-            let next = i + 1 < input.count ? String(input[input.index(input.startIndex, offsetBy: i+1)]) : ""
-            
-            if (atm == "*" || atm == "_" || atm == "~") && (allowedSurroundingChars.contains(previousChar) || allowedSurroundingChars.contains(next)) {
-                    
-                if !currentChar.isEmpty {
-                    let formattedChar = FormattedChar(char: currentChar, formats: currentFormats)
-                    formattedChars.append(formattedChar)
-                    currentChar = ""
-                    
-                }
-                if currentFormats.contains(String(atm)) && allowedSurroundingChars.contains(next){
-                    currentFormats.removeAll(where: {$0 == String(atm)})
-                    blockAdding = true
-                }
-                if !blockAdding && allowedSurroundingChars.contains(previousChar) {
-                    currentFormats.append(String(atm))
-                }
-                else{
-                    blockAdding = false
-                }
-            } 
-            else {
-                currentChar.append(atm)
+        let italicRegex: NSRegularExpression? = {
+            do {
+                return try NSRegularExpression(pattern: "(?<![^ ~\\*])_\\S(?:(?!\\S_ ).)*\\S_(?![^ ~\\*])")
             }
-            previousChar = atm
-            
-        }
-        if !currentChar.isEmpty {
-            let formattedChar = FormattedChar(char: currentChar.replacingOccurrences(of: "￿", with: "\n"), formats: currentFormats)
-            formattedChars.append(formattedChar)
-        }
+            catch { return nil }
+        }()
+        let boldRegex: NSRegularExpression? = {
+            do {
+                return try NSRegularExpression(pattern: "(?<![^ _~])\\*\\S(?:(?!\\S\\* ).)*\\S\\*(?![^ _~])")
+            }
+            catch { return nil }
+        }()
+        let strikethroughRegex: NSRegularExpression? = {
+            do {
+                return try NSRegularExpression(pattern: "(?<![^ _\\*])~\\S(?:(?!\\S~ ).)*\\S~(?![^ _\\*])")
+            }
+            catch { return nil }
+        }()
         
-        return formattedChars
+        var results: [FormattedChar] = []
+        let italicRanges = italicRegex!.matches(in: str, range: NSRange(str.startIndex..., in: str))
+        let boldRanges = boldRegex!.matches(in: str, range: NSRange(str.startIndex..., in: str))
+        let strikethroughRanges = strikethroughRegex!.matches(in: str, range: NSRange(str.startIndex..., in: str))
+        
+        var currentSubstr = ""
+        var currentFormats: [String] = []
+        
+        for i in 0..<str.count {
+            let index = str.index(str.startIndex, offsetBy: i)
+            let current = "\(str[index])"
+            if italicRanges.contains(where: {$0.range.lowerBound == i}) || boldRanges.contains(where: {$0.range.lowerBound == i}) || strikethroughRanges.contains(where: {$0.range.lowerBound == i}) {
+                results.append(FormattedChar(char: currentSubstr, formats: currentFormats))
+                
+                currentSubstr = ""
+                currentFormats.append(current)
+                continue
+            }
+            else if italicRanges.contains(where: {$0.range.upperBound - 1 == i}) || boldRanges.contains(where: {$0.range.upperBound - 1 == i}) || strikethroughRanges.contains(where: {$0.range.upperBound - 1 == i}) {
+                results.append(FormattedChar(char: currentSubstr, formats: currentFormats))
+                
+                currentSubstr = ""
+                currentFormats.removeAll(where: {$0 == current})
+                continue
+            }
+            currentSubstr.append(current)
+            if i == str.count - 1 {
+                results.append(FormattedChar(char: currentSubstr, formats: currentFormats))
+            }
+        }
+        return results
     }
     
     func genReactions()-> Reaction {
