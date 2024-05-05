@@ -16,7 +16,7 @@ struct Bubble: View, ReactionInfluenced {
                         MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
                         
                     }
-                    .padding(10)
+                    .padding(6)
                     
                     ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
                         .hidden()
@@ -30,7 +30,7 @@ struct Bubble: View, ReactionInfluenced {
                 }
                 if !message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
             }
-            .background(Color.init("Background"))
+            .background(.clear)
             .onTapGesture {
                 #if canImport(UIKit)
                 if !keyboardShown {

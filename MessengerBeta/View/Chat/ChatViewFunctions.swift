@@ -1,5 +1,6 @@
 import Foundation
 import SlashCommands
+import SwiftChameleon
 
 extension ChatView {
     func commandListHeight()-> Double {
@@ -11,7 +12,7 @@ extension ChatView {
     
     func deleteMessage() {
         DispatchQueue.main.async {
-            if messageToDelete == nil { return }
+            if messageToDelete.isNil { return }
             chat.messages.removeAll(where: {$0.id == messageToDelete!.id})
         }
     }
@@ -40,16 +41,16 @@ extension ChatView {
         var newMessage: Message? = nil
         let formattedChars = StringFormatterCollection.formatChars(messageInput)
         
-        if replyTo == nil {
+        if replyTo.isNil {
             newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
         }
         else {
-            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
+            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
         }
         return newMessage!
     }
     
-    fileprivate func sendMessage(_ newMessage: Message) {
+    func sendMessage(_ newMessage: Message) {
         chat.messages.append(newMessage)
         chat.currentMessageID += 1
         newMessageSent.toggle()
@@ -80,14 +81,14 @@ extension ChatView {
             msgStr = "\(params["message"] as! String) (╯°□°)╯︵ ┻━┻"
         }
         let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo == nil {
+        if replyTo.isNil {
             let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
             DispatchQueue.main.async {
                 sendMessage(newMessage)
             }
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
         DispatchQueue.main.async {
             sendMessage(newMessage)
         }
@@ -103,14 +104,14 @@ extension ChatView {
             msgStr = "\(params["message"] as! String) bababa"
         }
         let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo == nil {
+        if replyTo.isNil {
             let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
             DispatchQueue.main.async {
                 sendMessage(newMessage)
             }
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
         DispatchQueue.main.async {
             sendMessage(newMessage)
         }
@@ -126,12 +127,12 @@ extension ChatView {
             msgStr = "\(params["message"] as! String) ┬─┬ノ( º _ ºノ)"
         }
         let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo == nil {
+        if replyTo.isNil {
             let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
             sendMessage(newMessage)
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: "reply", reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
         DispatchQueue.main.async {
             sendMessage(newMessage)
         }

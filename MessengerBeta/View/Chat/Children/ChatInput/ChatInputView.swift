@@ -3,15 +3,25 @@ import SwiftUI
 import SlashCommands
 
 struct ChatInputView: View {
-    //MARK: - Body
+    //MARK: - Bodyub
     
     var body: some View {
         HStack {
-            Button {
-                createMessage(2)
-            } label: {
-                Image(systemName: "plus")
-            }
+            Image(systemName: "plus")
+                .contextMenu(ContextMenu(menuItems: {
+                    Button {
+                        createMessage(2)
+                    } label: {
+                        Text("regular")
+                    }
+                    Button {
+                        sender = 1
+                        stickerPath = "integratedTalkingCat"
+                        sendSticker.toggle()
+                    } label: {
+                        Text("Babbelgadse")
+                    }
+                }))
             TextField("", text: $messageInput, axis: .vertical)
                 .messageInputStyle()
             Button {
@@ -33,6 +43,8 @@ struct ChatInputView: View {
     @Binding var chat: Chat
     @Binding var messageSent: Bool
     @Binding var sender: Int //TODO: Only Test
+    @Binding var sendSticker: Bool
+    @Binding var stickerPath: String
     
     //MARK: -
 }

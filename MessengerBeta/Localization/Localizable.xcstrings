@@ -30,6 +30,9 @@
         }
       }
     },
+    "Babbelgadse" : {
+
+    },
     "Cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -124,6 +127,9 @@
         }
       }
     },
+    "Done" : {
+
+    },
     "EmptyMessageAlert" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -167,6 +173,9 @@
           }
         }
       }
+    },
+    "Loading..." : {
+
     },
     "Message" : {
       "extractionState" : "manual",
@@ -229,6 +238,9 @@
         }
       }
     },
+    "regular" : {
+
+    },
     "Reply" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -259,6 +271,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Report"
+          }
+        }
+      }
+    },
+    "ressourceNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konnte nicht gefunden werden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ressource not found"
           }
         }
       }

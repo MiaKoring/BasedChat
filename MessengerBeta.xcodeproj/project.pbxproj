@@ -52,7 +52,6 @@
 		14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */; };
 		14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69E82BD2ED8200516D28 /* DateHandler.swift */; };
 		14CB69ED2BD2F08800516D28 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69EC2BD2F08800516D28 /* LinkView.swift */; };
-		14CB69EF2BD2F12800516D28 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69EE2BD2F12800516D28 /* URLHandler.swift */; };
 		14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69F22BD2F42300516D28 /* MatchWidthView.swift */; };
 		14CB69F52BD2F64B00516D28 /* LinkStringDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69F42BD2F64B00516D28 /* LinkStringDisplay.swift */; };
 		14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CB69F62BD2F9EB00516D28 /* ReplyView.swift */; };
@@ -66,6 +65,18 @@
 		14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B722BD6712800D41949 /* CredentialHandler.swift */; };
 		14F35B762BD6A26500D41949 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 14F35B752BD6A26500D41949 /* KeychainAccess */; };
 		14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B772BD6A33F00D41949 /* Credentials.swift */; };
+		A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */; };
+		A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */; };
+		A62B05A52BE7AF0E00A0C399 /* SwiftChameleon in Frameworks */ = {isa = PBXBuildFile; productRef = A62B05A42BE7AF0E00A0C399 /* SwiftChameleon */; };
+		A62B05A92BE7B11D00A0C399 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05A82BE7B11D00A0C399 /* Sticker.swift */; };
+		A62B05AB2BE7B22C00A0C399 /* MessageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05AA2BE7B22C00A0C399 /* MessageExtensions.swift */; };
+		A62B05AD2BE7B27900A0C399 /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05AC2BE7B27900A0C399 /* MessageType.swift */; };
+		A62B05AF2BE7B4DA00A0C399 /* MessageBindingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05AE2BE7B4DA00A0C399 /* MessageBindingExtension.swift */; };
+		A62B05B22BE7B5BA00A0C399 /* StickerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05B12BE7B5BA00A0C399 /* StickerImageView.swift */; };
+		A62B05B42BE7BCA800A0C399 /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05B32BE7BCA800A0C399 /* GIFView.swift */; };
+		A62B05B62BE7BF4A00A0C399 /* TalkingCat.gif in Resources */ = {isa = PBXBuildFile; fileRef = A62B05B52BE7BF4A00A0C399 /* TalkingCat.gif */; };
+		A62B05B92BE7C76C00A0C399 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05B82BE7C76C00A0C399 /* FileHandler.swift */; };
+		A62B05BB2BE7E8BD00A0C399 /* IntegratedStickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05BA2BE7E8BD00A0C399 /* IntegratedStickers.swift */; };
 		A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */ = {isa = PBXBuildFile; productRef = A68C6FC82BE2D38B00967243 /* SlashCommands */; };
 		A6BF8C542BE56C3000D1C471 /* CommandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C532BE56C3000D1C471 /* CommandDetailView.swift */; };
 		A6BF8C562BE56D9A00D1C471 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C552BE56D9A00D1C471 /* ImageExtensions.swift */; };
@@ -156,7 +167,6 @@
 		14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleFunctions.swift; sourceTree = "<group>"; };
 		14CB69E82BD2ED8200516D28 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
 		14CB69EC2BD2F08800516D28 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
-		14CB69EE2BD2F12800516D28 /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		14CB69F22BD2F42300516D28 /* MatchWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchWidthView.swift; sourceTree = "<group>"; };
 		14CB69F42BD2F64B00516D28 /* LinkStringDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkStringDisplay.swift; sourceTree = "<group>"; };
 		14CB69F62BD2F9EB00516D28 /* ReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyView.swift; sourceTree = "<group>"; };
@@ -169,6 +179,17 @@
 		14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		14F35B722BD6712800D41949 /* CredentialHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialHandler.swift; sourceTree = "<group>"; };
 		14F35B772BD6A33F00D41949 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerImageViewExtension.swift; sourceTree = "<group>"; };
+		A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
+		A62B05A82BE7B11D00A0C399 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		A62B05AA2BE7B22C00A0C399 /* MessageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageExtensions.swift; sourceTree = "<group>"; };
+		A62B05AC2BE7B27900A0C399 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		A62B05AE2BE7B4DA00A0C399 /* MessageBindingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBindingExtension.swift; sourceTree = "<group>"; };
+		A62B05B12BE7B5BA00A0C399 /* StickerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerImageView.swift; sourceTree = "<group>"; };
+		A62B05B32BE7BCA800A0C399 /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
+		A62B05B52BE7BF4A00A0C399 /* TalkingCat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = TalkingCat.gif; sourceTree = "<group>"; };
+		A62B05B82BE7C76C00A0C399 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
+		A62B05BA2BE7E8BD00A0C399 /* IntegratedStickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedStickers.swift; sourceTree = "<group>"; };
 		A6BF8C532BE56C3000D1C471 /* CommandDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDetailView.swift; sourceTree = "<group>"; };
 		A6BF8C552BE56D9A00D1C471 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		A6BF8C572BE56DDB00D1C471 /* CommandImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandImageSize.swift; sourceTree = "<group>"; };
@@ -189,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */,
+				A62B05A52BE7AF0E00A0C399 /* SwiftChameleon in Frameworks */,
 				14F35B762BD6A26500D41949 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +274,7 @@
 		14469B4E2B40937300835BFC /* MessengerBeta */ = {
 			isa = PBXGroup;
 			children = (
+				A62B05B72BE7BF6B00A0C399 /* Reccources */,
 				A6BF8C892BE581B000D1C471 /* Commands */,
 				14CB69E92BD2ED8200516D28 /* Utils */,
 				1473EA0F2B40D0D900667053 /* Info.plist */,
@@ -350,14 +373,13 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		14BE37F12BDBB2CC0078D49B /* Bubble */ = {
+		14BE37F12BDBB2CC0078D49B /* ChatItems */ = {
 			isa = PBXGroup;
 			children = (
-				14BE37F22BDBB2DC0078D49B /* Children */,
-				14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */,
-				14CB69E52BD2ED6600516D28 /* Bubble.swift */,
+				A62B05A72BE7B10200A0C399 /* Sticker */,
+				A62B05A62BE7B0EF00A0C399 /* Bubble */,
 			);
-			path = Bubble;
+			path = ChatItems;
 			sourceTree = "<group>";
 		};
 		14BE37F22BDBB2DC0078D49B /* Children */ = {
@@ -400,7 +422,6 @@
 			children = (
 				14BE37F62BDBB93E0078D49B /* SafeAreaInsets */,
 				14CB69E82BD2ED8200516D28 /* DateHandler.swift */,
-				14CB69EE2BD2F12800516D28 /* URLHandler.swift */,
 				14CB69FC2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift */,
 				14CB69FE2BD3011000516D28 /* ReactionFunctions.swift */,
 				14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */,
@@ -409,6 +430,8 @@
 				147881392BDE962E009EE6B0 /* StringFormatterProtocol.swift */,
 				1478813B2BDE96BA009EE6B0 /* StringFormatterCollection.swift */,
 				1478813D2BDE99B6009EE6B0 /* StringFormats.swift */,
+				A62B05B82BE7C76C00A0C399 /* FileHandler.swift */,
+				A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -418,11 +441,12 @@
 			children = (
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
 				14BE37F32BDBB5940078D49B /* Chat */,
-				14BE37F12BDBB2CC0078D49B /* Bubble */,
+				14BE37F12BDBB2CC0078D49B /* ChatItems */,
 				14CB69F82BD2FB1400516D28 /* ViewExtensions.swift */,
 				144F38F82BD848DB00770A79 /* TextExtensions.swift */,
 				149876152BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift */,
 				A6BF8C552BE56D9A00D1C471 /* ImageExtensions.swift */,
+				A62B05B32BE7BCA800A0C399 /* GIFView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -441,8 +465,48 @@
 				1498761E2BDD20E3001CE1C5 /* Contact.swift */,
 				140936B82BDDB3CF009F667B /* Message.swift */,
 				A6BF8C572BE56DDB00D1C471 /* CommandImageSize.swift */,
+				A62B05AA2BE7B22C00A0C399 /* MessageExtensions.swift */,
+				A62B05AC2BE7B27900A0C399 /* MessageType.swift */,
+				A62B05AE2BE7B4DA00A0C399 /* MessageBindingExtension.swift */,
+				A62B05BA2BE7E8BD00A0C399 /* IntegratedStickers.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A62B05A62BE7B0EF00A0C399 /* Bubble */ = {
+			isa = PBXGroup;
+			children = (
+				14BE37F22BDBB2DC0078D49B /* Children */,
+				14CB69E72BD2ED8200516D28 /* BubbleFunctions.swift */,
+				14CB69E52BD2ED6600516D28 /* Bubble.swift */,
+			);
+			path = Bubble;
+			sourceTree = "<group>";
+		};
+		A62B05A72BE7B10200A0C399 /* Sticker */ = {
+			isa = PBXGroup;
+			children = (
+				A62B05B02BE7B5AE00A0C399 /* Children */,
+				A62B05A82BE7B11D00A0C399 /* Sticker.swift */,
+			);
+			path = Sticker;
+			sourceTree = "<group>";
+		};
+		A62B05B02BE7B5AE00A0C399 /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				A62B05B12BE7B5BA00A0C399 /* StickerImageView.swift */,
+				A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		A62B05B72BE7BF6B00A0C399 /* Reccources */ = {
+			isa = PBXGroup;
+			children = (
+				A62B05B52BE7BF4A00A0C399 /* TalkingCat.gif */,
+			);
+			path = Reccources;
 			sourceTree = "<group>";
 		};
 		A6BF8C522BE56C1A00D1C471 /* Commands */ = {
@@ -512,6 +576,7 @@
 			packageProductDependencies = (
 				14F35B752BD6A26500D41949 /* KeychainAccess */,
 				A68C6FC82BE2D38B00967243 /* SlashCommands */,
+				A62B05A42BE7AF0E00A0C399 /* SwiftChameleon */,
 			);
 			productName = MessengerBeta;
 			productReference = 14469B4C2B40937300835BFC /* MessengerBeta.app */;
@@ -545,6 +610,7 @@
 			packageReferences = (
 				14F35B742BD6A26500D41949 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				A68C6FC72BE2D38B00967243 /* XCRemoteSwiftPackageReference "SlashCommands" */,
+				A62B05A32BE7AF0E00A0C399 /* XCRemoteSwiftPackageReference "SwiftChameleon" */,
 			);
 			productRefGroup = 14469B4D2B40937300835BFC /* Products */;
 			projectDirPath = "";
@@ -564,6 +630,7 @@
 				148FC7C52B44016C007E3546 /* JetBrainsMono-Bold.ttf in Resources */,
 				140DE73D2BDC1B3800B59A25 /* Localizable.xcstrings in Resources */,
 				148FC7C62B44016C007E3546 /* JetBrainsMono-Italic.ttf in Resources */,
+				A62B05B62BE7BF4A00A0C399 /* TalkingCat.gif in Resources */,
 				148FC7C72B44016C007E3546 /* JetBrainsMono-Regular.ttf in Resources */,
 				148FC7C82B44016C007E3546 /* JetBrainsMonoNL-BoldItalic.ttf in Resources */,
 				14469B562B40937500835BFC /* Assets.xcassets in Resources */,
@@ -586,14 +653,16 @@
 				14CB69DE2BD2ECAB00516D28 /* Reply.swift in Sources */,
 				14BE37FC2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift in Sources */,
 				14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */,
+				A62B05B92BE7C76C00A0C399 /* FileHandler.swift in Sources */,
 				146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */,
-				14CB69EF2BD2F12800516D28 /* URLHandler.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
+				A62B05BB2BE7E8BD00A0C399 /* IntegratedStickers.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
 				A6BF8C8D2BE5851200D1C471 /* Tableflip.swift in Sources */,
+				A62B05A92BE7B11D00A0C399 /* Sticker.swift in Sources */,
 				149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */,
 				14E0180C2B4CB32500A6E379 /* Chat.swift in Sources */,
 				1498761D2BDD202C001CE1C5 /* ReplyToDisplayExtensions.swift in Sources */,
@@ -615,11 +684,14 @@
 				A6BF8C8B2BE581BD00D1C471 /* Bababa.swift in Sources */,
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
 				140936B92BDDB3CF009F667B /* Message.swift in Sources */,
+				A62B05AD2BE7B27900A0C399 /* MessageType.swift in Sources */,
 				1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */,
+				A62B05AB2BE7B22C00A0C399 /* MessageExtensions.swift in Sources */,
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
 				A6BF8C562BE56D9A00D1C471 /* ImageExtensions.swift in Sources */,
 				14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */,
 				140DE71D2BDBD73B00B59A25 /* MessageScrollView.swift in Sources */,
+				A62B05AF2BE7B4DA00A0C399 /* MessageBindingExtension.swift in Sources */,
 				14CB69F92BD2FB1400516D28 /* ViewExtensions.swift in Sources */,
 				A6BF8C862BE5811F00D1C471 /* CommandList.swift in Sources */,
 				14BE38002BDBBB150078D49B /* ChatView.swift in Sources */,
@@ -627,14 +699,18 @@
 				144D31B02BDD7E3B00D1427F /* ChatInputViewFunctions.swift in Sources */,
 				14BE37FE2BDBBA600078D49B /* EnvironmentValuesExtension.swift in Sources */,
 				1498761F2BDD20E3001CE1C5 /* Contact.swift in Sources */,
+				A62B05B42BE7BCA800A0C399 /* GIFView.swift in Sources */,
 				144D31AE2BDD7DD400D1427F /* ChatInputView.swift in Sources */,
+				A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */,
 				14CB69F52BD2F64B00516D28 /* LinkStringDisplay.swift in Sources */,
 				140DE7422BDC31A200B59A25 /* ReactionSheetView.swift in Sources */,
 				140DE71B2BDBD67300B59A25 /* MessageScrollViewExtensions.swift in Sources */,
 				14CB69ED2BD2F08800516D28 /* LinkView.swift in Sources */,
 				A6BF8C542BE56C3000D1C471 /* CommandDetailView.swift in Sources */,
+				A62B05B22BE7B5BA00A0C399 /* StickerImageView.swift in Sources */,
 				14CB69FF2BD3011000516D28 /* ReactionFunctions.swift in Sources */,
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
+				A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */,
 				A6BF8C582BE56DDB00D1C471 /* CommandImageSize.swift in Sources */,
 				140DE73F2BDC26E700B59A25 /* ChatViewFunctions.swift in Sources */,
 				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
@@ -881,6 +957,14 @@
 				kind = branch;
 			};
 		};
+		A62B05A32BE7AF0E00A0C399 /* XCRemoteSwiftPackageReference "SwiftChameleon" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simon-zwicker/SwiftChameleon";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		A68C6FC72BE2D38B00967243 /* XCRemoteSwiftPackageReference "SlashCommands" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MiaKoring/SlashCommands.git";
@@ -896,6 +980,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14F35B742BD6A26500D41949 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		A62B05A42BE7AF0E00A0C399 /* SwiftChameleon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A62B05A32BE7AF0E00A0C399 /* XCRemoteSwiftPackageReference "SwiftChameleon" */;
+			productName = SwiftChameleon;
 		};
 		A68C6FC82BE2D38B00967243 /* SlashCommands */ = {
 			isa = XCSwiftPackageProductDependency;

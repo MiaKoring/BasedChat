@@ -1,24 +1,31 @@
 import SwiftUI
+import SwiftChameleon
 
 struct MessageView: View {
     //MARK: - Body
     
     var body: some View {
         LazyVStack {
-            ForEach($renderedMessages) { message in
-                Bubble(minSpacerWidth: minSpacerWidth, message: message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)
-                    .id(message.id)
-                    .rotationEffect(.degrees(180.0))
-                    .onDisappear() {
-                        if !showBottomScrollButton && message.wrappedValue == renderedMessages.first {
-                            showBottomScrollButton = true
+            ForEach($renderedMessages, id: \.id) { message in
+                if message.isSticker {
+                    Sticker(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, minSpacerWidth: minSpacerWidth)
+                        .rotationEffect(.degrees(180.0))
+                }
+                else {
+                    Bubble(minSpacerWidth: minSpacerWidth, message: message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)
+                        .id(message.id)
+                        .rotationEffect(.degrees(180.0))
+                        .onDisappear() {
+                            if !showBottomScrollButton && message.wrappedValue == renderedMessages.first {
+                                showBottomScrollButton = true
+                            }
                         }
-                    }
-                    .onAppear() {
-                        if message.wrappedValue == renderedMessages.first {
-                            showBottomScrollButton = false
+                        .onAppear() {
+                            if message.wrappedValue == renderedMessages.first {
+                                showBottomScrollButton = false
+                            }
                         }
-                    }
+                }
                 if containsUnread && lastUnreadIndex == renderedMessages.firstIndex(where: {$0.id == message.id}) {
                     HStack {
                         Spacer()
@@ -36,13 +43,10 @@ struct MessageView: View {
                 }
             }
             .onChange(of: messageToDelete) {
-                if messageToDelete == nil { return }
+                if messageToDelete.isNil { return }
                 renderedMessages.removeAll(where: { $0.id == messageToDelete!.id })
             }
         }
-        
-        
-        
     }
     
     //MARK: - Parameters

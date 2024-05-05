@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import SwiftChameleon
 
 struct LinkView: View {
     //MARK: - Body
@@ -10,7 +11,7 @@ struct LinkView: View {
                 if URLs.count == 1 {
                     LinkStringDisplay(messageText: messageText, url: URLs.first?.urlstr)
                         .onTapGesture {
-                            showURLInvalidAlert = !URLHandler.openURL(URLs.first!.urlstr)
+                            showURLInvalidAlert = !URLHandler.open(urlString: URLs.first!.urlstr)
                         }
                         .contextMenu {
                             Text(URLs.first!.urlstr)

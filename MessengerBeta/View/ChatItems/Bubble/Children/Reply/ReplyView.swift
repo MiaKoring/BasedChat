@@ -4,10 +4,10 @@ import SwiftUI
 struct ReplyView: View {
     //MARK: - Body
     var body: some View {
-        if message.type == "reply" && message.reply != nil {
+        if !message.type.range(of: "reply", options: .caseInsensitive).isNil && message.reply != nil {
             HStack {
                 ZStack(alignment: .leading) {
-                    MatchWidthView(text: message.text)
+                    MatchWidthView(text: message.text, width: message.type.contains("sticker") ? 200 : nil)
                     AnswerDisplayView(text: message.reply!.text, sender: message.reply!.sender, originMessageID: message.reply!.originID)
                 }
             }

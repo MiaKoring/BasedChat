@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import SlashCommands
+import SwiftChameleon
 
 struct ChatView: View {
     //MARK: - Body
@@ -10,7 +11,7 @@ struct ChatView: View {
             MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
                 .overlay(alignment: .bottom) {
                     VStack{
-                        if currentCommand == nil {
+                        if currentCommand.isNil {
                             CommandList(relevantCommands: $relevantCommands, currentCommand: $currentCommand, commandInput: $messageInput)
                                 .frame(height: commandListHeight())
                         }
@@ -31,7 +32,7 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
-            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender)
+            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath)
         }
             .padding(.horizontal, 10)
         #if canImport(UIKit)
@@ -63,9 +64,7 @@ struct ChatView: View {
                 .presentationBackground(.ultraThickMaterial)
             }
             .onChange(of: messageSent) {
-                DispatchQueue.main.async {
-                    handleMessageSend()
-                }
+                handleMessageSend()
             }
             .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
@@ -74,6 +73,21 @@ struct ChatView: View {
             .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
             .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){
                 
+            }
+            .onChange(of: sendSticker) {
+                DispatchQueue.global().async {
+                    var message: Message? = nil
+                    if replyTo.isNil {
+                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
+                    }
+                    else {
+                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
+                    }
+                    DispatchQueue.main.async {
+                        sendMessage(message!)
+                        chat.currentMessageID += 1
+                    }
+                }
             }
     }
     
@@ -101,6 +115,8 @@ struct ChatView: View {
     @State var messageSent = false
     @State var commandErrorShown = false
     @State var commandError: CommandError? = nil
+    @State var sendSticker = false
+    @State var stickerPath = ""
     
     //MARK: -
 }

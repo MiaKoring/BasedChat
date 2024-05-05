@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftChameleon
 
 extension MessageScrollView {
     func markAllRead() {
@@ -49,7 +50,7 @@ extension MessageScrollView {
     }
     
     func deleteMessage() {
-        if messageToDelete == nil { return }
+        if messageToDelete.isNil { return }
         rangeEnd = messages.count - 1
     }
     
@@ -81,10 +82,10 @@ extension MessageScrollView {
     }
     
     func loadScrollDestination() {
-        if renderedMessages.firstIndex(where: {$0.id == scrollTo}) == nil {
+        if renderedMessages.firstIndex(where: {$0.id == scrollTo}).isNil {
             let index = messages.firstIndex(where: { $0.id == scrollTo })
             
-            if index == nil { return }
+            if index.isNil { return }
             
             let previousStart = rangeStart
             rangeStart = max(index! - 5, 0)
