@@ -8,8 +8,20 @@ struct MessageView: View {
         LazyVStack {
             ForEach($renderedMessages, id: \.id) { message in
                 if message.isSticker {
-                    Sticker(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, minSpacerWidth: minSpacerWidth)
+                    Sticker(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer,
+                            replyTo: $replyTo, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, messageToDelete: $messageToDelete, minSpacerWidth: minSpacerWidth)
                         .rotationEffect(.degrees(180.0))
+                        .padding(.top, message.wrappedValue.reactions.isEmpty ? 0 : 10)
+                        .onDisappear() {
+                            if !showBottomScrollButton && message.wrappedValue == renderedMessages.first {
+                                showBottomScrollButton = true
+                            }
+                        }
+                        .onAppear() {
+                            if message.wrappedValue == renderedMessages.first {
+                                showBottomScrollButton = false
+                            }
+                        }
                 }
                 else {
                     Bubble(minSpacerWidth: minSpacerWidth, message: message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)

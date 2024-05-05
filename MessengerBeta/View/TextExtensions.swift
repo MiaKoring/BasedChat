@@ -26,6 +26,25 @@ extension Text {
             }
     }
     
+    func stickerReactionDisplayStyle(bottomCardReaction: Binding<Reaction?>, reactionData: Reaction, bottomCardOpen: Binding<Bool>, senderIsCurrent: Bool)-> some View {
+        return self
+            .font(.custom("JetBrainsMono-Regular", size: 13))
+            .padding([.bottom,.leading,.top] , 2.5)
+            .padding(.trailing, 4)
+            .allowsHitTesting(false)
+            .background() {
+                Rectangle()
+                    .background(.ultraThinMaterial)
+                    .clipShape(UnevenRoundedRectangle
+                        .rect(cornerRadii: RectangleCornerRadii(topLeading: 5, bottomLeading: 5, bottomTrailing: 5, topTrailing: 5)))
+                    .onTapGesture {
+                        bottomCardReaction.wrappedValue = reactionData
+                        bottomCardOpen.wrappedValue.toggle()
+                    }
+                    
+            }
+    }
+    
     func boldSubheadline()-> some View {
         self
             .font(.subheadline)

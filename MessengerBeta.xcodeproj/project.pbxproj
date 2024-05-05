@@ -67,6 +67,9 @@
 		14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B772BD6A33F00D41949 /* Credentials.swift */; };
 		A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */; };
 		A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */; };
+		A61448B22BE828F6002CE0E9 /* TimeTogglerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448B12BE828F6002CE0E9 /* TimeTogglerProtocol.swift */; };
+		A61448B42BE829E8002CE0E9 /* TimeTogglerFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448B32BE829E8002CE0E9 /* TimeTogglerFunctions.swift */; };
+		A61448B62BE82D3A002CE0E9 /* StickerFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448B52BE82D3A002CE0E9 /* StickerFunctions.swift */; };
 		A62B05A52BE7AF0E00A0C399 /* SwiftChameleon in Frameworks */ = {isa = PBXBuildFile; productRef = A62B05A42BE7AF0E00A0C399 /* SwiftChameleon */; };
 		A62B05A92BE7B11D00A0C399 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05A82BE7B11D00A0C399 /* Sticker.swift */; };
 		A62B05AB2BE7B22C00A0C399 /* MessageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B05AA2BE7B22C00A0C399 /* MessageExtensions.swift */; };
@@ -181,6 +184,9 @@
 		14F35B772BD6A33F00D41949 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerImageViewExtension.swift; sourceTree = "<group>"; };
 		A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
+		A61448B12BE828F6002CE0E9 /* TimeTogglerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTogglerProtocol.swift; sourceTree = "<group>"; };
+		A61448B32BE829E8002CE0E9 /* TimeTogglerFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTogglerFunctions.swift; sourceTree = "<group>"; };
+		A61448B52BE82D3A002CE0E9 /* StickerFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerFunctions.swift; sourceTree = "<group>"; };
 		A62B05A82BE7B11D00A0C399 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		A62B05AA2BE7B22C00A0C399 /* MessageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageExtensions.swift; sourceTree = "<group>"; };
 		A62B05AC2BE7B27900A0C399 /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
@@ -432,6 +438,8 @@
 				1478813D2BDE99B6009EE6B0 /* StringFormats.swift */,
 				A62B05B82BE7C76C00A0C399 /* FileHandler.swift */,
 				A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */,
+				A61448B12BE828F6002CE0E9 /* TimeTogglerProtocol.swift */,
+				A61448B32BE829E8002CE0E9 /* TimeTogglerFunctions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -488,6 +496,7 @@
 			children = (
 				A62B05B02BE7B5AE00A0C399 /* Children */,
 				A62B05A82BE7B11D00A0C399 /* Sticker.swift */,
+				A61448B52BE82D3A002CE0E9 /* StickerFunctions.swift */,
 			);
 			path = Sticker;
 			sourceTree = "<group>";
@@ -659,6 +668,7 @@
 				A62B05BB2BE7E8BD00A0C399 /* IntegratedStickers.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
+				A61448B62BE82D3A002CE0E9 /* StickerFunctions.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
 				A6BF8C8D2BE5851200D1C471 /* Tableflip.swift in Sources */,
@@ -677,6 +687,7 @@
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
+				A61448B42BE829E8002CE0E9 /* TimeTogglerFunctions.swift in Sources */,
 				14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */,
 				14CB69E62BD2ED6600516D28 /* Bubble.swift in Sources */,
 				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
@@ -712,6 +723,7 @@
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
 				A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */,
 				A6BF8C582BE56DDB00D1C471 /* CommandImageSize.swift in Sources */,
+				A61448B22BE828F6002CE0E9 /* TimeTogglerProtocol.swift in Sources */,
 				140DE73F2BDC26E700B59A25 /* ChatViewFunctions.swift in Sources */,
 				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
 				14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */,

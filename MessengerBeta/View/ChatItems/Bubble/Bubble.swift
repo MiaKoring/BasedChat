@@ -2,7 +2,8 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct Bubble: View, ReactionInfluenced {
+struct Bubble: View, ReactionInfluenced, TimeToggler {
+    
     //MARK: - Body
     
     var body: some View {
@@ -16,18 +17,19 @@ struct Bubble: View, ReactionInfluenced {
                         MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
                         
                     }
-                    .padding(6)
+                    .padding(message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 6)
                     
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
                         .hidden()
                 }
                 .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)
                 .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing) {
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
                 }
                 .contextMenu() {
                     BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
                 }
+                //TODO: add custom popover
                 if !message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
             }
             .background(.clear)

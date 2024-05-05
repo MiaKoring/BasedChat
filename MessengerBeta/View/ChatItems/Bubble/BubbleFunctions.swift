@@ -24,57 +24,27 @@ extension Bubble {
         return urls
     }
     
-    func toggleTime(animated: Bool = true) {
-        if keyboardShown {
-            hideKeyboard()
-            return
-        }
-        if animated {
-            animatedTimeToggle()
-            return
-        }
-        timeToggle()
-    }
-    
-    private func animatedTimeToggle() {
-        if showTime {
-            withAnimation(.easeOut(duration: 0.1)) {
-                showTime = false
-            }
-            return
-        }
-        
-        withAnimation(.easeIn(duration: 0.1)) {
-            showTime = true
-        }
-        
-        if timer != nil && timer!.isValid {
-            timer!.invalidate()
-        }
-        
+    func setAnimatedTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
             withAnimation(.easeOut(duration: 0.1)) {
-                showTime = false
+                showTimeFalse()
                 timer.invalidate()
             }
         }
     }
     
-    private func timeToggle() {
-        if showTime {
-            showTime = false
-            return
-        }
-        
-        showTime = true
-        
-        if timer != nil && timer!.isValid {
-            timer!.invalidate()
-        }
-        
+    func setTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
-            showTime = false
+            showTimeFalse()
             timer.invalidate()
         }
+    }
+    
+    func showTimeTrue() {
+        showTime = true
+    }
+    
+    func showTimeFalse() {
+        showTime = false
     }
 }
