@@ -70,7 +70,6 @@ struct MessageScrollView: View {
     @State var triggerScroll: Bool = false
     @Binding var replyTo: Reply?
     @Binding var newMessageSent: Bool
-    @State var showBottomScrollButton = false
     @State var triggerBottomScroll = false
     @State var renderedMessages: [Message] = []
     @State var glowOriginMessage: UUID? = nil
@@ -84,6 +83,7 @@ struct MessageScrollView: View {
     @Environment(\.scenePhase) var scenePhase
     @Binding var messageToDelete: Message?
     @Binding var keyboardShown: Bool
+    @State var showBottomScrollButton: Bool = false
     
     //MARK: -
 }

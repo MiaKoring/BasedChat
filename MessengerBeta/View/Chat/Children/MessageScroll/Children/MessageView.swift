@@ -28,7 +28,7 @@ struct MessageView: View {
                         .id(message.id)
                         .rotationEffect(.degrees(180.0))
                         .onDisappear() {
-                            if !showBottomScrollButton && message.wrappedValue == renderedMessages.first {
+                            if !showBottomScrollButton && message.wrappedValue == renderedMessages.first{
                                 showBottomScrollButton = true
                             }
                         }

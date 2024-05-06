@@ -96,24 +96,46 @@ extension ChatView {
     }
     
     func complete(_ params: [String: Any])-> Void {
-        var msgStr = ""
+        var msg: Message? = nil
         if params.isEmpty {
-            msgStr = "bababa"
+            if replyTo.isNil {
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+            }
+            else {
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: replyTo!, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+            }
         }
         else {
-            msgStr = "\(params["message"] as! String) bababa"
-        }
-        let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo.isNil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
-            DispatchQueue.main.async {
-                sendMessage(newMessage)
+            if replyTo.isNil {
+                var messageInputString = params["message"]! as! String
+                messageInputString = messageInputString.trimmingCharacters(in: .whitespacesAndNewlines)
+                let formattedChars = StringFormatterCollection.formatChars(messageInputString)
+                
+                let firstMSG = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInputString, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+                
+                DispatchQueue.main.async {
+                    sendMessage(firstMSG)
+                }
+                
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
             }
-            return
+            else {
+                var messageInputString = params["message"]! as! String
+                messageInputString = messageInputString.trimmingCharacters(in: .whitespacesAndNewlines)
+                let formattedChars = StringFormatterCollection.formatChars(messageInputString)
+                
+                let firstMSG = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo, text: messageInputString, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+                
+                
+                DispatchQueue.main.async {
+                    sendMessage(firstMSG)
+                }
+                
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+            }
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
         DispatchQueue.main.async {
-            sendMessage(newMessage)
+            sendMessage(msg!)
         }
         return
     }
