@@ -14,7 +14,7 @@ struct Sticker: View, TimeToggler, ReactionInfluenced {
                     }
                 }
                 .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing){
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: 10, reactionData: reactionData, sender: message.sender, opaque: true, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: 10, reactionData: reactionData, sender: message.sender, opaque: true, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
                         .padding(message.sender.isCurrentUser ? .leading : .trailing, 20)
                         .offset(.init(width: 0.0, height: 17.0))
                 }
@@ -31,10 +31,23 @@ struct Sticker: View, TimeToggler, ReactionInfluenced {
             if showTime{ BubbleTimeDisplayView(message: message) }
         }
         .sheet(isPresented: $stickerSheetPresented, content: {
-            //TODO: Bigger Sticker Display, add/remove from favourites
-            Text("Sheet hallo")
-                .presentationDetents([.medium])
-                .presentationBackground(.ultraThickMaterial)
+            //TODO: add/remove from favourites
+            VStack{
+                #if canImport(UIKit)
+                RoundedRectangle(cornerRadius: 25)
+                    .pullbarStyle()
+                #else
+                HStack{
+                    CloseOnlyButtons(presented: $stickerSheetPresented)
+                    Spacer()
+                }
+                #endif
+                Spacer()
+                StickerImageView(name: name!, fileExtension: fileExtension, width: 350, height: 350, durationFactor: 30)
+                Spacer()
+            }
+            .presentationDetents([.medium])
+            .presentationBackground(.ultraThickMaterial)
         })
         .onAppear(){
             if message.stickerPath.hasPrefix("integrated") {
@@ -71,11 +84,14 @@ struct Sticker: View, TimeToggler, ReactionInfluenced {
     @State var doubletapTimer: Timer? = nil
     @State var stickerSheetPresented = false
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
-    @Binding var bottomCardOpen: Bool
+    @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: Reaction?
     @Binding var messageToDelete: Message?
     let minSpacerWidth: Double
     @State var deleteAlertPresented = false
+    #if !canImport(UIKit)
+    @State var sheetCloseHovered = false
+    #endif
     
     
     var formattedChars: [FormattedChar] =  [] //conformance

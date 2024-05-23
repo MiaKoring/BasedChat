@@ -9,7 +9,7 @@ struct MessageView: View {
             ForEach($renderedMessages, id: \.id) { message in
                 if message.isSticker {
                     Sticker(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer,
-                            replyTo: $replyTo, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, messageToDelete: $messageToDelete, minSpacerWidth: minSpacerWidth)
+                            replyTo: $replyTo, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, messageToDelete: $messageToDelete, minSpacerWidth: minSpacerWidth)
                         .rotationEffect(.degrees(180.0))
                         .padding(.top, message.wrappedValue.reactions.isEmpty ? 0 : 10)
                         .onDisappear() {
@@ -24,7 +24,7 @@ struct MessageView: View {
                         }
                 }
                 else {
-                    Bubble(minSpacerWidth: minSpacerWidth, message: message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)
+                    Bubble(minSpacerWidth: minSpacerWidth, message: message, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer, replyTo: $replyTo, messageToDelete: $messageToDelete)
                         .id(message.id)
                         .rotationEffect(.degrees(180.0))
                         .onDisappear() {
@@ -63,7 +63,7 @@ struct MessageView: View {
     
     //MARK: - Parameters
 
-    @Binding var bottomCardOpen: Bool
+    @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: Reaction?
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll:  Bool

@@ -93,6 +93,7 @@
 		A6BF8C8F2BE5856100D1C471 /* CommandPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C8E2BE5856100D1C471 /* CommandPreview.swift */; };
 		A6BF8C912BE585DF00D1C471 /* CommandOwnerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */; };
 		A6BF8C962BE59D1200D1C471 /* Unflip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C952BE59D1200D1C471 /* Unflip.swift */; };
+		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +209,7 @@
 		A6BF8C8E2BE5856100D1C471 /* CommandPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPreview.swift; sourceTree = "<group>"; };
 		A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandOwnerOverlayView.swift; sourceTree = "<group>"; };
 		A6BF8C952BE59D1200D1C471 /* Unflip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unflip.swift; sourceTree = "<group>"; };
+		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +449,7 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A6D738D82BFF79D0002A4AD8 /* WindowControlElements */,
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
 				14BE37F32BDBB5940078D49B /* Chat */,
 				14BE37F12BDBB2CC0078D49B /* ChatItems */,
@@ -564,6 +567,14 @@
 				A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */,
 			);
 			path = OwnerOverlay;
+			sourceTree = "<group>";
+		};
+		A6D738D82BFF79D0002A4AD8 /* WindowControlElements */ = {
+			isa = PBXGroup;
+			children = (
+				A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */,
+			);
+			path = WindowControlElements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -727,6 +738,7 @@
 				140DE73F2BDC26E700B59A25 /* ChatViewFunctions.swift in Sources */,
 				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
 				14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */,
+				A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */,
 				1478813C2BDE96BA009EE6B0 /* StringFormatterCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,12 +19,12 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
                     }
                     .padding(message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 6)
                     
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
                         .hidden()
                 }
                 .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)
                 .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing) {
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, bottomCardOpen: $bottomCardOpen)
+                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
                 }
                 .contextMenu() {
                     BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
@@ -67,7 +67,7 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
     let minSpacerWidth: Double
     @Environment(\.modelContext) var context
     @Binding var message: Message
-    @Binding var bottomCardOpen: Bool
+    @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: Reaction?
     @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
     @Binding var scrollTo: UUID?
@@ -87,7 +87,7 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
 }
 /*
 struct BubblePreviewProvider: View {
-    @State var bottomCardOpen: Bool = false
+    @State var showStickerDetail: Bool = false
     @State var bottomCardReaction: Reaction? = nil
     @State var scrollTo: UUID? = nil
     @State var triggerScroll: Bool = false
@@ -98,7 +98,7 @@ struct BubblePreviewProvider: View {
     @State var timer: Timer? = nil
     @State var message: Message = Message(time: 1704126197, sender: 2, text: "Gute Nacht", reactions: ["\(1)": "🙃", "\(2)": "😆"], messageID: 1)
     var body: some View {
-        Bubble(minSpacerWidth: 20, message: $message, bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, reactionCount: 2, reactionData: Reaction(mostUsed: "🙃😆", countString: "2", emojisCount: ["🙃": 1, "😆": 1], differentEmojisCount: 2, peopleReactions: ["\(1)": "🙃", "\(2)": "😆"]), scrollTo: $scrollTo, triggerScroll: $triggerScroll, formattedChars: [FormattedChar(char: "Gute Nacht https://github.com/MiaKoring/BasedChat.git", formats: [])], glowOriginMessage: $glowOriginMessage, messageToDelete: $messageToDelete, URLs: [], showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer)
+        Bubble(minSpacerWidth: 20, message: $message, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, reactionCount: 2, reactionData: Reaction(mostUsed: "🙃😆", countString: "2", emojisCount: ["🙃": 1, "😆": 1], differentEmojisCount: 2, peopleReactions: ["\(1)": "🙃", "\(2)": "😆"]), scrollTo: $scrollTo, triggerScroll: $triggerScroll, formattedChars: [FormattedChar(char: "Gute Nacht https://github.com/MiaKoring/BasedChat.git", formats: [])], glowOriginMessage: $glowOriginMessage, messageToDelete: $messageToDelete, URLs: [], showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer)
     }
 }
 

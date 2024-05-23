@@ -7,7 +7,7 @@ struct MessageScrollView: View {
         ZStack(alignment: .bottom) {
             ScrollView {
                 ScrollViewReader { reader in
-                    MessageView(bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
+                    MessageView(showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
                         .onChange(of: triggerBottomScroll) {
                             withAnimation(.smooth(duration: 0.3)) {
                                 reader.scrollTo(renderedMessages.first?.id)
@@ -64,7 +64,7 @@ struct MessageScrollView: View {
     //MARK: - Parameters
     
     let messages: [Message]
-    @Binding var bottomCardOpen: Bool
+    @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: Reaction?
     @State var scrollTo: UUID? = nil
     @State var triggerScroll: Bool = false
