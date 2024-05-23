@@ -15,11 +15,11 @@ struct StickerImageView: View {
             if !isDone && fileExtension == "gif" {
                 if !data.isNil {
                     #if canImport(UIKit)
-                    GIFImage(data: data!, repetitions: 20) {
+                    GIFImage(data: data!, repetitions: (2 * durationFactor).int) {
                         isDone = true
                     }
                     #elseif canImport(AppKit)
-                    GIFImage(data: data!, animationDuration: 10.0)
+                    GIFImage(data: data!, animationDuration: durationFactor)
                     #endif
                 }
             }
@@ -29,7 +29,7 @@ struct StickerImageView: View {
                     if let image = UIImage(data: data!) {
                         Image(uiImage: image)
                             .scaleToFit()
-                            .frame(width: 200, height: 200)
+                            .frame(width: width, height: height)
                     }
 #elseif canImport(AppKit)
                     if let image = NSImage(data: data!) {
@@ -55,7 +55,7 @@ struct StickerImageView: View {
                 }
             }
         }
-        .frame(width: 200, height: 200)
+        .frame(width: width, height: height)
         .thinClearBackground(clear: !data.isNil)
         .onAppear(){
             loadImage()
@@ -67,6 +67,9 @@ struct StickerImageView: View {
     @State var name: String
     @State var fileExtension: String
     @State var data: Data? = nil
+    var width: Double = 200
+    var height: Double = 200
+    var durationFactor = 10.0
 }
 
 #Preview {

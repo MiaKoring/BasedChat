@@ -9,21 +9,21 @@ struct ReactionDisplayView: View {
             if !reactionContainer.isEmpty && Double(reactionContainer.count) * 1.2 <= Double(textCount) {
                 if !opaque {
                     Text(reactionContainer)
-                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, bottomCardOpen: $bottomCardOpen, senderIsCurrent: sender.isCurrentUser)
+                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
                 }
                 else {
                     Text(reactionContainer)
-                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, bottomCardOpen: $bottomCardOpen, senderIsCurrent: sender.isCurrentUser)
+                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
                 }
             }
             else if !reactionContainer.isEmpty {
                 if !opaque {
                     Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
-                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, bottomCardOpen: $bottomCardOpen, senderIsCurrent: sender.isCurrentUser)
+                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
                 }
                 else {
                     Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
-                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, bottomCardOpen: $bottomCardOpen, senderIsCurrent: sender.isCurrentUser)
+                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
                 }
             }
         }
@@ -37,7 +37,7 @@ struct ReactionDisplayView: View {
     let sender: Int
     let opaque: Bool
     @Binding var bottomCardReaction: Reaction?
-    @Binding var bottomCardOpen: Bool
+    @Binding var showStickerDetail: Bool
     
     //MARK: - Initializer
     

@@ -8,7 +8,7 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), bottomCardOpen: $bottomCardOpen, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
+            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
                 .overlay(alignment: .bottom) {
                     VStack{
                         if currentCommand.isNil {
@@ -46,7 +46,7 @@ struct ChatView: View {
             .onChange(of: messageToDelete) {
                 deleteMessage()
             }
-            .sheet(isPresented: $bottomCardOpen) {
+            .sheet(isPresented: $showStickerDetail) {
                 VStack {
                     RoundedRectangle(cornerRadius: 25)
                         .pullbarStyle()
@@ -101,7 +101,7 @@ struct ChatView: View {
     @State var scrollTo: UUID? = UUID()
     @State var triggerScroll = false
     @State var showLoading: Bool = false
-    @State var bottomCardOpen = false
+    @State var showStickerDetail = false
     @State var bottomCardReaction: Reaction? = nil
     @State private var keyboardShown: Bool = false
     @State var replyTo: Reply? = nil
