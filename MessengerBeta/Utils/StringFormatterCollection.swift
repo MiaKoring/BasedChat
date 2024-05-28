@@ -4,17 +4,17 @@ import SwiftUI
 class StringFormatterCollection: StringFormatter {
     var formatters: [StringFormatter] = []
     
-    internal func addFormat(text: Text) -> Text { return text }
+    internal func addFormat(attrStr: AttributedString) -> AttributedString { return attrStr }
     
-    func addFormats(formattedChar: FormattedChar)-> Text {
-        var text = Text(formattedChar.char)
+    func addFormats(formattedChar: FormattedChar)-> AttributedString {
+        var attrStr = AttributedString(formattedChar.char)
         
         for formatter in formatters{
             if formatter.isValid(formattedChar.formats) {
-                text = formatter.addFormat(text: text)
+                attrStr = formatter.addFormat(attrStr: attrStr)
             }
         }
-        return text
+        return attrStr
     }
     
     func addFormatter(_ formatter: StringFormatter) {

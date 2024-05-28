@@ -2,31 +2,49 @@ import Foundation
 import SwiftUI
 
 class ItalicStringFormatter: StringFormatter {
-    func isValid(_ formats: [String])-> Bool {
-        formats.contains("_")
+    func addFormat(attrStr: AttributedString) -> AttributedString {
+        var str = attrStr
+        for run in str.runs {
+            if let currentFont = str[run.range].font {
+                str[run.range].font = currentFont.italic()
+            } else {
+                str[run.range].font = Font.body.italic()
+            }
+        }
+        return str
     }
     
-    func addFormat(text: Text)-> Text {
-        text.italic()
+    func isValid(_ formats: [String]) -> Bool {
+        formats.contains("_")
     }
 }
 
 class BoldStringFormatter: StringFormatter {
-    func isValid(_ formats: [String])-> Bool {
-        formats.contains("*")
+    func addFormat(attrStr: AttributedString) -> AttributedString {
+        var str = attrStr
+        for run in str.runs {
+            if let currentFont = str[run.range].font {
+                str[run.range].font = currentFont.bold()
+            } else {
+                str[run.range].font = Font.body.bold()
+            }
+        }
+        return str
     }
     
-    func addFormat(text: Text) -> Text {
-        text.bold()
+    func isValid(_ formats: [String]) -> Bool {
+        formats.contains("*")
     }
 }
 
 class StrikethroughStringFormatter: StringFormatter {
-    func isValid(_ formats: [String])-> Bool {
-        formats.contains("~")
+    func addFormat(attrStr: AttributedString) -> AttributedString {
+        var str = attrStr
+        str.strikethroughStyle = .single
+        return str
     }
     
-    func addFormat(text: Text)-> Text {
-        text.strikethrough()
+    func isValid(_ formats: [String])-> Bool {
+        formats.contains("~")
     }
 }

@@ -40,12 +40,12 @@ extension ReactionInfluenced {
         collection.addFormatter(ItalicStringFormatter())
         collection.addFormatter(StrikethroughStringFormatter())
         
-        var text = Text("")
+        var text = AttributedString()
         
         for i in 0..<formattedChars.count{
             text = text + collection.addFormats(formattedChar: formattedChars[i])
         }
-        return text
+        return Text(text)
     }
     
     func genReactions()-> Reaction {
