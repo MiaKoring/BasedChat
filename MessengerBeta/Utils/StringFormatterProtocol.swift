@@ -3,6 +3,6 @@ import SwiftUI
 
 protocol StringFormatter {
     func isValid(_: [String])-> Bool
-    func addFormat(text: Text)-> Text
+    func addFormat(attrStr: AttributedString)-> AttributedString
 }
 
