@@ -99,10 +99,10 @@ extension ChatView {
         var msg: Message? = nil
         if params.isEmpty {
             if replyTo.isNil {
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
             }
             else {
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: replyTo!, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: replyTo!, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
             }
         }
         else {
@@ -117,7 +117,7 @@ extension ChatView {
                     sendMessage(firstMSG)
                 }
                 
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
             }
             else {
                 var messageInputString = params["message"]! as! String
@@ -131,11 +131,12 @@ extension ChatView {
                     sendMessage(firstMSG)
                 }
                 
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerPath: "integratedTalkingCat")
+                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
             }
         }
         DispatchQueue.main.async {
             sendMessage(msg!)
+            print(msg!)
         }
         return
     }
@@ -159,5 +160,21 @@ extension ChatView {
             sendMessage(newMessage)
         }
         return
+    }
+    
+    func sendStickerChanged(){
+        DispatchQueue.global().async {
+            var message: Message? = nil
+            if replyTo.isNil {
+                message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerHash: stickerPath)
+            }
+            else {
+                message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerHash: stickerPath)
+            }
+            DispatchQueue.main.async {
+                sendMessage(message!)
+                chat.currentMessageID += 1
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ struct BasedChatApp: App {
     var body: some Scene {
         WindowGroup {
             FirstView()
-                .modelContainer(for: [Chat.self, Contact.self])
+                .modelContainer(for: [Chat.self, Contact.self, StickerCollection.self, Sticker.self])
         }
     }
 }
@@ -28,10 +28,20 @@ struct BasedChatApp: App {
 struct FirstView: View {
     @Query var chats: [Chat]
     @Query var contacts: [Contact]
+    @Query var stickerCollections: [StickerCollection]
     @Environment(\.modelContext) var context
     
     var body: some View {
         HStack {
+            if stickerCollections.isEmpty {
+                Text("creating default sticker...")
+                    .onAppear(){
+                        let integratedCollection = StickerCollection(name: "integrated", stickers: [Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")])
+                        let favouritesCollection = StickerCollection(name: "favourites", stickers: [])
+                        context.insert(integratedCollection)
+                        context.insert(favouritesCollection)
+                    }
+            }
             if chats.isEmpty {
                 Text("creating chat...")
                     .onAppear(){

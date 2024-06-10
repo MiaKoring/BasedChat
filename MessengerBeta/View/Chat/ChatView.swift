@@ -75,19 +75,7 @@ struct ChatView: View {
                 
             }
             .onChange(of: sendSticker) {
-                DispatchQueue.global().async {
-                    var message: Message? = nil
-                    if replyTo.isNil {
-                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
-                    }
-                    else {
-                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
-                    }
-                    DispatchQueue.main.async {
-                        sendMessage(message!)
-                        chat.currentMessageID += 1
-                    }
-                }
+                sendStickerChanged()
             }
     }
     

@@ -8,7 +8,7 @@ struct MessageView: View {
         LazyVStack {
             ForEach($renderedMessages, id: \.id) { message in
                 if message.isSticker {
-                    Sticker(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer,
+                    StickerView(message: message, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, scrollTo: $scrollTo, showTime: $showTime, keyboardShown: $keyboardShown, timer: $timer,
                             replyTo: $replyTo, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, messageToDelete: $messageToDelete, minSpacerWidth: minSpacerWidth)
                         .rotationEffect(.degrees(180.0))
                         .padding(.top, message.wrappedValue.reactions.isEmpty ? 0 : 10)
@@ -21,6 +21,7 @@ struct MessageView: View {
                             if message.wrappedValue == renderedMessages.first {
                                 showBottomScrollButton = false
                             }
+                        
                         }
                 }
                 else {
