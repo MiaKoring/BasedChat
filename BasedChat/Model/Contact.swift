@@ -9,13 +9,15 @@ final class Contact: Identifiable {
     var savedAs: String?
     var isLocalUser: Bool
     var chats: [UUID]
+    var imagehash: String
     
-    init(userID: Int, username: String, publicKey: String, savedAs: String? = nil, isLocalUser: Bool = false, chats: [UUID] = []) {
+    init(userID: Int, username: String, publicKey: String, savedAs: String? = nil, isLocalUser: Bool = false, chats: [UUID] = [], imagehash: String = "") {
         self.userID = userID
         self.username = username
         self.publicKey = publicKey
         self.savedAs = savedAs
         self.isLocalUser = isLocalUser
         self.chats = chats
+        self.imagehash = imagehash
     }
 }

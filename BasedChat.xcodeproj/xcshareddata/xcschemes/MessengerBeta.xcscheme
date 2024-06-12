@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14469B4B2B40937300835BFC"
-               BuildableName = "MessengerBeta.app"
-               BlueprintName = "MessengerBeta"
-               ReferencedContainer = "container:MessengerBeta.xcodeproj">
+               BuildableName = "BasedChat.app"
+               BlueprintName = "BasedChat"
+               ReferencedContainer = "container:BasedChat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14469B4B2B40937300835BFC"
-            BuildableName = "MessengerBeta.app"
-            BlueprintName = "MessengerBeta"
-            ReferencedContainer = "container:MessengerBeta.xcodeproj">
+            BuildableName = "BasedChat.app"
+            BlueprintName = "BasedChat"
+            ReferencedContainer = "container:BasedChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14469B4B2B40937300835BFC"
-            BuildableName = "MessengerBeta.app"
-            BlueprintName = "MessengerBeta"
-            ReferencedContainer = "container:MessengerBeta.xcodeproj">
+            BuildableName = "BasedChat.app"
+            BlueprintName = "BasedChat"
+            ReferencedContainer = "container:BasedChat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

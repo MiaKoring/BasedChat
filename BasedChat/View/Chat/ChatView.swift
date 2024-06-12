@@ -73,7 +73,7 @@ struct ChatView: View {
         #endif
             .navigationBarBackButtonHidden()
             .overlay {
-                ChatTopBar(showNavigation: $showNavigation) //TODO: add adaptive functionality
+                ChatTopBar(showNavigation: $showNavigation, chat: $chat) //TODO: add adaptive functionality
             }
             .onChange(of: messageSent) {
                 handleMessageSend()

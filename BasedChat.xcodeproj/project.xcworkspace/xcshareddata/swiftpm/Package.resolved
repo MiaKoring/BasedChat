@@ -16,7 +16,7 @@
       "location" : "https://github.com/MiaKoring/SlashCommands.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0918aecbfc492ef46eddab657e736c40d4bc3ae9"
+        "revision" : "8f65f79bce3d225d0ceedf3cd9f2060f426ca047"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://github.com/simon-zwicker/SwiftChameleon",
       "state" : {
         "branch" : "main",
-        "revision" : "d19ddf9cae739fd3224512ccaaa3b0643784a507"
+        "revision" : "81cbd86206d66cd710539532af7125c047bbebb4"
       }
     }
   ],

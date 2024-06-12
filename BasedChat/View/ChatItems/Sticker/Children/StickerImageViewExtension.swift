@@ -1,5 +1,4 @@
 import Foundation
-import SwiftChameleon
 
 extension StickerImageView {
     func loadImage() {
