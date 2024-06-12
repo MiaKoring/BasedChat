@@ -51,6 +51,7 @@ struct StickerImageView: View {
                                 .font(.title)
                             Text(LocalizedStringKey("ressourceNotFound"))
                         }
+                        .padding(20)
                     }
                 }
             }

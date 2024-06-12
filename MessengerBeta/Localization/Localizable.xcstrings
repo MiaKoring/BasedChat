@@ -50,6 +50,9 @@
         }
       }
     },
+    "Chat" : {
+
+    },
     "CommandCheckError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -71,6 +74,9 @@
 
     },
     "creating contacts" : {
+
+    },
+    "creating default sticker..." : {
 
     },
     "creating messages..." : {
@@ -128,6 +134,12 @@
       }
     },
     "Done" : {
+
+    },
+    "Eli" : {
+
+    },
+    "Elijah Franzen langer Text Test" : {
 
     },
     "EmptyMessageAlert" : {
@@ -291,6 +303,9 @@
           }
         }
       }
+    },
+    "select chat" : {
+
     },
     "TableFlipDescription" : {
       "extractionState" : "manual",

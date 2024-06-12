@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 import SwiftChameleon
+import SwiftData
 
-struct Sticker: View, TimeToggler, ReactionInfluenced {
+struct StickerView: View, TimeToggler, ReactionInfluenced {
     var body: some View {
         VStack{
             HStack {
@@ -44,22 +45,15 @@ struct Sticker: View, TimeToggler, ReactionInfluenced {
                 #endif
                 Spacer()
                 StickerImageView(name: name!, fileExtension: fileExtension, width: 350, height: 350, durationFactor: 30)
+                //TODO: Add to favourites
                 Spacer()
             }
             .presentationDetents([.medium])
             .presentationBackground(.ultraThickMaterial)
         })
         .onAppear(){
-            if message.stickerPath.hasPrefix("integrated") {
-                let stickerName = String(message.stickerPath.trimmingPrefix("integrated"))
-                fileExtension = IntegratedStickers.stickers[stickerName] ?? "jpg"
-                name = stickerName
-            }
-            //TODO: Add user created Stickers
-            if !message.reactions.isEmpty {
-                reactionData = genReactions()
-                reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-            }
+            appeared()
+            print(name)
         }
         .alert(LocalizedStringKey("DeleteAlert"), isPresented: $deleteAlertPresented) {
             Button(role: .destructive) {
@@ -87,6 +81,7 @@ struct Sticker: View, TimeToggler, ReactionInfluenced {
     @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: Reaction?
     @Binding var messageToDelete: Message?
+    @Query var stickers: [Sticker]
     let minSpacerWidth: Double
     @State var deleteAlertPresented = false
     #if !canImport(UIKit)

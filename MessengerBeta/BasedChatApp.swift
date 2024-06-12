@@ -20,18 +20,33 @@ struct BasedChatApp: App {
     var body: some Scene {
         WindowGroup {
             FirstView()
-                .modelContainer(for: [Chat.self, Contact.self])
+                .modelContainer(for: [Chat.self, Contact.self, StickerCollection.self, Sticker.self])
         }
+        #if os(macOS)
+        .windowStyle(HiddenTitleBarWindowStyle())
+        #endif
     }
 }
 
 struct FirstView: View {
     @Query var chats: [Chat]
     @Query var contacts: [Contact]
+    @Query var stickerCollections: [StickerCollection]
     @Environment(\.modelContext) var context
+    @State var selectedChat: Chat? = nil
+    @State var showNavigation: NavigationSplitViewVisibility = .all
     
     var body: some View {
         HStack {
+            if stickerCollections.isEmpty {
+                Text("creating default sticker...")
+                    .onAppear(){
+                        let integratedCollection = StickerCollection(name: "integrated", stickers: [Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")])
+                        let favouritesCollection = StickerCollection(name: "favourites", stickers: [])
+                        context.insert(integratedCollection)
+                        context.insert(favouritesCollection)
+                    }
+            }
             if chats.isEmpty {
                 Text("creating chat...")
                     .onAppear(){
@@ -56,9 +71,58 @@ struct FirstView: View {
                 }
             }
             if !chats.isEmpty && !chats.first!.messages.isEmpty && !contacts.isEmpty {
-                //BubblePreviewProvider()
-                ChatView(chat: chats.first!)
+                #if canImport(UIKit)
+                if UIDevice.isIPhone {
+                    NavigationStack {
+                        List {
+                            NavigationLink("Chat", destination: ChatView(chat: chats.first!, showNavigation: $showNavigation))
+                        }
+                    }
+                }
+                else {
+                    NavigationSplitView(columnVisibility: $showNavigation) {
+                        ForEach(chats, id: \.id ) { chat in //TODO: Sort Chats by latest message
+                            Button {
+                                selectedChat = chat
+                            } label: {
+                                Text(chat.title)
+                            }
+                            .toolbar(removing: .sidebarToggle)
+                        }
+                    } detail: {
+                        if selectedChat != nil {
+                            ChatView(chat: selectedChat!, showNavigation: $showNavigation)
+                        }
+                        else {
+                            Image(systemName: "exclamationmark.bubble")
+                            Text("select chat")
+                        }
+                    }
+                }
+                #else
+                NavigationSplitView(columnVisibility: $showNavigation) {
+                    ForEach(chats, id: \.id ) { chat in //TODO: Sort Chats by latest message
+                        Button {
+                            selectedChat = chat
+                        } label: {
+                            Text(chat.title)
+                        }
+                        .toolbar(removing: .sidebarToggle)
+                    }
+                } detail: {
+                    if selectedChat != nil {
+                        ChatView(chat: selectedChat!, showNavigation: $showNavigation)
+                    }
+                    else {
+                        Image(systemName: "exclamationmark.bubble")
+                        Text("select chat")
+                    }
+                }
+                #endif
+                
             }
         }
     }
 }
+
+

@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Sticker {
+extension StickerView {
     
     func setAnimatedTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
@@ -43,5 +43,21 @@ extension Sticker {
             stickerSheetPresented = true
             doubletapTimer?.invalidate()
         }
+    }
+    
+    func appeared(){
+        if !message.reactions.isEmpty {
+            reactionData = genReactions()
+            reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+        }
+        let stickerHash = String(message.stickerHash)
+        let filteredStickers = stickers.filter({$0.hashString == stickerHash})
+        
+        guard filteredStickers.count > 0 else {
+            return
+        }
+        fileExtension = filteredStickers[0].type
+
+        name = stickerHash
     }
 }

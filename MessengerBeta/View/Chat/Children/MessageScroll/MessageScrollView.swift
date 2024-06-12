@@ -35,7 +35,7 @@ struct MessageScrollView: View {
                         Rectangle()
                             .hidden()
                             .frame(width: 0, height: 0)
-                            .padding(.top, 50)
+                            .padding(.top, 100)
                     }
                     Spacer()
                 }

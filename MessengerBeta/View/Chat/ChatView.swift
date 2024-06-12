@@ -35,6 +35,9 @@ struct ChatView: View {
             ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath)
         }
             .padding(.horizontal, 10)
+            .onTapGesture {
+                hideKeyboard()
+            }
         #if canImport(UIKit)
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                 self.keyboardShown = true
@@ -63,6 +66,15 @@ struct ChatView: View {
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThickMaterial)
             }
+        #if canImport(UIKit)
+            .ignoresSafeAreaWith(condition: UIDevice.isIPhone, regions: .container, edges: .top)
+        #else
+            .ignoresSafeArea(.container, edges: .top)
+        #endif
+            .navigationBarBackButtonHidden()
+            .overlay {
+                ChatTopBar(showNavigation: $showNavigation) //TODO: add adaptive functionality
+            }
             .onChange(of: messageSent) {
                 handleMessageSend()
             }
@@ -75,19 +87,7 @@ struct ChatView: View {
                 
             }
             .onChange(of: sendSticker) {
-                DispatchQueue.global().async {
-                    var message: Message? = nil
-                    if replyTo.isNil {
-                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
-                    }
-                    else {
-                        message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerPath: stickerPath)
-                    }
-                    DispatchQueue.main.async {
-                        sendMessage(message!)
-                        chat.currentMessageID += 1
-                    }
-                }
+                sendStickerChanged()
             }
     }
     
@@ -117,6 +117,7 @@ struct ChatView: View {
     @State var commandError: CommandError? = nil
     @State var sendSticker = false
     @State var stickerPath = ""
+    @Binding var showNavigation: NavigationSplitViewVisibility
     
     //MARK: -
 }

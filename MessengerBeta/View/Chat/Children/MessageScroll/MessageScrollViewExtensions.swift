@@ -96,13 +96,19 @@ extension MessageScrollView {
     func bottomScrollOverlay()-> some View {
         HStack {
             if showBottomScrollButton {
-                Circle()
-                    .fill(.blue)
-                    .frame(width: 50, height: 50)
-                    .overlay{
-                        Image(systemName: "arrowtriangle.down")
-                            .allowsHitTesting(false)
+                UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 15.0, bottomLeading: 15.0, bottomTrailing: 0.0, topTrailing: 0.0), style: .continuous)
+                    .fill(.ultraThinMaterial)
+                    .strokeBorder(.ultraThinMaterial, lineWidth: 1)
+                    .frame(width: 65, height: 45)
+                    .overlay {
+                        HStack{
+                            Image(systemName: "arrowtriangle.down")
+                                .allowsHitTesting(false)
+                                .padding(.leading, 20)
+                            Spacer()
+                        }
                     }
+                    .padding(.bottom, 30)
                     .onTapGesture{ bottomScrollButtonTapped() }
             }
         }

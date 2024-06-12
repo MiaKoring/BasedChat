@@ -1,17 +1,29 @@
 {
   "images" : [
     {
+      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o 4.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o 3.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o.jpeg",
+      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o 2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o 1.jpeg",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "D6352B7D-A51E-4194-BD7E-22930BE2982E_1_102_o.jpeg",
+      "idiom" : "mac",
+      "scale" : "2x"
     }
   ],
   "info" : {
