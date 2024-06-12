@@ -50,7 +50,7 @@ struct FirstView: View {
             if chats.isEmpty {
                 Text("creating chat...")
                     .onAppear(){
-                        context.insert(Chat(title: "Test", participants: [1, 2]))
+                        context.insert(Chat(title: "Eli", participants: [1, 2]))
                     }
             }
             else if chats.first!.messages.isEmpty {

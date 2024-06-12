@@ -3,7 +3,7 @@ import KeychainAccess
 
 final class CredentialHandler {
     public var keychain: Keychain
-    public static var shared = CredentialHandler()
+    public static let shared = CredentialHandler()
     
     init() {
         self.keychain = Keychain(service: "\(Bundle.main.bundleIdentifier ?? "de.touchthegrass.BasedChat").KeyChain")

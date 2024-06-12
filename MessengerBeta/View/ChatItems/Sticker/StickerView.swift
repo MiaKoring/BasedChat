@@ -53,7 +53,6 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
         })
         .onAppear(){
             appeared()
-            print(name)
         }
         .alert(LocalizedStringKey("DeleteAlert"), isPresented: $deleteAlertPresented) {
             Button(role: .destructive) {

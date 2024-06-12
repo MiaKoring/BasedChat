@@ -1,9 +1,9 @@
 import Foundation
 
 public class DateHandler {
-    private static var dateFormatter = createDateFormatter()
-    private static var timeFormatter = createTimeFormatter()
-    private static var dateTimeFormatter = createDateTimeFormatter()
+    private static let dateFormatter = createDateFormatter()
+    private static let timeFormatter = createTimeFormatter()
+    private static let dateTimeFormatter = createDateTimeFormatter()
     
     static func formatDate(_ unixTimestamp: Int)-> String {
         return dateFormatter.string(from: Date(timeIntervalSince1970: Double(unixTimestamp)))
