@@ -22,6 +22,9 @@ struct BasedChatApp: App {
             FirstView()
                 .modelContainer(for: [Chat.self, Contact.self, StickerCollection.self, Sticker.self])
         }
+        #if os(macOS)
+        .windowStyle(HiddenTitleBarWindowStyle())
+        #endif
     }
 }
 
@@ -30,6 +33,8 @@ struct FirstView: View {
     @Query var contacts: [Contact]
     @Query var stickerCollections: [StickerCollection]
     @Environment(\.modelContext) var context
+    @State var selectedChat: Chat? = nil
+    @State var showNavigation: NavigationSplitViewVisibility = .all
     
     var body: some View {
         HStack {
@@ -66,9 +71,58 @@ struct FirstView: View {
                 }
             }
             if !chats.isEmpty && !chats.first!.messages.isEmpty && !contacts.isEmpty {
-                //BubblePreviewProvider()
-                ChatView(chat: chats.first!)
+                #if canImport(UIKit)
+                if UIDevice.isIPhone {
+                    NavigationStack {
+                        List {
+                            NavigationLink("Chat", destination: ChatView(chat: chats.first!, showNavigation: $showNavigation))
+                        }
+                    }
+                }
+                else {
+                    NavigationSplitView(columnVisibility: $showNavigation) {
+                        ForEach(chats, id: \.id ) { chat in //TODO: Sort Chats by latest message
+                            Button {
+                                selectedChat = chat
+                            } label: {
+                                Text(chat.title)
+                            }
+                            .toolbar(removing: .sidebarToggle)
+                        }
+                    } detail: {
+                        if selectedChat != nil {
+                            ChatView(chat: selectedChat!, showNavigation: $showNavigation)
+                        }
+                        else {
+                            Image(systemName: "exclamationmark.bubble")
+                            Text("select chat")
+                        }
+                    }
+                }
+                #else
+                NavigationSplitView(columnVisibility: $showNavigation) {
+                    ForEach(chats, id: \.id ) { chat in //TODO: Sort Chats by latest message
+                        Button {
+                            selectedChat = chat
+                        } label: {
+                            Text(chat.title)
+                        }
+                        .toolbar(removing: .sidebarToggle)
+                    }
+                } detail: {
+                    if selectedChat != nil {
+                        ChatView(chat: selectedChat!, showNavigation: $showNavigation)
+                    }
+                    else {
+                        Image(systemName: "exclamationmark.bubble")
+                        Text("select chat")
+                    }
+                }
+                #endif
+                
             }
         }
     }
 }
+
+

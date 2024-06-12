@@ -54,9 +54,7 @@ extension ChatView {
         chat.messages.append(newMessage)
         chat.currentMessageID += 1
         newMessageSent.toggle()
-        #if canImport(UIKit)
-            hideKeyboard()
-        #endif
+        
     }
     
     fileprivate func handleCommand()-> Bool {

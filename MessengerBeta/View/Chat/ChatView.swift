@@ -35,6 +35,9 @@ struct ChatView: View {
             ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath)
         }
             .padding(.horizontal, 10)
+            .onTapGesture {
+                hideKeyboard()
+            }
         #if canImport(UIKit)
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                 self.keyboardShown = true
@@ -62,6 +65,15 @@ struct ChatView: View {
                 }
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThickMaterial)
+            }
+        #if canImport(UIKit)
+            .ignoresSafeAreaWith(condition: UIDevice.isIPhone, regions: .container, edges: .top)
+        #else
+            .ignoresSafeArea(.container, edges: .top)
+        #endif
+            .navigationBarBackButtonHidden()
+            .overlay {
+                ChatTopBar(showNavigation: $showNavigation) //TODO: add adaptive functionality
             }
             .onChange(of: messageSent) {
                 handleMessageSend()
@@ -105,6 +117,7 @@ struct ChatView: View {
     @State var commandError: CommandError? = nil
     @State var sendSticker = false
     @State var stickerPath = ""
+    @Binding var showNavigation: NavigationSplitViewVisibility
     
     //MARK: -
 }

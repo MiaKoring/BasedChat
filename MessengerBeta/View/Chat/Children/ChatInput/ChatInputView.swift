@@ -15,8 +15,8 @@ struct ChatInputView: View {
                         Text("regular")
                     }
                     Button {
-                        sender = 1
-                        stickerPath = "integratedTalkingCat"
+                        sender = 2
+                        stickerPath = "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b"
                         sendSticker.toggle()
                     } label: {
                         Text("Babbelgadse")

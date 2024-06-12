@@ -66,5 +66,12 @@ extension View {
                 .opacity(1)
         }
     }
+    
+    func ignoresSafeAreaWith(condition: Bool, regions: SafeAreaRegions, edges: Edge.Set)-> some View {
+        if condition {
+            return AnyView(self.ignoresSafeArea(regions, edges: edges))
+        }
+        return AnyView(self)
+    }
 
 }
