@@ -13,6 +13,9 @@
     "+%lld" : {
 
     },
+    "AppleMusic" : {
+
+    },
     "BababaDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -156,6 +159,9 @@
         }
       }
     },
+    "Error" : {
+
+    },
     "integrated" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -236,6 +242,9 @@
           }
         }
       }
+    },
+    "not playing" : {
+
     },
     "OK" : {
       "localizations" : {

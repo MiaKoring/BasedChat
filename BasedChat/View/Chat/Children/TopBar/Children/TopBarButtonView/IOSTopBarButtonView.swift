@@ -13,6 +13,7 @@ struct IOSTopBarButtonView: View {
                     .font(.title2)
                     .frame(width: 35, height: 35)
             }
+            .buttonStyle(.plain)
             Spacer()
             CallButtonsView()
         }

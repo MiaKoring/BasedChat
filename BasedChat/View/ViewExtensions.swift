@@ -73,5 +73,20 @@ extension View {
         }
         return AnyView(self)
     }
-
+    
+    @ViewBuilder
+    func contactPicture() -> some View {
+        if let image = self as? Image {
+            image
+                .resizable()
+                .clipShape(Circle())
+                .frame(width: 35, height: 35)
+                .offset(x: -50)
+        }
+        else {
+            self
+                .frame(width: 35, height: 35)
+                .offset(x: -50)
+        }
+    }
 }

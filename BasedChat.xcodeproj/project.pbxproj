@@ -83,6 +83,9 @@
 		A67C332A2C17386900594120 /* StickerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C33292C17386900594120 /* StickerCollection.swift */; };
 		A67C332C2C17399B00594120 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C332B2C17399B00594120 /* Sticker.swift */; };
 		A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */ = {isa = PBXBuildFile; productRef = A68C6FC82BE2D38B00967243 /* SlashCommands */; };
+		A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4A42C20BCFB0042DA3B /* ChatTopBarFunctions.swift */; };
+		A69CF4A82C20D9510042DA3B /* MediaControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4A72C20D9490042DA3B /* MediaControlView.swift */; };
+		A69CF4AC2C20EC050042DA3B /* MusicPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4AB2C20EBFD0042DA3B /* MusicPlayerManager.swift */; };
 		A69EE0A62C1A3E6A000A9740 /* 6c71ce3d7f3067d8845d8a3b85e414c45aa250aea1c7bf699e2d58c5bc62e71f.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A69EE0A52C1A3E6A000A9740 /* 6c71ce3d7f3067d8845d8a3b85e414c45aa250aea1c7bf699e2d58c5bc62e71f.jpg */; };
 		A6A3CD8F2C191746002ACCD6 /* NavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A3CD8E2C191730002ACCD6 /* NavigationControllerExtension.swift */; };
 		A6A3CD912C191844002ACCD6 /* ChatTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A3CD902C191844002ACCD6 /* ChatTopBar.swift */; };
@@ -208,6 +211,9 @@
 		A62B05B82BE7C76C00A0C399 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
 		A67C33292C17386900594120 /* StickerCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollection.swift; sourceTree = "<group>"; };
 		A67C332B2C17399B00594120 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		A69CF4A42C20BCFB0042DA3B /* ChatTopBarFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTopBarFunctions.swift; sourceTree = "<group>"; };
+		A69CF4A72C20D9490042DA3B /* MediaControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControlView.swift; sourceTree = "<group>"; };
+		A69CF4AB2C20EBFD0042DA3B /* MusicPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerManager.swift; sourceTree = "<group>"; };
 		A69EE0A52C1A3E6A000A9740 /* 6c71ce3d7f3067d8845d8a3b85e414c45aa250aea1c7bf699e2d58c5bc62e71f.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6c71ce3d7f3067d8845d8a3b85e414c45aa250aea1c7bf699e2d58c5bc62e71f.jpg; sourceTree = "<group>"; };
 		A6A3CD8E2C191730002ACCD6 /* NavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerExtension.swift; sourceTree = "<group>"; };
 		A6A3CD902C191844002ACCD6 /* ChatTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTopBar.swift; sourceTree = "<group>"; };
@@ -447,6 +453,7 @@
 		14CB69E92BD2ED8200516D28 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A69CF4AB2C20EBFD0042DA3B /* MusicPlayerManager.swift */,
 				A6A3CD9D2C1932B7002ACCD6 /* UIDeviceExtension.swift */,
 				14BE37F62BDBB93E0078D49B /* SafeAreaInsets */,
 				14CB69E82BD2ED8200516D28 /* DateHandler.swift */,
@@ -561,6 +568,14 @@
 			path = Sticker;
 			sourceTree = "<group>";
 		};
+		A69CF4A62C20D93C0042DA3B /* MediaControl */ = {
+			isa = PBXGroup;
+			children = (
+				A69CF4A72C20D9490042DA3B /* MediaControlView.swift */,
+			);
+			path = MediaControl;
+			sourceTree = "<group>";
+		};
 		A69EE0A72C1A3E83000A9740 /* Stickers */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +597,7 @@
 			children = (
 				A6A3CD942C192549002ACCD6 /* Children */,
 				A6A3CD902C191844002ACCD6 /* ChatTopBar.swift */,
+				A69CF4A42C20BCFB0042DA3B /* ChatTopBarFunctions.swift */,
 			);
 			path = TopBar;
 			sourceTree = "<group>";
@@ -589,6 +605,7 @@
 		A6A3CD942C192549002ACCD6 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A69CF4A62C20D93C0042DA3B /* MediaControl */,
 				A6A3CD982C19270A002ACCD6 /* TopBarButtonView */,
 				A6A3CD952C192551002ACCD6 /* CallButtonsView */,
 			);
@@ -769,12 +786,14 @@
 				A62B05B92BE7C76C00A0C399 /* FileHandler.swift in Sources */,
 				146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */,
 				A6A3CD9A2C192725002ACCD6 /* IOSTopBarButtonView.swift in Sources */,
+				A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
 				A61448B62BE82D3A002CE0E9 /* StickerFunctions.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
+				A69CF4AC2C20EC050042DA3B /* MusicPlayerManager.swift in Sources */,
 				A6BF8C8D2BE5851200D1C471 /* Tableflip.swift in Sources */,
 				A6A3CD9E2C1932B8002ACCD6 /* UIDeviceExtension.swift in Sources */,
 				A62B05A92BE7B11D00A0C399 /* StickerView.swift in Sources */,
@@ -830,6 +849,7 @@
 				14CB69ED2BD2F08800516D28 /* LinkView.swift in Sources */,
 				A6BF8C542BE56C3000D1C471 /* CommandDetailView.swift in Sources */,
 				A62B05B22BE7B5BA00A0C399 /* StickerImageView.swift in Sources */,
+				A69CF4A82C20D9510042DA3B /* MediaControlView.swift in Sources */,
 				14CB69FF2BD3011000516D28 /* ReactionFunctions.swift in Sources */,
 				140DD9B72B42EE0F00302447 /* Music.swift in Sources */,
 				A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */,
