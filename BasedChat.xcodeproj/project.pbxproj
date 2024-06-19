@@ -19,7 +19,6 @@
 		14469B562B40937500835BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14469B552B40937500835BFC /* Assets.xcassets */; };
 		144D31AE2BDD7DD400D1427F /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31AD2BDD7DD400D1427F /* ChatInputView.swift */; };
 		144D31B02BDD7E3B00D1427F /* ChatInputViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31AF2BDD7E3B00D1427F /* ChatInputViewFunctions.swift */; };
-		144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */; };
 		144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144F38F82BD848DB00770A79 /* TextExtensions.swift */; };
 		146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */; };
 		146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */; };
@@ -122,7 +121,6 @@
 		14469B552B40937500835BFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		144D31AD2BDD7DD400D1427F /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		144D31AF2BDD7E3B00D1427F /* ChatInputViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewFunctions.swift; sourceTree = "<group>"; };
-		144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		144F38F82BD848DB00770A79 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		146F74F32BD9075900E0C10B /* BubbleContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleContextMenu.swift; sourceTree = "<group>"; };
 		146F74F52BD9087F00E0C10B /* BubbleTimeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTimeDisplayView.swift; sourceTree = "<group>"; };
@@ -327,7 +325,6 @@
 			children = (
 				144D31AD2BDD7DD400D1427F /* ChatInputView.swift */,
 				144D31AF2BDD7E3B00D1427F /* ChatInputViewFunctions.swift */,
-				144D31B12BDD806D00D1427F /* TextFieldExtensions.swift */,
 			);
 			path = ChatInput;
 			sourceTree = "<group>";
@@ -856,7 +853,6 @@
 				A6BF8C582BE56DDB00D1C471 /* CommandImageSize.swift in Sources */,
 				A61448B22BE828F6002CE0E9 /* TimeTogglerProtocol.swift in Sources */,
 				140DE73F2BDC26E700B59A25 /* ChatViewFunctions.swift in Sources */,
-				144D31B22BDD806D00D1427F /* TextFieldExtensions.swift in Sources */,
 				14CB69F72BD2F9EB00516D28 /* ReplyView.swift in Sources */,
 				A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */,
 				1478813C2BDE96BA009EE6B0 /* StringFormatterCollection.swift in Sources */,
