@@ -76,7 +76,7 @@ struct ChatTopBar: View {
                 }
             }
             .frame(maxHeight: 80)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 15)
             .padding(.top, showEvents ? 15 : 0)
             .onLongPressGesture {
                 withAnimation {
