@@ -25,10 +25,8 @@ struct ChatInputView: View {
             HStack{
                 TextField("", text: $messageInput, axis: .vertical)
                     .lineLimit(3)
-                Image("Vector")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .padding(.trailing, 5)
+                Image("sticker.bold")
+                    .font(.title3)
             }
             .messageInputStyle()
             Button {
