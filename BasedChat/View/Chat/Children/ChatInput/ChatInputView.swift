@@ -22,8 +22,13 @@ struct ChatInputView: View {
                         Text("Babbelgadse")
                     }
                 }))
-            TextField("", text: $messageInput, axis: .vertical)
-                .messageInputStyle()
+            HStack{
+                TextField("", text: $messageInput, axis: .vertical)
+                    .lineLimit(3)
+                Image("sticker.bold")
+                    .font(.title3)
+            }
+            .messageInputStyle()
             Button {
                 createMessage()
             } label: {
