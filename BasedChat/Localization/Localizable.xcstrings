@@ -162,6 +162,9 @@
     "Error" : {
 
     },
+    "Hello" : {
+
+    },
     "integrated" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -329,6 +332,9 @@
           }
         }
       }
+    },
+    "Test" : {
+
     },
     "UnflipDescription" : {
       "extractionState" : "manual",

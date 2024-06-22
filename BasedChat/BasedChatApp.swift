@@ -13,6 +13,10 @@ let defaultMessages: [Message] = [Message(time: 1704126197, sender: 1, text: "Gu
 
 @main
 struct BasedChatApp: App {
+#if canImport(UIKit)
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+#endif
+    
     @State public static var currentUserID: Int? = 1
     @State public static var currentToken: String? = nil
     
@@ -21,9 +25,20 @@ struct BasedChatApp: App {
             FirstView()
                 .modelContainer(for: [Chat.self, Contact.self, StickerCollection.self, Sticker.self])
         }
-        #if os(macOS)
+#if os(macOS)
         .windowStyle(HiddenTitleBarWindowStyle())
-        #endif
+#endif
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
+        switch extensionPointIdentifier {
+            case UIApplication.ExtensionPointIdentifier.keyboard:
+                return false
+            default:
+                return true
+        }
     }
 }
 

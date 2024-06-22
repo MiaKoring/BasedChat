@@ -105,6 +105,7 @@
 		A6BF8C912BE585DF00D1C471 /* CommandOwnerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */; };
 		A6BF8C962BE59D1200D1C471 /* Unflip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C952BE59D1200D1C471 /* Unflip.swift */; };
 		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
+		A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -232,6 +233,7 @@
 		A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandOwnerOverlayView.swift; sourceTree = "<group>"; };
 		A6BF8C952BE59D1200D1C471 /* Unflip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unflip.swift; sourceTree = "<group>"; };
 		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
+		A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 		140DE7172BDBD12900B59A25 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A6FBD1B52C26034D00FAC3AF /* StickerSheet */,
 				A6A3CD932C191870002ACCD6 /* TopBar */,
 				144D31AC2BDD7DC300D1427F /* ChatInput */,
 				149876192BDD1F9A001CE1C5 /* ReplyToDisplay */,
@@ -682,6 +685,14 @@
 			path = WindowControlElements;
 			sourceTree = "<group>";
 		};
+		A6FBD1B52C26034D00FAC3AF /* StickerSheet */ = {
+			isa = PBXGroup;
+			children = (
+				A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */,
+			);
+			path = StickerSheet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -815,6 +826,7 @@
 				14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */,
 				A6A3CD912C191844002ACCD6 /* ChatTopBar.swift in Sources */,
 				14CB69E62BD2ED6600516D28 /* Bubble.swift in Sources */,
+				A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */,
 				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
 				14CB69E22BD2ED5800516D28 /* Reaction.swift in Sources */,
 				A6BF8C8B2BE581BD00D1C471 /* Bababa.swift in Sources */,
@@ -866,7 +878,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = "AppIcon IOS";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -934,7 +948,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = "AppIcon IOS";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -994,7 +1010,7 @@
 		14469B5D2B40937500835BFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon IOS";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1035,7 +1051,7 @@
 		14469B5E2B40937500835BFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon IOS";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
