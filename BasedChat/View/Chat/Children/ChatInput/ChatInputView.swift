@@ -46,16 +46,10 @@ struct ChatInputView: View {
                     Button("OK", role: .cancel){}
                 }
             }
-            if showStickerSheet {
-                VStack{
-                    HStack {
-                        Spacer()
-                        Text("Test")
-                        Spacer()
-                    }
-                }
-                .frame(height: 300)
-                .background(.ultraThickMaterial)
+            .sheet(isPresented: $showStickerSheet) {
+                StickerSheetView()
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
             }
         }
     }
@@ -75,4 +69,3 @@ struct ChatInputView: View {
     
     //MARK: -
 }
-

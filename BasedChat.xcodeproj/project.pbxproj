@@ -92,6 +92,9 @@
 		A6A3CD9A2C192725002ACCD6 /* IOSTopBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A3CD992C19271F002ACCD6 /* IOSTopBarButtonView.swift */; };
 		A6A3CD9C2C1927C2002ACCD6 /* TopBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A3CD9B2C1927BA002ACCD6 /* TopBarButtonView.swift */; };
 		A6A3CD9E2C1932B8002ACCD6 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A3CD9D2C1932B7002ACCD6 /* UIDeviceExtension.swift */; };
+		A6A9076A2C27533500D8FBDC /* TopTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A907692C27532A00D8FBDC /* TopTabButton.swift */; };
+		A6A9076C2C2753BE00D8FBDC /* TypedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A9076B2C2753B300D8FBDC /* TypedImage.swift */; };
+		A6A9076E2C27550500D8FBDC /* StickersheetContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A9076D2C2754E200D8FBDC /* StickersheetContentType.swift */; };
 		A6BF8C542BE56C3000D1C471 /* CommandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C532BE56C3000D1C471 /* CommandDetailView.swift */; };
 		A6BF8C562BE56D9A00D1C471 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C552BE56D9A00D1C471 /* ImageExtensions.swift */; };
 		A6BF8C582BE56DDB00D1C471 /* CommandImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C572BE56DDB00D1C471 /* CommandImageSize.swift */; };
@@ -104,6 +107,7 @@
 		A6BF8C8F2BE5856100D1C471 /* CommandPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C8E2BE5856100D1C471 /* CommandPreview.swift */; };
 		A6BF8C912BE585DF00D1C471 /* CommandOwnerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */; };
 		A6BF8C962BE59D1200D1C471 /* Unflip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C952BE59D1200D1C471 /* Unflip.swift */; };
+		A6C037702C273A85007BBF23 /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0376F2C273A7F007BBF23 /* TopTabView.swift */; };
 		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
 		A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */; };
 /* End PBXBuildFile section */
@@ -220,6 +224,9 @@
 		A6A3CD992C19271F002ACCD6 /* IOSTopBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTopBarButtonView.swift; sourceTree = "<group>"; };
 		A6A3CD9B2C1927BA002ACCD6 /* TopBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarButtonView.swift; sourceTree = "<group>"; };
 		A6A3CD9D2C1932B7002ACCD6 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		A6A907692C27532A00D8FBDC /* TopTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabButton.swift; sourceTree = "<group>"; };
+		A6A9076B2C2753B300D8FBDC /* TypedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedImage.swift; sourceTree = "<group>"; };
+		A6A9076D2C2754E200D8FBDC /* StickersheetContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickersheetContentType.swift; sourceTree = "<group>"; };
 		A6BF8C532BE56C3000D1C471 /* CommandDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDetailView.swift; sourceTree = "<group>"; };
 		A6BF8C552BE56D9A00D1C471 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		A6BF8C572BE56DDB00D1C471 /* CommandImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandImageSize.swift; sourceTree = "<group>"; };
@@ -232,6 +239,7 @@
 		A6BF8C8E2BE5856100D1C471 /* CommandPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPreview.swift; sourceTree = "<group>"; };
 		A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandOwnerOverlayView.swift; sourceTree = "<group>"; };
 		A6BF8C952BE59D1200D1C471 /* Unflip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unflip.swift; sourceTree = "<group>"; };
+		A6C0376F2C273A7F007BBF23 /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
 		A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -477,6 +485,7 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A6C0376E2C273A0A007BBF23 /* TopTabView */,
 				A6D738D82BFF79D0002A4AD8 /* WindowControlElements */,
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
 				14BE37F32BDBB5940078D49B /* Chat */,
@@ -493,6 +502,8 @@
 		14E018082B4CB26500A6E379 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A6A9076D2C2754E200D8FBDC /* StickersheetContentType.swift */,
+				A6A9076B2C2753B300D8FBDC /* TypedImage.swift */,
 				A628A6042C1A530000801EBB /* ChatType.swift */,
 				A67C33282C17384B00594120 /* Sticker */,
 				A67C33272C17380D00594120 /* Message */,
@@ -677,6 +688,15 @@
 			path = OwnerOverlay;
 			sourceTree = "<group>";
 		};
+		A6C0376E2C273A0A007BBF23 /* TopTabView */ = {
+			isa = PBXGroup;
+			children = (
+				A6A907692C27532A00D8FBDC /* TopTabButton.swift */,
+				A6C0376F2C273A7F007BBF23 /* TopTabView.swift */,
+			);
+			path = TopTabView;
+			sourceTree = "<group>";
+		};
 		A6D738D82BFF79D0002A4AD8 /* WindowControlElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,6 +808,7 @@
 				14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */,
 				A6BF8C822BE580BD00D1C471 /* CommandParamBackgroundState.swift in Sources */,
 				14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */,
+				A6A9076C2C2753BE00D8FBDC /* TypedImage.swift in Sources */,
 				14CB69DE2BD2ECAB00516D28 /* Reply.swift in Sources */,
 				14BE37FC2BDBBA3E0078D49B /* UIEdgeInsetsExtension.swift in Sources */,
 				14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */,
@@ -797,6 +818,7 @@
 				A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
+				A6A9076A2C27533500D8FBDC /* TopTabButton.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
 				A61448B62BE82D3A002CE0E9 /* StickerFunctions.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
@@ -815,6 +837,7 @@
 				14CB69D82BD2EC7F00516D28 /* DictionaryExtension.swift in Sources */,
 				A6BF8C5A2BE56FF500D1C471 /* CommandParamView.swift in Sources */,
 				149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */,
+				A6A9076E2C27550500D8FBDC /* StickersheetContentType.swift in Sources */,
 				1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */,
 				A6BF8C8F2BE5856100D1C471 /* CommandPreview.swift in Sources */,
 				A67C332C2C17399B00594120 /* Sticker.swift in Sources */,
@@ -853,6 +876,7 @@
 				A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */,
 				14CB69F52BD2F64B00516D28 /* LinkStringDisplay.swift in Sources */,
 				A67C332A2C17386900594120 /* StickerCollection.swift in Sources */,
+				A6C037702C273A85007BBF23 /* TopTabView.swift in Sources */,
 				140DE7422BDC31A200B59A25 /* ReactionSheetView.swift in Sources */,
 				140DE71B2BDBD67300B59A25 /* MessageScrollViewExtensions.swift in Sources */,
 				14CB69ED2BD2F08800516D28 /* LinkView.swift in Sources */,

@@ -162,7 +162,7 @@
     "Error" : {
 
     },
-    "Hello" : {
+    "GIF" : {
 
     },
     "integrated" : {
@@ -316,6 +316,9 @@
     "select chat" : {
 
     },
+    "Sticker" : {
+
+    },
     "TableFlipDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -332,9 +335,6 @@
           }
         }
       }
-    },
-    "Test" : {
-
     },
     "UnflipDescription" : {
       "extractionState" : "manual",
