@@ -80,7 +80,11 @@ struct ChatView: View {
             }
             .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
-                collection = CommandCollection(commands: [Bababa(completion: complete), Tableflip(completion: comp), Unflip(completion: unflipComplete)])
+                collection = CommandCollection(commands: [
+                    Bababa(completion: sendBababa),
+                    Tableflip(completion: sendTableflip),
+                    Unflip(completion: sendUnflip)
+                ])
             }
             .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
             .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){

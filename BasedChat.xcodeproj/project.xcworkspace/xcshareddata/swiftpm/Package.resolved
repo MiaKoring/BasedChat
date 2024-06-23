@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MiaKoring/SlashCommands.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "8f65f79bce3d225d0ceedf3cd9f2060f426ca047"
+        "revision" : "0a1b66acb77a5e29e467843c7e21118a73832593",
+        "version" : "2.0.0"
       }
     },
     {

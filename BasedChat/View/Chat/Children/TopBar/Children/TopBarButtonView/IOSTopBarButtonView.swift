@@ -10,7 +10,7 @@ struct IOSTopBarButtonView: View {
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.title2)
+                    .font(.system(size: 24))
                     .frame(width: 35, height: 35)
             }
             .buttonStyle(.plain)

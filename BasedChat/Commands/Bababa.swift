@@ -2,6 +2,8 @@ import Foundation
 import SlashCommands
 
 class Bababa: Command {
+    var userAccessible: Bool = true
+    
     var id: UUID = UUID()
     
     var command: String = "bababa"

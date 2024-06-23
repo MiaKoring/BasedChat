@@ -103,6 +103,7 @@ extension MessageScrollView {
                     .overlay {
                         HStack{
                             Image(systemName: "arrowtriangle.down")
+                                .font(.system(size: 24))
                                 .allowsHitTesting(false)
                                 .padding(.leading, 20)
                             Spacer()

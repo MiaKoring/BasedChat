@@ -20,11 +20,6 @@ extension ChatView {
     func handleMessageSend() {
         DispatchQueue.global(qos: .background).async {
             if handleCommand() {
-                DispatchQueue.main.async {
-                    currentCommand = nil
-                    replyTo = nil
-                    messageInput = ""
-                }
                 return
             }
             
@@ -58,19 +53,24 @@ extension ChatView {
     }
     
     fileprivate func handleCommand()-> Bool {
-        if currentCommand != nil {
-            do {
-                try collection.execute(currentCommand!, with: messageInput, highestPermission: .none) //TODO: add permissions to user
-                return true
+        guard let command = currentCommand else { return false }
+        do {
+            try collection.execute(command, with: messageInput, highestPermission: .none)
+            DispatchQueue.main.async {
+                currentCommand = nil
+                replyTo = nil
+                messageInput = ""
             }
-            catch let error{
-                print(error.localizedDescription)
-            }
+            return true
         }
-        return false
+        catch let error{
+            print(error.localizedDescription)
+            return false
+        }
+            
     }
     
-    func comp(_ params: [String: Any])-> Void {
+    func sendTableflip(_ params: [String: Any])-> Void {
         var msgStr = ""
         if params.isEmpty {
             msgStr = "(╯°□°)╯︵ ┻━┻"
@@ -93,7 +93,7 @@ extension ChatView {
         return
     }
     
-    func complete(_ params: [String: Any])-> Void {
+    func sendBababa(_ params: [String: Any])-> Void {
         var msg: Message? = nil
         if params.isEmpty {
             if replyTo.isNil {
@@ -139,7 +139,7 @@ extension ChatView {
         return
     }
     
-    func unflipComplete(_ params: [String: Any])-> Void {
+    func sendUnflip(_ params: [String: Any])-> Void {
         var msgStr = ""
         if params.isEmpty {
             msgStr = "┬─┬ノ( º _ ºノ)"
@@ -170,6 +170,7 @@ extension ChatView {
                 message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerHash: stickerPath)
             }
             DispatchQueue.main.async {
+                replyTo = nil
                 sendMessage(message!)
                 chat.currentMessageID += 1
             }

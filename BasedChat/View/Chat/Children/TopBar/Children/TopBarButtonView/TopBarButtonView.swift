@@ -19,7 +19,7 @@ struct TopBarButtonView: View {
                 }
             } label: {
                 Image(systemName: "sidebar.left")
-                    .font(.title2)
+                    .font(.system(size: 24))
                     .frame(width: 35, height: 35)
             }
             .buttonStyle(.plain)

@@ -108,7 +108,10 @@
 		A6BF8C912BE585DF00D1C471 /* CommandOwnerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */; };
 		A6BF8C962BE59D1200D1C471 /* Unflip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C952BE59D1200D1C471 /* Unflip.swift */; };
 		A6C037702C273A85007BBF23 /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0376F2C273A7F007BBF23 /* TopTabView.swift */; };
+		A6C0813B2C278ECB008BF6B4 /* DynamicQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */; };
 		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
+		A6E77B1D2C2871D9004E4D5D /* StickerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */; };
+		A6E77B212C287312004E4D5D /* CollectionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */; };
 		A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */; };
 /* End PBXBuildFile section */
 
@@ -240,7 +243,10 @@
 		A6BF8C902BE585DF00D1C471 /* CommandOwnerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandOwnerOverlayView.swift; sourceTree = "<group>"; };
 		A6BF8C952BE59D1200D1C471 /* Unflip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unflip.swift; sourceTree = "<group>"; };
 		A6C0376F2C273A7F007BBF23 /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
+		A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicQueryView.swift; sourceTree = "<group>"; };
 		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
+		A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSearchView.swift; sourceTree = "<group>"; };
+		A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDisplayView.swift; sourceTree = "<group>"; };
 		A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,7 +285,6 @@
 		140DE7172BDBD12900B59A25 /* Children */ = {
 			isa = PBXGroup;
 			children = (
-				A6FBD1B52C26034D00FAC3AF /* StickerSheet */,
 				A6A3CD932C191870002ACCD6 /* TopBar */,
 				144D31AC2BDD7DC300D1427F /* ChatInput */,
 				149876192BDD1F9A001CE1C5 /* ReplyToDisplay */,
@@ -334,6 +339,7 @@
 		144D31AC2BDD7DC300D1427F /* ChatInput */ = {
 			isa = PBXGroup;
 			children = (
+				A6E77B1A2C2871AB004E4D5D /* Children */,
 				144D31AD2BDD7DD400D1427F /* ChatInputView.swift */,
 				144D31AF2BDD7E3B00D1427F /* ChatInputViewFunctions.swift */,
 			);
@@ -485,7 +491,7 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A6C0376E2C273A0A007BBF23 /* TopTabView */,
+				A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */,
 				A6D738D82BFF79D0002A4AD8 /* WindowControlElements */,
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
 				14BE37F32BDBB5940078D49B /* Chat */,
@@ -691,6 +697,7 @@
 		A6C0376E2C273A0A007BBF23 /* TopTabView */ = {
 			isa = PBXGroup;
 			children = (
+				A6E77B1E2C2872DD004E4D5D /* Children */,
 				A6A907692C27532A00D8FBDC /* TopTabButton.swift */,
 				A6C0376F2C273A7F007BBF23 /* TopTabView.swift */,
 			);
@@ -703,6 +710,40 @@
 				A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */,
 			);
 			path = WindowControlElements;
+			sourceTree = "<group>";
+		};
+		A6E77B1A2C2871AB004E4D5D /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				A6C0376E2C273A0A007BBF23 /* TopTabView */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		A6E77B1B2C2871C0004E4D5D /* StickerSearch */ = {
+			isa = PBXGroup;
+			children = (
+				A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */,
+			);
+			path = StickerSearch;
+			sourceTree = "<group>";
+		};
+		A6E77B1E2C2872DD004E4D5D /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				A6E77B1F2C287302004E4D5D /* CollectionDisplay */,
+				A6FBD1B52C26034D00FAC3AF /* StickerSheet */,
+				A6E77B1B2C2871C0004E4D5D /* StickerSearch */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		A6E77B1F2C287302004E4D5D /* CollectionDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */,
+			);
+			path = CollectionDisplay;
 			sourceTree = "<group>";
 		};
 		A6FBD1B52C26034D00FAC3AF /* StickerSheet */ = {
@@ -804,6 +845,7 @@
 				A6BF8C912BE585DF00D1C471 /* CommandOwnerOverlayView.swift in Sources */,
 				A6A3CD8F2C191746002ACCD6 /* NavigationControllerExtension.swift in Sources */,
 				14CB69E02BD2ED4C00516D28 /* URLRepresentable.swift in Sources */,
+				A6C0813B2C278ECB008BF6B4 /* DynamicQueryView.swift in Sources */,
 				14CB69FD2BD2FF7A00516D28 /* ReactionInfluencedProtocol.swift in Sources */,
 				14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */,
 				A6BF8C822BE580BD00D1C471 /* CommandParamBackgroundState.swift in Sources */,
@@ -819,6 +861,7 @@
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
 				A6A9076A2C27533500D8FBDC /* TopTabButton.swift in Sources */,
+				A6E77B212C287312004E4D5D /* CollectionDisplayView.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
 				A61448B62BE82D3A002CE0E9 /* StickerFunctions.swift in Sources */,
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
@@ -845,6 +888,7 @@
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,
+				A6E77B1D2C2871D9004E4D5D /* StickerSearchView.swift in Sources */,
 				A61448B42BE829E8002CE0E9 /* TimeTogglerFunctions.swift in Sources */,
 				14CB69D62BD2EC7900516D28 /* Attachment.swift in Sources */,
 				A6A3CD912C191844002ACCD6 /* ChatTopBar.swift in Sources */,
@@ -1157,8 +1201,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MiaKoring/SlashCommands.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

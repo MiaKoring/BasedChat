@@ -9,6 +9,7 @@ struct ChatInputView: View {
         VStack {
             HStack {
                 Image(systemName: "plus")
+                    .font(.system(size: 18))
                     .contextMenu(ContextMenu(menuItems: {
                         Button {
                             createMessage(2)
@@ -28,12 +29,9 @@ struct ChatInputView: View {
                         .lineLimit(3)
                         .focused($textFieldFocused)
                     Image("sticker.bold")
-                        .font(.title3)
+                        .font(.system(size: 18))
                         .onTapGesture {
-                            //textFieldFocused.toggle()
-                            withAnimation {
-                                showStickerSheet.toggle()
-                            }
+                            showStickerSheet.toggle()
                         }
                 }
                 .messageInputStyle()
@@ -41,15 +39,17 @@ struct ChatInputView: View {
                     createMessage()
                 } label: {
                     Image(systemName: "paperplane")
+                        .font(.system(size: 18))
                 }
                 .alert(LocalizedStringKey("EmptyMessageAlert"), isPresented: $showMessageEmptyAlert) {
                     Button("OK", role: .cancel){}
                 }
             }
             .sheet(isPresented: $showStickerSheet) {
-                StickerSheetView()
+                TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker)
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThickMaterial)
             }
         }
     }
@@ -66,6 +66,7 @@ struct ChatInputView: View {
     @Binding var stickerPath: String
     @FocusState var textFieldFocused: Bool
     @State var showStickerSheet: Bool = false
+    @State var sysCommandInput: String = ""
     
     //MARK: -
 }
