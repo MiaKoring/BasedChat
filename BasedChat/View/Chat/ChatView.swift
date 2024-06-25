@@ -32,7 +32,7 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
-            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath)
+            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath, stickerName: $stickerName, stickerType: $stickerType)
         }
             .padding(.horizontal, 10)
             .onTapGesture {
@@ -121,6 +121,8 @@ struct ChatView: View {
     @State var commandError: CommandError? = nil
     @State var sendSticker = false
     @State var stickerPath = ""
+    @State var stickerName = ""
+    @State var stickerType = ""
     @Binding var showNavigation: NavigationSplitViewVisibility
     
     //MARK: -

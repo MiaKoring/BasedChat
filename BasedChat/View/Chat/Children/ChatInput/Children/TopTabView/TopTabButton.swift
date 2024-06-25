@@ -1,10 +1,8 @@
 import SwiftUI
 
 struct TopTabButton: View {
-    @Binding var selected: StickersheetContentType
-    let image: TypedImage
-    let imageFont: Font
-    let id: StickersheetContentType
+    
+    //MARK: - Body
     var body: some View {
         Button { selected = id } label: {
             switch image {
@@ -12,7 +10,7 @@ struct TopTabButton: View {
                     Image(name)
                         .font(imageFont)
                 case .system(let name):
-                    Image(name)
+                    Image(systemName: name)
                         .font(imageFont)
             }
                 
@@ -25,4 +23,10 @@ struct TopTabButton: View {
                 .fill(selected == id ? Color.gray : Color.clear)
         }
     }
+    
+    //MARK: - Parameters
+    @Binding var selected: TopTabContentType
+    let id: TopTabContentType
+    let image: TypedImage
+    let imageFont: Font
 }

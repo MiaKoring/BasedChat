@@ -13,6 +13,9 @@
     "+%lld" : {
 
     },
+    "Add to Favourites" : {
+
+    },
     "AppleMusic" : {
 
     },
@@ -72,6 +75,9 @@
           }
         }
       }
+    },
+    "Couldn't find sticker" : {
+
     },
     "creating chat..." : {
 
@@ -163,6 +169,12 @@
 
     },
     "GIF" : {
+
+    },
+    "how did we get here" : {
+
+    },
+    "How did we get here" : {
 
     },
     "integrated" : {
@@ -319,9 +331,6 @@
     "select chat" : {
 
     },
-    "Sticker" : {
-
-    },
     "TableFlipDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -338,6 +347,9 @@
           }
         }
       }
+    },
+    "TODO" : {
+
     },
     "UnflipDescription" : {
       "extractionState" : "manual",

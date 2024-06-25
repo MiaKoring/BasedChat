@@ -24,7 +24,9 @@ extension ChatTopBar {
     
     func disappeared() {
         NotificationCenter.default.removeObserver(self)
+        #if os(iOS)
         MPMusicPlayerController.systemMusicPlayer.endGeneratingPlaybackNotifications()
+        #endif
     }
     
     func loadImage() {

@@ -1,14 +1,17 @@
+#if os(iOS)
 import SwiftUI
 import MediaPlayer
 import Combine
 import MusicKit
 
 class MusicPlayerManager: ObservableObject {
+
     @Published var nowPlayingItem: MPMediaItem? = nil
     @Published var playbackState: MPMusicPlaybackState = .stopped
+
     @Published var showErrorMessage: Bool = false
     @Published var errorMessage: String? = nil
-    
+
     private var musicPlayer = MPMusicPlayerController.systemMusicPlayer
     private var cancellables = Set<AnyCancellable>()
     
@@ -96,3 +99,4 @@ class MusicPlayerManager: ObservableObject {
         showErrorMessage = true
     }
 }
+#endif

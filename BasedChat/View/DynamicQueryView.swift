@@ -18,10 +18,16 @@ public struct DynamicQueryView<T: PersistentModel, Content: View>: View {
 }
 
 extension DynamicQueryView where T : StickerCollection {
-    init( searchCollectionName: String, @ViewBuilder content: @escaping ([T]) -> Content) {
+    init( searchCollectionName: String, filterEmpty: Bool, @ViewBuilder content: @escaping ([T]) -> Content) {
+        let sort = [SortDescriptor<T>(\T.priority, order: .reverse), SortDescriptor<T>(\T.name, order: .forward)]
+        if !filterEmpty {
+            let filter = #Predicate<T> {
+                $0.name.contains(searchCollectionName) || searchCollectionName.isEmpty }
+            self.init( descriptor: FetchDescriptor( predicate: filter, sortBy: sort), content: content )
+            return
+        }
         let filter = #Predicate<T> {
-            $0.name.contains(searchCollectionName) || searchCollectionName.isEmpty }
-        let sort = [SortDescriptor<T>(\T.name, order: .forward)]
+            ($0.name.contains(searchCollectionName) || searchCollectionName.isEmpty) && !$0.stickers.isEmpty }
         self.init( descriptor: FetchDescriptor( predicate: filter, sortBy: sort), content: content )
     }
     

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 extension StickerView {
     
@@ -40,7 +41,9 @@ extension StickerView {
             }
         }
         else {
-            stickerSheetPresented = true
+            if data != nil {
+                stickerSheetPresented = true
+            }
             doubletapTimer?.invalidate()
         }
     }
@@ -50,14 +53,31 @@ extension StickerView {
             reactionData = genReactions()
             reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
         }
-        let stickerHash = String(message.stickerHash)
-        let filteredStickers = stickers.filter({$0.hashString == stickerHash})
-        
-        guard filteredStickers.count > 0 else {
+        hash = message.stickerHash
+    }
+    
+    fileprivate func addToFavourites(sticker: Sticker) {
+        if let collection = favourites.first {
+            collection.stickers.append(sticker)
             return
         }
-        fileExtension = filteredStickers[0].type
-
-        name = stickerHash
+        
+        let newFavourites = StickerCollection(name: "favourites", stickers: [sticker], priority: .high)
+        context.insert(newFavourites)
+    }
+    
+    func addToFavourites() {
+        if let stickers = try? context.fetch(FetchDescriptor<Sticker>(predicate: #Predicate<Sticker> {$0.hashString == hash})), let sticker = stickers.first {
+            addToFavourites(sticker: sticker)
+            return
+        }
+        if data != nil {
+            //TODO: Finish
+            let newSticker = Sticker(name: message.stickerName, type: message.stickerType, hashString: message.stickerHash)
+            
+            addToFavourites(sticker: newSticker)
+            return
+            
+        }
     }
 }

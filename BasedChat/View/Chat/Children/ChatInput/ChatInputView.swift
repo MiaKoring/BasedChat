@@ -46,7 +46,7 @@ struct ChatInputView: View {
                 }
             }
             .sheet(isPresented: $showStickerSheet) {
-                TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker)
+                TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
                 .presentationBackground(.ultraThickMaterial)
@@ -64,6 +64,8 @@ struct ChatInputView: View {
     @Binding var sender: Int //TODO: Only Test
     @Binding var sendSticker: Bool
     @Binding var stickerPath: String
+    @Binding var stickerName: String
+    @Binding var stickerType: String
     @FocusState var textFieldFocused: Bool
     @State var showStickerSheet: Bool = false
     @State var sysCommandInput: String = ""

@@ -4,7 +4,9 @@ struct StickerSheet: View {
     
     //MARK: - Body
     var body: some View {
-        Text("Sticker")
+        VStack {
+            Text("TODO")
+        }
     }
     
     //MARK: - Parameters

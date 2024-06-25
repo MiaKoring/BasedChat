@@ -1,6 +1,7 @@
 import Foundation
 
-enum StickersheetContentType{
+enum TopTabContentType {
     case gif
     case sticker
+    case collection
 }

@@ -67,13 +67,14 @@ struct StickerImageView: View {
     @State var isDone = true
     @State var name: String
     @State var fileExtension: String
-    @State var data: Data? = nil
+    @Binding var data: Data?
     var width: Double = 200
     var height: Double = 200
     var durationFactor = 10.0
 }
 
 #Preview {
-    StickerImageView(name: "TalkingCat", fileExtension: "gif")
+    @Previewable @State var data: Data? = nil
+    StickerImageView(name: "TalkingCat", fileExtension: "gif", data: $data)
         .frame(width: 200, height: 200)
 }

@@ -21,9 +21,9 @@ struct TopTabView: View {
                 }
                 .padding(.leading, 20)
                 HStack {
-                    TopTabButton(selected: $selected, image: .custom("GIF.bold"), imageFont: .system(size: 18), id: .gif)
+                    TopTabButton(selected: $selected, id: .gif, image: .custom("GIF.bold"), imageFont: .system(size: 18))
                     Divider()
-                    TopTabButton(selected: $selected, image: .custom("sticker.bold"), imageFont: .system(size: 18), id: .sticker)
+                    TopTabButton(selected: $selected, id: .sticker, image: .custom("sticker.bold"), imageFont: .system(size: 18))
                 }
                 .frame(height: 31)
                 .padding(5)
@@ -38,6 +38,8 @@ struct TopTabView: View {
                     Text("GIF")
                 case .sticker:
                     StickerSheet()
+                default:
+                    Text("how did we get here") // shouldn't be possible
             }
             Spacer()
         }
@@ -48,22 +50,29 @@ struct TopTabView: View {
                     case .gif:
                         Text("GIF")
                     case .sticker:
-                        StickerSearch(stickerPath: $stickerPath, sendSticker: $sendSticker, showParentSheet: $showSearch)
+                        StickerSearch(showParentSheet: $showSearch, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
+                    default:
+                        Text("How did we get here") // shouldn't be possible
                 }
             }
             .padding(20)
+            .presentationBackground(.thickMaterial)
         }
     }
     
     //MARK: - Parameters
-    @State var selected: StickersheetContentType = .sticker
+    @State var selected: TopTabContentType = .sticker
     @State var showSearch: Bool = false
     @Binding var stickerPath: String
     @Binding var sendSticker: Bool
+    @Binding var stickerName: String
+    @Binding var stickerType: String
 }
 
 #Preview {
     @Previewable @State var stickerPath = ""
     @Previewable @State var sendSticker = false
-    TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker)
+    @Previewable @State var stickerName = ""
+    @Previewable @State var stickerType = ""
+    TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
 }
