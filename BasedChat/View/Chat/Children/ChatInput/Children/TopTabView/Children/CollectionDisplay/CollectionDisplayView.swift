@@ -64,13 +64,14 @@ struct CollectionDisplay: View {
 }
 
 #Preview {
-    @Previewable @State var collection = StickerCollection(name: "integrated", stickers: [Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")], priority: .low)
-    @Previewable @State var coll = StickerCollection(name: "favourites", stickers: [], priority: .high)
+    @Previewable @State var coll = StickerCollection(name: "favourites", priority: .high)
+    @Previewable @State var collection = StickerCollection(name: "integrated", priority: .low)
     @Previewable @State var stickerPath = ""
     @Previewable @State var sendSticker = false
     @Previewable @State var stickerName = ""
     @Previewable @State var stickerType = ""
     @Previewable @State var showParentSheet = true
+    let sticker = Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
     VStack {
         CollectionDisplay(collection: collection, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
             .padding(.horizontal, 30)
@@ -78,5 +79,8 @@ struct CollectionDisplay: View {
             .padding(.horizontal, 30)
         CollectionDisplay(collection: coll, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
             .padding(.horizontal, 30)
+    }
+    .onAppear() {
+        collection.stickers.append(sticker)
     }
 }

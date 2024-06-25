@@ -1,15 +1,18 @@
 import Foundation
-import SwiftData
+import RealmSwift
 
-@Model
-final class Sticker: Identifiable {
-    var id: UUID
-    var name: String
-    var type: String
-    var hashString: String
+final class Sticker: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var name: String
+    @Persisted var type: String
+    @Persisted var hashString: String
+    @Persisted(originProperty: "stickers") var collections: LinkingObjects<StickerCollection>
     
-    init(id: UUID = UUID(), name: String, type: String, hashString: String) {
-        self.id = id
+    override init() {
+        super.init()
+    }
+    
+    init(name: String, type: String, hashString: String) {
         self.name = name
         self.type = type
         self.hashString = hashString

@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import SwiftChameleon
 import SwiftData
+import RealmSwift
 
 struct StickerView: View, TimeToggler, ReactionInfluenced {
     var body: some View {
@@ -33,39 +34,15 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
         }
         .sheet(isPresented: $stickerSheetPresented, content: {
             //TODO: Create Subview
-            VStack{
-                #if canImport(UIKit)
-                RoundedRectangle(cornerRadius: 25)
-                    .pullbarStyle()
-                #else
-                HStack{
-                    CloseOnlyButtons(presented: $stickerSheetPresented)
-                    Spacer()
-                }
-                #endif
-                Spacer()
-                StickerImageView(name: message.stickerHash, fileExtension: message.stickerType, data: $data, width: 200, height: 200, durationFactor: 30)
-                List {
-                    Button {
-                        if let favs = favourites.first, favs.stickers.contains(where: {$0.hashString == message.stickerHash}) {
-                            favs.stickers.removeAll(where: {$0.hashString == hash})
-                            return
-                        }
-                        addToFavourites()
-                    } label: {
-                        if let favs = favourites.first {
-                            Label("Add to Favourites", systemImage: favs.stickers.contains(where: {$0.hashString == message.stickerHash}) ? "star.fill" : "star")
-                        }
-                        else {
-                            Label("Add to Favourites", systemImage: "star")
-                        }
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                Spacer()
+            if let favs = favourites.first {
+                StickerDetailSheet(stickerSheetPresented: $stickerSheetPresented, message: $message, data: $data, favourites: favs)
+                    .frame(minHeight: 400)
+                    .presentationDetents([.medium])
+                    .presentationBackground(.ultraThickMaterial)
             }
-            .presentationDetents([.medium])
-            .presentationBackground(.ultraThickMaterial)
+            else {
+                Text("favourites not found") //TODO: Create Favourites
+            }
         })
         .onAppear(){
             appeared()
@@ -75,12 +52,6 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
                 messageToDelete = message
             } label: {
                 Text(LocalizedStringKey("Delete"))
-            }
-        }
-        .alert("Couldn't find sticker", isPresented: $showAddStickerError) {
-            Button(role: .cancel) {
-            } label: {
-                Text("OK")
             }
         }
     }
@@ -106,16 +77,10 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
     @Environment(\.modelContext) var context
     @State var data: Data? = nil
     @State var showAddStickerError: Bool = false
-    @Query( {
-        var descriptor = FetchDescriptor(predicate: #Predicate<StickerCollection>{$0.name == "favourites"})
-        descriptor.fetchLimit = 1
-        return descriptor
-    }() ) var favourites: [StickerCollection]
+    @ObservedResults(StickerCollection.self, where: {$0.name == "favourites"}) var favourites
     #if !canImport(UIKit)
     @State var sheetCloseHovered = false
     #endif
     
-    
-    var formattedChars: [FormattedChar] =  [] //conformance
+    var formattedChars: [FormattedChar] =  []
 }
-

@@ -1,27 +1,19 @@
 import Foundation
-import SwiftData
+import RealmSwift
 
-//MARK: - Typealias to latestVersion
-typealias StickerCollection = StickerCollectionV1_1.StickerCollection
-
-//MARK: - V1.1
-enum StickerCollectionV1_1: VersionedSchema {
-    static let versionIdentifier: Schema.Version = Schema.Version(1, 1, 0)
-    static let models: [any PersistentModel.Type] = [StickerCollection.self, Sticker.self]
+final class StickerCollection: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var name: String
+    @Persisted var stickers = RealmSwift.List<Sticker>()
+    @Persisted var priority: CollectionPriority.RawValue
     
-    @Model
-    final class StickerCollection: Identifiable {
-        var id: UUID
-        var name: String
-        var stickers: [Sticker]
-        var priority: CollectionPriority.RawValue
-        
-        init(id: UUID = UUID(), name: String, stickers: [Sticker], priority: CollectionPriority) {
-            self.id = id
-            self.name = name
-            self.stickers = stickers
-            self.priority = priority.rawValue
-        }
-        
+    override init() {
+        super.init()
     }
+    
+    init(name: String, priority: CollectionPriority) {
+        self.name = name
+        self.priority = priority.rawValue
+    }
+    
 }

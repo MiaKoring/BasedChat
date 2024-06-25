@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import RealmSwift
 
 extension StickerView {
     
@@ -56,28 +57,4 @@ extension StickerView {
         hash = message.stickerHash
     }
     
-    fileprivate func addToFavourites(sticker: Sticker) {
-        if let collection = favourites.first {
-            collection.stickers.append(sticker)
-            return
-        }
-        
-        let newFavourites = StickerCollection(name: "favourites", stickers: [sticker], priority: .high)
-        context.insert(newFavourites)
-    }
-    
-    func addToFavourites() {
-        if let stickers = try? context.fetch(FetchDescriptor<Sticker>(predicate: #Predicate<Sticker> {$0.hashString == hash})), let sticker = stickers.first {
-            addToFavourites(sticker: sticker)
-            return
-        }
-        if data != nil {
-            //TODO: Finish
-            let newSticker = Sticker(name: message.stickerName, type: message.stickerType, hashString: message.stickerHash)
-            
-            addToFavourites(sticker: newSticker)
-            return
-            
-        }
-    }
 }

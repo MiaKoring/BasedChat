@@ -168,6 +168,9 @@
     "Error" : {
 
     },
+    "favourites not found" : {
+
+    },
     "GIF" : {
 
     },
@@ -347,9 +350,6 @@
           }
         }
       }
-    },
-    "TODO" : {
-
     },
     "UnflipDescription" : {
       "extractionState" : "manual",

@@ -109,12 +109,30 @@
 		A6BF8C962BE59D1200D1C471 /* Unflip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF8C952BE59D1200D1C471 /* Unflip.swift */; };
 		A6C037702C273A85007BBF23 /* TopTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0376F2C273A7F007BBF23 /* TopTabView.swift */; };
 		A6C0813B2C278ECB008BF6B4 /* DynamicQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */; };
+		A6CA3D4A2C2B525800AF822A /* StickerDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CA3D492C2B524D00AF822A /* StickerDetailSheetView.swift */; };
+		A6CA3D4C2C2B52AC00AF822A /* StickerDetailSheetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CA3D4B2C2B52A300AF822A /* StickerDetailSheetFunctions.swift */; };
 		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
 		A6DF55F32C28C1C900836A2B /* CustomEmojisTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DF55F22C28C1C500836A2B /* CustomEmojisTest.swift */; };
 		A6E77B1D2C2871D9004E4D5D /* StickerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */; };
 		A6E77B212C287312004E4D5D /* CollectionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */; };
+		A6EA58DD2C2B2E8D00F9FAD4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */; };
+		A6EA58DE2C2B359D00F9FAD4 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A6EA58DF2C2B359D00F9FAD4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A6EA58DE2C2B359D00F9FAD4 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		140936B82BDDB3CF009F667B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -245,6 +263,8 @@
 		A6BF8C952BE59D1200D1C471 /* Unflip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unflip.swift; sourceTree = "<group>"; };
 		A6C0376F2C273A7F007BBF23 /* TopTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabView.swift; sourceTree = "<group>"; };
 		A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicQueryView.swift; sourceTree = "<group>"; };
+		A6CA3D492C2B524D00AF822A /* StickerDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDetailSheetView.swift; sourceTree = "<group>"; };
+		A6CA3D4B2C2B52A300AF822A /* StickerDetailSheetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDetailSheetFunctions.swift; sourceTree = "<group>"; };
 		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
 		A6DF55F22C28C1C500836A2B /* CustomEmojisTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojisTest.swift; sourceTree = "<group>"; };
 		A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSearchView.swift; sourceTree = "<group>"; };
@@ -257,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6EA58DD2C2B2E8D00F9FAD4 /* RealmSwift in Frameworks */,
 				A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */,
 				A62B05A52BE7AF0E00A0C399 /* SwiftChameleon in Frameworks */,
 				14F35B762BD6A26500D41949 /* KeychainAccess in Frameworks */,
@@ -548,6 +569,8 @@
 		A62B05B02BE7B5AE00A0C399 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A6CA3D492C2B524D00AF822A /* StickerDetailSheetView.swift */,
+				A6CA3D4B2C2B52A300AF822A /* StickerDetailSheetFunctions.swift */,
 				A62B05B12BE7B5BA00A0C399 /* StickerImageView.swift */,
 				A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */,
 			);
@@ -775,6 +798,7 @@
 				14469B482B40937300835BFC /* Sources */,
 				14469B492B40937300835BFC /* Frameworks */,
 				14469B4A2B40937300835BFC /* Resources */,
+				A6EA58DF2C2B359D00F9FAD4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -785,6 +809,7 @@
 				14F35B752BD6A26500D41949 /* KeychainAccess */,
 				A68C6FC82BE2D38B00967243 /* SlashCommands */,
 				A62B05A42BE7AF0E00A0C399 /* SwiftChameleon */,
+				A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */,
 			);
 			productName = MessengerBeta;
 			productReference = 14469B4C2B40937300835BFC /* BasedChat.app */;
@@ -819,6 +844,7 @@
 				14F35B742BD6A26500D41949 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				A68C6FC72BE2D38B00967243 /* XCRemoteSwiftPackageReference "SlashCommands" */,
 				A62B05A32BE7AF0E00A0C399 /* XCRemoteSwiftPackageReference "SwiftChameleon" */,
+				A6EA58DB2C2B2E8D00F9FAD4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 14469B4D2B40937300835BFC /* Products */;
 			projectDirPath = "";
@@ -872,6 +898,7 @@
 				A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedChar.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
+				A6CA3D4A2C2B525800AF822A /* StickerDetailSheetView.swift in Sources */,
 				A6A9076A2C27533500D8FBDC /* TopTabButton.swift in Sources */,
 				A6E77B212C287312004E4D5D /* CollectionDisplayView.swift in Sources */,
 				146F74F62BD9087F00E0C10B /* BubbleTimeDisplayView.swift in Sources */,
@@ -912,6 +939,7 @@
 				A6BF8C8B2BE581BD00D1C471 /* Bababa.swift in Sources */,
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
 				140936B92BDDB3CF009F667B /* Message.swift in Sources */,
+				A6CA3D4C2C2B52AC00AF822A /* StickerDetailSheetFunctions.swift in Sources */,
 				A62B05AD2BE7B27900A0C399 /* MessageType.swift in Sources */,
 				1498763B2BDD7215001CE1C5 /* DateExtensions.swift in Sources */,
 				A62B05AB2BE7B22C00A0C399 /* MessageExtensions.swift in Sources */,
@@ -1217,6 +1245,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		A6EA58DB2C2B2E8D00F9FAD4 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1234,6 +1270,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A68C6FC72BE2D38B00967243 /* XCRemoteSwiftPackageReference "SlashCommands" */;
 			productName = SlashCommands;
+		};
+		A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6EA58DB2C2B2E8D00F9FAD4 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

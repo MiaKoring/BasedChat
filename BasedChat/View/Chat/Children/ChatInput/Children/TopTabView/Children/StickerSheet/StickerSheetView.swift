@@ -1,11 +1,12 @@
 import SwiftUI
+import RealmSwift
 
 struct StickerSheet: View {
-    
+    @ObservedResults(Sticker.self) var stickers
     //MARK: - Body
     var body: some View {
-        VStack {
-            Text("TODO")
+        ForEach(stickers, id: \._id) {sticker in
+            Text(sticker.name)
         }
     }
     
