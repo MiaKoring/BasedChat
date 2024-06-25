@@ -32,7 +32,7 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
-            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath)
+            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath, stickerName: $stickerName, stickerType: $stickerType)
         }
             .padding(.horizontal, 10)
             .onTapGesture {
@@ -80,7 +80,11 @@ struct ChatView: View {
             }
             .onAppear() {
                 chat.currentMessageID = max(chat.currentMessageID, 100)
-                collection = CommandCollection(commands: [Bababa(completion: complete), Tableflip(completion: comp), Unflip(completion: unflipComplete)])
+                collection = CommandCollection(commands: [
+                    Bababa(completion: sendBababa),
+                    Tableflip(completion: sendTableflip),
+                    Unflip(completion: sendUnflip)
+                ])
             }
             .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
             .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){
@@ -117,6 +121,8 @@ struct ChatView: View {
     @State var commandError: CommandError? = nil
     @State var sendSticker = false
     @State var stickerPath = ""
+    @State var stickerName = ""
+    @State var stickerType = ""
     @Binding var showNavigation: NavigationSplitViewVisibility
     
     //MARK: -

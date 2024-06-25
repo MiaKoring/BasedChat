@@ -12,11 +12,13 @@ struct ChatTopBar: View {
             ZStack {
                 //if eventCount > 0 {
                 if showEvents {
+#if os(iOS)
                         VStack {
                             MediaControlView()
                         }
                         .padding(.top, 60)
                         .padding(.bottom, 10)
+#endif
                     }
                 //}
                 VStack{

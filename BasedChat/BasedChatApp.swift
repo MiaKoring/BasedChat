@@ -23,7 +23,7 @@ struct BasedChatApp: App {
     var body: some Scene {
         WindowGroup {
             FirstView()
-                .modelContainer(for: [Chat.self, Contact.self, StickerCollection.self, Sticker.self])
+                .modelContainer(for: [Chat.self, Contact.self, Sticker.self, StickerCollection.self])
         }
 #if os(macOS)
         .windowStyle(HiddenTitleBarWindowStyle())
@@ -31,6 +31,7 @@ struct BasedChatApp: App {
     }
 }
 
+#if canImport(UIKit)
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
         switch extensionPointIdentifier {
@@ -41,6 +42,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
     }
 }
+#endif
 
 struct FirstView: View {
     @Query var chats: [Chat]
@@ -55,8 +57,8 @@ struct FirstView: View {
             if stickerCollections.isEmpty {
                 Text("creating default sticker...")
                     .onAppear(){
-                        let integratedCollection = StickerCollection(name: "integrated", stickers: [Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")])
-                        let favouritesCollection = StickerCollection(name: "favourites", stickers: [])
+                        let integratedCollection = StickerCollection(name: "integrated", stickers: [Sticker(name: "Bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")], priority: .low)
+                        let favouritesCollection = StickerCollection(name: "favourites", stickers: [], priority: .high)
                         context.insert(integratedCollection)
                         context.insert(favouritesCollection)
                     }

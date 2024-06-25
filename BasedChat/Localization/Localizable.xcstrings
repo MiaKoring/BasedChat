@@ -13,6 +13,9 @@
     "+%lld" : {
 
     },
+    "Add to Favourites" : {
+
+    },
     "AppleMusic" : {
 
     },
@@ -72,6 +75,9 @@
           }
         }
       }
+    },
+    "Couldn't find sticker" : {
+
     },
     "creating chat..." : {
 
@@ -162,7 +168,13 @@
     "Error" : {
 
     },
-    "Hello" : {
+    "GIF" : {
+
+    },
+    "how did we get here" : {
+
+    },
+    "How did we get here" : {
 
     },
     "integrated" : {
@@ -313,6 +325,9 @@
         }
       }
     },
+    "Search" : {
+
+    },
     "select chat" : {
 
     },
@@ -333,7 +348,7 @@
         }
       }
     },
-    "Test" : {
+    "TODO" : {
 
     },
     "UnflipDescription" : {

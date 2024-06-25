@@ -18,28 +18,28 @@ struct MediaControlView: View {
             }
             HStack(spacing: 30) {
                 Image(systemName: "backward.fill")
-                    .font(.title3)
+                    .font(.system(size: 18))
                     .foregroundStyle(.gray.opacity(0.7))
                     .onTapGesture {
                         musicPlayerManager.skipToPreviousItem()
                     }
                 if musicPlayerManager.playbackState != .playing  {
                     Image(systemName: "play.fill")
-                        .font(.title3)
+                        .font(.system(size: 18))
                         .foregroundStyle(.gray.opacity(0.7))
                         .onTapGesture {
                             musicPlayerManager.play()
                         }
                 } else {
                     Image(systemName: "pause.fill")
-                        .font(.title3)
+                        .font(.system(size: 18))
                         .foregroundStyle(.gray.opacity(0.7))
                         .onTapGesture {
                             musicPlayerManager.pause()
                         }
                 }
                 Image(systemName: "forward.fill")
-                    .font(.title3)
+                    .font(.system(size: 18))
                     .foregroundStyle(.gray.opacity(0.7))
                     .onTapGesture {
                         musicPlayerManager.skipToNextItem()

@@ -4,6 +4,8 @@ import SlashCommands
 class Unflip: Command {
     var id: UUID = UUID()
     
+    var userAccessible: Bool = true
+    
     var command: String = "unflip"
     
     var description: String = "UnflipDescription"

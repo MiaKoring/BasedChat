@@ -6,24 +6,24 @@ struct CallButtonsView: View {
     
     var body: some View {
         Button {
-            // TODO: add voicecall feature
+            //TODO: add video call
         } label: {
             Image(systemName: "video")
-                .font(.title2)
+                .font(.system(size: 24))
                 .frame(width: 35, height: 35)
         }
         .buttonStyle(.plain)
         Button {
-            // TODO: add videocall feature
+            //TODO: add voice call
         } label: {
             Image(systemName: "phone")
-                .font(.title2)
+                .font(.system(size: 24))
                 .frame(width: 35, height: 35)
         }
         .buttonStyle(.plain)
     }
     
     //MARK: - Parameters
-    
+    @State var showCallPopover: Bool = false
     
 }

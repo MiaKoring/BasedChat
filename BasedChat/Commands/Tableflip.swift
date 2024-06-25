@@ -4,6 +4,8 @@ import SlashCommands
 class Tableflip: Command {
     var id: UUID = UUID()
     
+    var userAccessible: Bool = true
+    
     var command: String = "tableflip"
     
     var description: String = "TableFlipDescription"

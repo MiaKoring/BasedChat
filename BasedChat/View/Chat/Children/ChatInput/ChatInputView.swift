@@ -9,6 +9,7 @@ struct ChatInputView: View {
         VStack {
             HStack {
                 Image(systemName: "plus")
+                    .font(.system(size: 18))
                     .contextMenu(ContextMenu(menuItems: {
                         Button {
                             createMessage(2)
@@ -28,12 +29,9 @@ struct ChatInputView: View {
                         .lineLimit(3)
                         .focused($textFieldFocused)
                     Image("sticker.bold")
-                        .font(.title3)
+                        .font(.system(size: 18))
                         .onTapGesture {
-                            //textFieldFocused.toggle()
-                            withAnimation {
-                                showStickerSheet.toggle()
-                            }
+                            showStickerSheet.toggle()
                         }
                 }
                 .messageInputStyle()
@@ -41,21 +39,17 @@ struct ChatInputView: View {
                     createMessage()
                 } label: {
                     Image(systemName: "paperplane")
+                        .font(.system(size: 18))
                 }
                 .alert(LocalizedStringKey("EmptyMessageAlert"), isPresented: $showMessageEmptyAlert) {
                     Button("OK", role: .cancel){}
                 }
             }
-            if showStickerSheet {
-                VStack{
-                    HStack {
-                        Spacer()
-                        Text("Test")
-                        Spacer()
-                    }
-                }
-                .frame(height: 300)
-                .background(.ultraThickMaterial)
+            .sheet(isPresented: $showStickerSheet) {
+                TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThickMaterial)
             }
         }
     }
@@ -70,9 +64,11 @@ struct ChatInputView: View {
     @Binding var sender: Int //TODO: Only Test
     @Binding var sendSticker: Bool
     @Binding var stickerPath: String
+    @Binding var stickerName: String
+    @Binding var stickerType: String
     @FocusState var textFieldFocused: Bool
     @State var showStickerSheet: Bool = false
+    @State var sysCommandInput: String = ""
     
     //MARK: -
 }
-
