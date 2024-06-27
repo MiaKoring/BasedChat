@@ -1,4 +1,5 @@
 import SwiftUI
+import RealmSwift
 
 struct ReactionSheetView: View {
     //MARK: - Body
@@ -30,11 +31,18 @@ struct ReactionSheetView: View {
             .scrollTargetBehavior(.viewAligned)
             
             Divider()
-            
             ScrollView {
-                VStack {
-                    ForEach(reaction.peopleReactions.keys(forValue: selected), id: \.self) { person in
-                        Text("\(person)")
+                LazyVStack {
+                    ForEach(0..<reaction.peopleReactions.count) { index in
+                        let react = reaction.peopleReactions[index]
+                        HStack {
+                            Text("\(react.sender!.savedAs.isEmpty ? react.sender!.username : react.sender!.savedAs)")
+                                .font(.title2)
+                            Spacer()
+                        }
+                        if index < reaction.peopleReactions.count - 1 {
+                            Divider()
+                        }
                     }
                 }
             }
@@ -43,20 +51,10 @@ struct ReactionSheetView: View {
     
     //MARK: - Parameters
     
-    @State var reaction: Reaction
+    @State var reaction: BuiltReactions
     @State var selected: String = ""
     @State var emojisSorted: [String]
     
     //MARK: -
 }
 
-#Preview {
-    @Previewable @State var reaction = Reaction(mostUsed: "😀😅🤣", countString: "2000", emojisCount: ["😀": 1000, "😅": 500, "🤣": 100, "😂": 80, "🙂": 80, "🙃": 80, "🫠": 80, "😉": 80], differentEmojisCount: 8, peopleReactions: [1: "😀", 2: "😀", 3: "😀", 4: "😅", 5: "😅", 6: "😅", 7: "🤣", 8: "🤣", 9: "🤣", 10: "😂", 11: "😂", 12: "😂", 13: "🙂", 14: "🙂", 15: "🙂", 16: "🙃", 17: "🙃", 18: "🙃", 19: "🫠", 20: "🫠", 21: "🫠", 22: "😉", 23: "😉", 24: "😉"])
-    return ReactionSheetView(
-        reaction: reaction,
-        selected:
-            reaction.emojisCount.keys.sorted(by: { reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1 }).first!,
-        emojisSorted:
-            reaction.emojisCount.keys.sorted(by: { reaction.emojisCount[$0] ?? -1 > reaction.emojisCount[$1] ?? -1 })
-    )
-}

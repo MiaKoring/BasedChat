@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import SlashCommands
+import RealmSwift
 
 struct ChatInputView: View {
     //MARK: - Bodyub
@@ -15,13 +16,6 @@ struct ChatInputView: View {
                             createMessage(2)
                         } label: {
                             Text("regular")
-                        }
-                        Button {
-                            sender = 2
-                            stickerPath = "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b"
-                            sendSticker.toggle()
-                        } label: {
-                            Text("Babbelgadse")
                         }
                     }))
                 HStack{
@@ -46,7 +40,7 @@ struct ChatInputView: View {
                 }
             }
             .sheet(isPresented: $showStickerSheet) {
-                TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
+                TopTabView(sendSticker: $sendSticker)
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
                 .presentationBackground(.ultraThickMaterial)
@@ -56,16 +50,13 @@ struct ChatInputView: View {
     
     //MARK: - Parameters
     
-    @Binding var replyTo: Reply?
+    @Binding var replyTo: Message?
     @Binding var messageInput: String
     @State var showMessageEmptyAlert = false
-    @Binding var chat: Chat
+    @ObservedRealmObject var chat: Chat
     @Binding var messageSent: Bool
     @Binding var sender: Int //TODO: Only Test
-    @Binding var sendSticker: Bool
-    @Binding var stickerPath: String
-    @Binding var stickerName: String
-    @Binding var stickerType: String
+    @Binding var sendSticker: SendableSticker
     @FocusState var textFieldFocused: Bool
     @State var showStickerSheet: Bool = false
     @State var sysCommandInput: String = ""

@@ -17,14 +17,14 @@ struct BubbleTimeDisplayView: View {
     
     var body: some View {
         HStack {
-            if message.sender.isCurrentUser {
+            if message.senderIsCurrentUser {
                 Spacer()
             }
             
             Text(DateHandler.formatTime(message.time, lang: "de_DE"))
                 .font(.custom("JetBrainsMono-Regular", size: 10))
             
-            if !message.sender.isCurrentUser {
+            if !message.senderIsCurrentUser {
                 Spacer()
             }
         }

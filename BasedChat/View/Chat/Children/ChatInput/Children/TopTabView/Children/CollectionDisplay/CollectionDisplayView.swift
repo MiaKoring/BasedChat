@@ -31,10 +31,7 @@ struct CollectionDisplay: View {
                         ForEach(collection.stickers, id: \.id) {sticker in
                             StickerImageView(name: sticker.hashString, fileExtension: sticker.type, data: $data, width: 100, height: 100)
                                 .onTapGesture {
-                                    stickerPath = sticker.hashString
-                                    stickerName = sticker.name
-                                    stickerType = sticker.type
-                                    sendSticker.toggle()
+                                    sendSticker = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
                                     showParentSheet = false
                                 }
                         }
@@ -56,28 +53,22 @@ struct CollectionDisplay: View {
     @State var data: Data? = nil
     @State var open: Bool = true
     let collection: StickerCollection
-    @Binding var stickerPath: String
-    @Binding var sendSticker: Bool
-    @Binding var stickerName: String
-    @Binding var stickerType: String
+    @Binding var sendSticker: SendableSticker
     @Binding var showParentSheet: Bool
 }
 
 #Preview {
     @Previewable @State var coll = StickerCollection(name: "favourites", priority: .high)
     @Previewable @State var collection = StickerCollection(name: "integrated", priority: .low)
-    @Previewable @State var stickerPath = ""
-    @Previewable @State var sendSticker = false
-    @Previewable @State var stickerName = ""
-    @Previewable @State var stickerType = ""
+    @Previewable @State var sendSticker = SendableSticker(name: "", hash: "", type: "")
     @Previewable @State var showParentSheet = true
     let sticker = Sticker(name: "bababa", type: "gif", hashString: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b")
     VStack {
-        CollectionDisplay(collection: collection, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
+        CollectionDisplay(collection: collection, sendSticker: $sendSticker, showParentSheet: $showParentSheet)
             .padding(.horizontal, 30)
-        CollectionDisplay(collection: collection, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
+        CollectionDisplay(collection: collection, sendSticker: $sendSticker, showParentSheet: $showParentSheet)
             .padding(.horizontal, 30)
-        CollectionDisplay(collection: coll, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
+        CollectionDisplay(collection: coll, sendSticker: $sendSticker, showParentSheet: $showParentSheet)
             .padding(.horizontal, 30)
     }
     .onAppear() {

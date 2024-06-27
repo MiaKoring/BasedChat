@@ -1,23 +1,26 @@
 import SwiftData
 import Foundation
+import RealmSwift
 
-@Model
-final class Contact: Identifiable {
-    var userID: Int
-    var username: String
-    var publicKey: String
-    var savedAs: String?
-    var isLocalUser: Bool
-    var chats: [UUID]
-    var imagehash: String
+final class Contact: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var userID: Int
+    @Persisted var username: String
+    @Persisted var publicKey: String
+    @Persisted var savedAs: String
+    @Persisted var chats = RealmSwift.List<Chat>()
+    @Persisted var messages = RealmSwift.List<Message>()
+    @Persisted var pfpHash: String
     
-    init(userID: Int, username: String, publicKey: String, savedAs: String? = nil, isLocalUser: Bool = false, chats: [UUID] = [], imagehash: String = "") {
+    override init() {
+        super.init()
+    }
+    
+    init(userID: Int, username: String, publicKey: String = "", savedAs: String = "", pfpHash: String = "") {
         self.userID = userID
         self.username = username
         self.publicKey = publicKey
         self.savedAs = savedAs
-        self.isLocalUser = isLocalUser
-        self.chats = chats
-        self.imagehash = imagehash
+        self.pfpHash = pfpHash
     }
 }

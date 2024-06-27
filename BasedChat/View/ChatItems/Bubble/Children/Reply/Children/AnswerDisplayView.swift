@@ -1,43 +1,35 @@
 import Foundation
 import SwiftUI
-import SwiftData
+import RealmSwift
 
 public struct AnswerDisplayView: View {
     //MARK: - Body
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(senderName)
-                .bold()
-                .font(.system(size: 14))
-            Text(text.count > 150 ? "\(text.prefix(150).prefix(upTo: text.prefix(150).lastIndex(of: " ") ?? text.prefix(150).endIndex))..." : text)
-                .font(.system(size: 12))
-        }
-        .padding(3)
-        .onAppear() {
-            senderName = (contacts.first?.savedAs ?? contacts.first?.username) ?? "unknown"
+        if let reply = message.reply {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(senderName)
+                    .bold()
+                    .font(.system(size: 14))
+                Text(reply.text.count > 150 ? "\(reply.text.prefix(150).prefix(upTo: reply.text.prefix(150).lastIndex(of: " ") ?? reply.text.prefix(150).endIndex))..." : reply.text)
+                    .font(.system(size: 12))
+            }
+            .padding(3)
+            .onAppear() {
+                let contacts = realm.objects(Contact.self)
+                let arr = contacts.where {
+                    $0.userID == reply.sender
+                }
+                guard let sender = arr.first else {
+                    senderName = "notFound"
+                    return
+                }
+                senderName = sender.savedAs.isNotEmpty ? sender.savedAs : sender.username
+            }
         }
     }
     
     //MARK: - Parameters
-    
-    @State var text: String
-    @State var sender: Int
-    @State var senderName: String
-    @State var originMessageID: UUID
-    @Query var contacts: [Contact]
-    
-    //MARK: - Initializer
-    
-    init(text: String, sender: Int, senderName: String = "", originMessageID: UUID) {
-        self.text = text
-        self.sender = sender
-        self.senderName = senderName
-        self.originMessageID = originMessageID
-        self._contacts = Query(filter: #Predicate<Contact>{
-            $0.userID == sender
-        })
-    }
-    
-    //MARK: -
+    @ObservedRealmObject var message: Message
+    @State var senderName = "Loading..."
 }

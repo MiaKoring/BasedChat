@@ -4,7 +4,13 @@
     "" : {
 
     },
+    " ❤️ + " : {
+
+    },
     "/ %@" : {
+
+    },
+    "%@" : {
 
     },
     "%lld" : {
@@ -35,9 +41,6 @@
           }
         }
       }
-    },
-    "Babbelgadse" : {
-
     },
     "Cancel" : {
       "extractionState" : "manual",
@@ -86,9 +89,6 @@
 
     },
     "creating default sticker..." : {
-
-    },
-    "creating messages..." : {
 
     },
     "Delete" : {
@@ -206,6 +206,9 @@
           }
         }
       }
+    },
+    "Like" : {
+
     },
     "Loading..." : {
 

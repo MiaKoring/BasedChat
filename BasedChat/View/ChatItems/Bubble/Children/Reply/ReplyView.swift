@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import RealmSwift
 
 struct ReplyView: View {
     //MARK: - Body
@@ -8,7 +9,10 @@ struct ReplyView: View {
             HStack {
                 ZStack(alignment: .leading) {
                     MatchWidthView(text: message.text, width: message.type.contains("sticker") ? 200 : nil)
-                    AnswerDisplayView(text: message.reply!.text, sender: message.reply!.sender, originMessageID: message.reply!.originID)
+                    AnswerDisplayView(message: message)
+                    Text(" ❤️ + ")
+                        .frame(height: 0.0)
+                        .hidden()
                 }
             }
             .messageExtrasBackground()
@@ -22,7 +26,7 @@ struct ReplyView: View {
     
     //MARK: - Parameters
     
-    let message: Message
+    @ObservedRealmObject var message: Message
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
     @Binding var glowOriginMessage: UUID?

@@ -1,44 +1,42 @@
 import Foundation
 import SwiftData
+import RealmSwift
 
-@Model
-final class Message: Identifiable {
-    var time: Int
-    var sender: Int
-    var type: MessageType.RawValue
-    var reply: Reply?
-    @Relationship(deleteRule: .cascade)
-    var attachments = [Attachment]()
-    var text: String
-    var reactions: [Int: String]
-    var background: String
-    var id: UUID = UUID()
-    var messageID: Int
-    var isRead: Bool = true
-    var formattedChars: [FormattedChar]
-    var stickerHash: String
-    var stickerName: String
-    var stickerType: String
+final class Message: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var time: Int
+    @Persisted(originProperty: "messages") var sender: LinkingObjects<Contact>
+    @Persisted(originProperty: "messages") var chat: LinkingObjects<Chat>
+    @Persisted var type: MessageType.RawValue
+    @Persisted var reply: Reply?
+    @Persisted var attachments = RealmSwift.List<Attachment>()
+    @Persisted var text: String
+    @Persisted var reactions = RealmSwift.List<Reaction>()
+    @Persisted var messageUUID: UUID
+    @Persisted var messageID: Int
+    @Persisted var isRead: Bool = true
+    @Persisted var formattedSubstrings = RealmSwift.List<FormattedSubstring>()
+    @Persisted var stickerHash: String
+    @Persisted var stickerName: String
+    @Persisted var stickerType: String
     
-    init(time: Int, sender: Int, type: MessageType = .standalone, reply: Reply? = nil, text: String, reactions: [Int : String] = [:], background: String = "default", id: UUID = UUID(), messageID: Int, isRead: Bool = true, formattedChars: [FormattedChar] = [], stickerHash: String = "", stickerName: String = "", stickerType: String = "") {
+    var background: String = "default"
+    
+    override init() {
+        super.init()
+    }
+    
+    init(time: Int, type: MessageType, reply: Reply? = nil, text: String, messageUUID: UUID = UUID(), messageID: Int, isRead: Bool = true, stickerHash: String = "", stickerName: String = "", stickerType: String = "", background: String = "default") {
         self.time = time
-        self.sender = sender
         self.type = type.rawValue
         self.reply = reply
         self.text = text
-        self.reactions = reactions
-        self.background = background
-        self.id = id
+        self.messageUUID = messageUUID
         self.messageID = messageID
         self.isRead = isRead
         self.stickerHash = stickerHash
         self.stickerName = stickerName
         self.stickerType = stickerType
-        
-        if formattedChars.isEmpty {
-            self.formattedChars = [FormattedChar(id: 0, char: text, formats: [])]
-            return
-        }
-        self.formattedChars = formattedChars
+        self.background = background
     }
 }

@@ -2,8 +2,10 @@ import SwiftUI
 import SwiftChameleon
 
 extension MessageScrollView {
+    //TODO: Rewrite paging
+    /*
     func markAllRead() {
-        for message in (messages.compactMap { message in
+        for message in (chat.messages.compactMap { message in
             if !message.isRead {
                 return message
             }
@@ -12,36 +14,36 @@ extension MessageScrollView {
             message.isRead = true
         }
     }
-    
+    */
     func messageGlow() {
         let glowMessage = glowOriginMessage
         glowOriginMessage = nil
         
-        if glowMessage != nil && messages.contains(where: { $0.id == glowMessage! }) {
+        if glowMessage != nil && chat.messages.contains(where: { $0.messageUUID == glowMessage! }) {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 withAnimation(.easeIn) {
-                    messages.first(where: {$0.id == glowMessage})!.background = "glow"
+                    chat.messages.first(where: {$0.messageUUID == glowMessage})!.background = "glow"
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
                     withAnimation(.easeIn) {
-                        messages.first(where: {$0.id == glowMessage})!.background = "default"
+                        chat.messages.first(where: {$0.messageUUID == glowMessage})!.background = "default"
                     }
                 }
             }
         }
     }
-    
+    /*
     func setup() {
-        rangeStart = max(messages.count - 51, 0)
+        rangeStart = max(chat.messages.count - 51, 0)
         
-        if messages.count == 0 {
+        if chat.messages.count == 0 {
             rangeEnd = 0
             renderedMessages = []
             return
         }
         
-        rangeEnd = max(messages.count - 1, 0)
-        renderedMessages = messages[rangeStart...rangeEnd].reversed()
+        rangeEnd = max(chat.messages.count - 1, 0)
+        renderedMessages = chat.messages[rangeStart...rangeEnd].reversed()
         containsUnread = renderedMessages.contains(where: { !$0.isRead })
         
         if containsUnread {
@@ -51,7 +53,7 @@ extension MessageScrollView {
     
     func deleteMessage() {
         if messageToDelete.isNil { return }
-        rangeEnd = messages.count - 1
+        rangeEnd = chat.messages.count - 1
     }
     
     func scenePhaseChanged(newScenePhase: ScenePhase) {
@@ -74,16 +76,16 @@ extension MessageScrollView {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation(.smooth(duration: 0.3)) {
-                rangeStart = max(messages.count - 51, 0)
-                rangeEnd = max(messages.count - 1, 0)
-                renderedMessages = messages[rangeStart...rangeEnd].reversed()
+                rangeStart = max(chat.messages.count - 51, 0)
+                rangeEnd = max(chat.messages.count - 1, 0)
+                renderedMessages = chat.messages[rangeStart...rangeEnd].reversed()
             }
         }
     }
     
     func loadScrollDestination() {
-        if renderedMessages.firstIndex(where: {$0.id == scrollTo}).isNil {
-            let index = messages.firstIndex(where: { $0.id == scrollTo })
+        if renderedMessages.firstIndex(where: {$0.messageUUID == scrollTo}).isNil {
+            let index = messages.firstIndex(where: { $0.messageUUID == scrollTo })
             
             if index.isNil { return }
             
@@ -92,6 +94,7 @@ extension MessageScrollView {
             renderedMessages.append(contentsOf: messages[rangeStart...previousStart - 1].reversed())
         }
     }
+     */
     
     func bottomScrollOverlay()-> some View {
         HStack {
@@ -117,11 +120,11 @@ extension MessageScrollView {
     
     func bottomScrollButtonTapped() {
         triggerBottomScroll.toggle()
-        rangeStart = max(messages.count - 51, 0)
+        rangeStart = max(chat.messages.count - 51, 0)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            renderedMessages = messages[rangeStart...rangeEnd].reversed()
-        }
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            renderedMessages = chat.messages[rangeStart...rangeEnd].reversed()
+        }*/
     }
     
 }

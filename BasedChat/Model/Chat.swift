@@ -1,26 +1,26 @@
 import Foundation
 import SwiftData
+import RealmSwift
 
-@Model 
-final class Chat: Identifiable {
-    var id: UUID
-    var title: String
-    var participants: [Int]
-    @Relationship(deleteRule: .cascade)
-    var messages = [Message]()
-    var pinned: Int?
-    var currentMessageID: Int
-    var imagehash: String
-    var type: String
+final class Chat: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var title: String
+    @Persisted var participants = RealmSwift.List<Contact>()
+    @Persisted var messages = RealmSwift.List<Message>()
+    @Persisted var pinned: Int
+    @Persisted var currentMessageID: Int
+    @Persisted var imagehash: String
+    @Persisted var type: String
     
-    init(id: UUID = UUID(), title: String, participants: [Int] = [], messages: [Message] = [], pinned: Int? = nil, currentMessageID: Int = 0, imagehash: String = "", type: String = "direct") {
-        self.id = id
+    override init() {
+        super.init()
+    }
+    
+    init(title: String, pinned: Int = 0, currentMessageID: Int, imagehash: String, type: ChatType) {
         self.title = title
-        self.participants = participants
-        self.messages = messages
         self.pinned = pinned
         self.currentMessageID = currentMessageID
         self.imagehash = imagehash
-        self.type = type
+        self.type = type.rawValue
     }
 }

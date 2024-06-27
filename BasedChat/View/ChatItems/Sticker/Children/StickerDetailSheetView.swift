@@ -2,11 +2,8 @@ import RealmSwift
 import SwiftUI
 
 struct StickerDetailSheet: View {
-    @Binding var stickerSheetPresented: Bool
-    @Binding var message: Message
-    @Binding var data: Data?
-    @State var showAddStickerError: Bool = false
-    @ObservedRealmObject var favourites: StickerCollection
+    
+    //MARK: - Body
     var body: some View {
         VStack{
 #if canImport(UIKit)
@@ -39,4 +36,11 @@ struct StickerDetailSheet: View {
             }
         }
     }
+    
+    //MARK: - Parameters
+    @Binding var stickerSheetPresented: Bool
+    @ObservedRealmObject var message: Message
+    @Binding var data: Data?
+    @State var showAddStickerError: Bool = false
+    @ObservedRealmObject var favourites: StickerCollection
 }

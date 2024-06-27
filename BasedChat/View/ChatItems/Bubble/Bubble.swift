@@ -9,28 +9,31 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
     var body: some View {
         VStack {
             HStack {
-                if message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
+                if message.senderIsCurrentUser { Spacer(minLength: minSpacerWidth) }
                 ZStack(alignment: .bottomTrailing) {
                     VStack(alignment: .leading) {
                         LinkView(URLs: URLs, messageText: message.text)
                         ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
-                        MessageTextView(message: message, reactionContainer: $reactionContainer, formattedChars: $formattedChars)
-                        
+                        MessageTextView(message: message, reactionContainer: reactionContainer)
+                        if !message.reactions.isEmpty {
+                            Text(" ❤️ + ")
+                                .frame(height: 0.0)
+                                .hidden()
+                        }
                     }
-                    .padding(message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 6)
-                    
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
-                        .hidden()
+                    .padding(message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 5)
+                    .padding(.bottom, message.reactions.isEmpty ? 0 : message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 15)
                 }
-                .bubbleBackground(isCurrent: message.sender.isCurrentUser, background: message.background)
-                .overlay(alignment: message.sender.isCurrentUser ? .bottomLeading : .bottomTrailing) {
-                    ReactionDisplayView(reactionContainer: reactionContainer, textCount: message.text.count, reactionData: reactionData, sender: message.sender, opaque: false, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
+                .bubbleBackground(isCurrent: message.senderIsCurrentUser, background: message.background)
+                .overlay(alignment: message.senderIsCurrentUser ? .bottomLeading : .bottomTrailing) {
+                    ReactionDisplayView(message: message, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
+                        .padding(5)
                 }
                 .contextMenu() {
                     BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
                 }
                 //TODO: add custom popover
-                if !message.sender.isCurrentUser { Spacer(minLength: minSpacerWidth) }
+                if !message.senderIsCurrentUser { Spacer(minLength: minSpacerWidth) }
             }
             .background(.clear)
             .onTapGesture {
@@ -47,7 +50,8 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
             .onAppear() {
                 if !message.reactions.isEmpty {
                     reactionData = genReactions()
-                    reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
+                    guard let data = reactionData else { return }
+                    reactionContainer = "\(data.mostUsed)\(data.differentEmojisCount > 4 ? "+" : "") \(data.countString)"
                 }
                 URLs = extractURLs(from: message.text)
             }
@@ -66,20 +70,19 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
     
     let minSpacerWidth: Double
     @Environment(\.modelContext) var context
-    @Binding var message: Message
+    var message: Message
     @Binding var showStickerDetail: Bool
-    @Binding var bottomCardReaction: Reaction?
-    @State var reactionData: Reaction = Reaction(mostUsed: "", countString: "", emojisCount: [:], differentEmojisCount: 0, peopleReactions: [:])
+    @Binding var bottomCardReaction: BuiltReactions?
+    @State var reactionData: BuiltReactions? = nil
     @Binding var scrollTo: UUID?
     @Binding var triggerScroll: Bool
-    @State var formattedChars: [FormattedChar] = []
     @Binding var glowOriginMessage: UUID?
     @State var reactionContainer = ""
     @State var URLs: [URLRepresentable] = []
     @Binding var showTime: Bool
     @Binding var keyboardShown: Bool
     @Binding var timer: Timer?
-    @Binding var replyTo: Reply?
+    @Binding var replyTo: Message?
     @Binding var messageToDelete: Message?
     @State var deleteAlertPresented = false
     

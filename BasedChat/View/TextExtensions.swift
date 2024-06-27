@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Text {
-    func reactionDisplayStyle(bottomCardReaction: Binding<Reaction?>, reactionData: Reaction, showStickerDetail: Binding<Bool>, senderIsCurrent: Bool)-> some View {
+    func reactionDisplayStyle(bottomCardReaction: Binding<BuiltReactions?>, reactionData: BuiltReactions, showStickerDetail: Binding<Bool>, senderIsCurrent: Bool)-> some View {
         return self
             .font(.custom("JetBrainsMono-Regular", size: 13))
             .padding([.bottom,.leading,.top] , 2.5)
@@ -26,7 +26,7 @@ extension Text {
             }
     }
     
-    func stickerReactionDisplayStyle(bottomCardReaction: Binding<Reaction?>, reactionData: Reaction, showStickerDetail: Binding<Bool>, senderIsCurrent: Bool)-> some View {
+    func stickerReactionDisplayStyle(bottomCardReaction: Binding<BuiltReactions?>, reactionData: BuiltReactions, showStickerDetail: Binding<Bool>, senderIsCurrent: Bool)-> some View {
         return self
             .font(.custom("JetBrainsMono-Regular", size: 13))
             .padding([.bottom,.leading,.top] , 2.5)
