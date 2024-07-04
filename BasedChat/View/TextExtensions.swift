@@ -43,6 +43,10 @@ extension Text {
                     }
                     
             }
+            .overlay {
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(.black, style: .init(lineWidth: 1.3))
+            }
     }
     
     func boldSubheadline()-> some View {

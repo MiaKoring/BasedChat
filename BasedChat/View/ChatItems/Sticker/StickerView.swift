@@ -26,7 +26,7 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
                     tapped()
                 }
                 .contextMenu() {
-                    BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
+                    BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented, updateMessage: $updateMessage)
                 }
                 if !(message.senderIsCurrentUser) { Spacer(minLength: minSpacerWidth) }
             }
@@ -70,6 +70,7 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
     @State var deleteAlertPresented = false
     @State var data: Data? = nil
     @State var showAddStickerError: Bool = false
+    @Binding var updateMessage: Message?
     @ObservedResults(StickerCollection.self, where: {$0.name == "favourites"}) var favourites
     #if !canImport(UIKit)
     @State var sheetCloseHovered = false

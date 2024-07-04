@@ -20,13 +20,14 @@ struct BubbleContextMenu: View {
         
         Button {
             try? realm.write {
-                let message = message.thaw()
+                guard let message = message.thaw() else { return }
                 let contacts = realm.objects(Contact.self)
                 let arr = contacts.where {
                     $0.userID == BasedChatApp.currentUserID
                 }
-                let sender = arr.first!
-                message?.reactions.append(Reaction(reaction: "❤️", sender: sender))
+                guard let sender = arr.first else { return }
+                message.reactions.append(Reaction(reaction: "❤️", sender: sender))
+                updateMessage = message
             }
         } label: {
             Label("Like", systemImage: "star")
@@ -44,6 +45,7 @@ struct BubbleContextMenu: View {
     @Environment(\.modelContext) var context
     @Binding var replyTo: Message?
     @Binding var deleteAlertPresented: Bool
+    @Binding var updateMessage: Message?
     
     //MARK: -
 }

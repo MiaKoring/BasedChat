@@ -11,7 +11,7 @@ struct ReplyView: View {
                     MatchWidthView(text: message.text, width: message.type.contains("sticker") ? 200 : nil)
                     AnswerDisplayView(message: message)
                     Text(" ❤️ + ")
-                        .frame(height: 0.0)
+                        .frame(height: 0)
                         .hidden()
                 }
             }

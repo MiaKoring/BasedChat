@@ -8,12 +8,12 @@ struct MessageScrollView: View {
         ZStack(alignment: .bottom) {
             ScrollView {
                 ScrollViewReader { reader in
-                    MessageView(chatID: chat._id, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
+                    MessageView(chatID: chat._id, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete, appendMessage: $appendMessage)
                         .onChange(of: triggerBottomScroll) {
                             withAnimation(.smooth(duration: 0.3)) {
                                 reader.scrollTo(chat.messages.sorted(by: {
                                     $0.messageID > $1.messageID
-                                }).first?.messageUUID)
+                                }).first?.messageUUID, anchor: .top)
                             }
                         }
                         .onChange(of: triggerScroll) {
@@ -73,6 +73,7 @@ struct MessageScrollView: View {
     @State var lastUnreadIndex: Int? = nil
     @Environment(\.scenePhase) var scenePhase
     @Binding var messageToDelete: Message?
+    @Binding var appendMessage: Message?
     @Binding var keyboardShown: Bool
     @State var showBottomScrollButton: Bool = false
     

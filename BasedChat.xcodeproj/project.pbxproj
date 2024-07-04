@@ -126,6 +126,7 @@
 		A6E77B212C287312004E4D5D /* CollectionDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */; };
 		A6EA58DD2C2B2E8D00F9FAD4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */; };
 		A6EA58DE2C2B359D00F9FAD4 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A6EA58DC2C2B2E8D00F9FAD4 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A6FAA05F2C36CB1900A15090 /* MessageViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FAA05E2C36CB1200A15090 /* MessageViewFunctions.swift */; };
 		A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */; };
 /* End PBXBuildFile section */
 
@@ -287,6 +288,7 @@
 		A6DF55F22C28C1C500836A2B /* CustomEmojisTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojisTest.swift; sourceTree = "<group>"; };
 		A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSearchView.swift; sourceTree = "<group>"; };
 		A6E77B202C28730D004E4D5D /* CollectionDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDisplayView.swift; sourceTree = "<group>"; };
+		A6FAA05E2C36CB1200A15090 /* MessageViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewFunctions.swift; sourceTree = "<group>"; };
 		A6FBD1B62C26037100FAC3AF /* StickerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -448,6 +450,7 @@
 		1498761B2BDD1FD1001CE1C5 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A6FAA05E2C36CB1200A15090 /* MessageViewFunctions.swift */,
 				140DE7182BDBD13D00B59A25 /* MessageView.swift */,
 			);
 			path = Children;
@@ -977,6 +980,7 @@
 				A6FBD1B72C26037600FAC3AF /* StickerSheetView.swift in Sources */,
 				14CB6A012BD302D700516D28 /* ReactionDisplayView.swift in Sources */,
 				14CB69E22BD2ED5800516D28 /* BuiltReactions.swift in Sources */,
+				A6FAA05F2C36CB1900A15090 /* MessageViewFunctions.swift in Sources */,
 				A6BF8C8B2BE581BD00D1C471 /* Bababa.swift in Sources */,
 				14BE37FA2BDBB9C00078D49B /* SafeAreaInsetsKey.swift in Sources */,
 				140936B92BDDB3CF009F667B /* Message.swift in Sources */,

@@ -1,6 +1,7 @@
 import Foundation
 import SlashCommands
 import SwiftChameleon
+import RealmSwift
 
 extension ChatView {
     func commandListHeight()-> Double {
@@ -100,6 +101,7 @@ extension ChatView {
             participant.thaw()!.messages.append(newMessage)
         }
         newMessageSent.toggle()
+        appendMessage = newMessage
     }
     
     fileprivate func handleCommand()-> Bool {

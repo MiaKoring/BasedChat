@@ -8,7 +8,7 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
+            MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, appendMessage: $appendMessage, keyboardShown: $keyboardShown)
                 .overlay(alignment: .bottom) {
                     VStack{
                         if currentCommand.isNil {
@@ -118,6 +118,7 @@ struct ChatView: View {
     @State var commandError: CommandError? = nil
     @State var sendSticker: SendableSticker = SendableSticker(name: "", hash: "", type: "")
     @Binding var showNavigation: NavigationSplitViewVisibility
+    @State var appendMessage: Message? = nil
     
     //MARK: -
 }

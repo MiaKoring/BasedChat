@@ -16,21 +16,22 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
                         ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
                         MessageTextView(message: message, reactionContainer: reactionContainer)
                         if !message.reactions.isEmpty {
-                            Text(" ❤️ + ")
-                                .frame(height: 0.0)
+                            ReactionDisplayView(message: message, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
+                                .frame(height: 0)
                                 .hidden()
                         }
                     }
                     .padding(message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 5)
-                    .padding(.bottom, message.reactions.isEmpty ? 0 : message.type.range(of: "reply", options: .caseInsensitive).isNil ? 10 : 15)
+                    .padding(.bottom, message.reactions.isEmpty ? 0 : 5 )
                 }
                 .bubbleBackground(isCurrent: message.senderIsCurrentUser, background: message.background)
                 .overlay(alignment: message.senderIsCurrentUser ? .bottomLeading : .bottomTrailing) {
                     ReactionDisplayView(message: message, bottomCardReaction: $bottomCardReaction, showStickerDetail: $showStickerDetail)
                         .padding(5)
+                        .offset(y: 15)
                 }
                 .contextMenu() {
-                    BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented)
+                    BubbleContextMenu(message: message, replyTo: $replyTo, deleteAlertPresented: $deleteAlertPresented, updateMessage: $updateMessage)
                 }
                 //TODO: add custom popover
                 if !message.senderIsCurrentUser { Spacer(minLength: minSpacerWidth) }
@@ -55,7 +56,10 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
                 }
                 URLs = extractURLs(from: message.text)
             }
-            if showTime{ BubbleTimeDisplayView(message: message) }
+            if showTime {
+                BubbleTimeDisplayView(message: message)
+                    .padding(.top, message.reactions.isEmpty ? 0 : 10)
+            }
         }
         .alert(LocalizedStringKey("DeleteAlert"), isPresented: $deleteAlertPresented) {
             Button(role: .destructive) {
@@ -85,6 +89,7 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
     @Binding var replyTo: Message?
     @Binding var messageToDelete: Message?
     @State var deleteAlertPresented = false
+    @Binding var updateMessage: Message?
     
     //MARK: -
 }
