@@ -1,43 +1,62 @@
 import Foundation
 import SwiftUI
+import RealmSwift
 
-struct ReactionDisplayView: View {
+struct ReactionDisplayView: View, ReactionInfluenced {
     //MARK: - Body
     
     var body: some View {
-        if reactionData != nil {
-            if !reactionContainer.isEmpty && Double(reactionContainer.count) * 1.2 <= Double(textCount) {
-                if !opaque {
-                    Text(reactionContainer)
-                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
+        VStack {
+            if !message.reactions.isEmpty {
+                if !reactionContainer.isEmpty && Double(reactionContainer.count) * 1.2 <= Double(message.text.count) {
+                    if let data = reactionData, !opaque {
+                        Text(reactionContainer)
+                            .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: data, showStickerDetail: $showStickerDetail, senderIsCurrent: message.senderIsCurrentUser)
+                    }
+                    else if let data = reactionData {
+                        Text(reactionContainer)
+                            .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: data, showStickerDetail: $showStickerDetail, senderIsCurrent: message.senderIsCurrentUser)
+                    }
                 }
-                else {
-                    Text(reactionContainer)
-                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
+                else if !reactionContainer.isEmpty {
+                    if let data = reactionData, !opaque {
+                        Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
+                            .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: data, showStickerDetail: $showStickerDetail, senderIsCurrent: message.senderIsCurrentUser)
+                    }
+                    else if let data = reactionData {
+                        Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
+                            .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: data, showStickerDetail: $showStickerDetail, senderIsCurrent: message.senderIsCurrentUser)
+                    }
                 }
             }
-            else if !reactionContainer.isEmpty {
-                if !opaque {
-                    Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
-                        .reactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
-                }
-                else {
-                    Text(reactionContainer.split(separator: " ")[0].count > 1 ? "\(reactionContainer.split(separator: " ")[0].first!)+ \(reactionContainer.split(separator: " ")[1])" : reactionContainer)
-                        .stickerReactionDisplayStyle(bottomCardReaction: $bottomCardReaction, reactionData: reactionData!, showStickerDetail: $showStickerDetail, senderIsCurrent: sender.isCurrentUser)
-                }
+        }
+        .onAppear() {
+            if !message.reactions.isEmpty {
+                reactionData = genReactions()
+                guard let data = reactionData else { return }
+                reactionContainer = "\(data.mostUsed)\(data.differentEmojisCount > 4 ? "+" : "") \(data.countString)"
+            }
+        }
+        .onChange(of: message.reactions){
+            if !message.reactions.isEmpty {
+                reactionData = genReactions()
+                guard let data = reactionData else { return }
+                reactionContainer = "\(data.mostUsed)\(data.differentEmojisCount > 4 ? "+" : "") \(data.countString)"
+            }
+            else {
+                reactionContainer = ""
+                reactionData = nil
             }
         }
     }
     
     //MARK: - Parameters
-    
-    let reactionContainer: String
-    let textCount: Int
-    let reactionData: Reaction?
-    let sender: Int
-    let opaque: Bool
-    @Binding var bottomCardReaction: Reaction?
+    @State var reactionContainer: String = ""
+    @ObservedRealmObject var message: Message
+    @Binding var bottomCardReaction: BuiltReactions?
     @Binding var showStickerDetail: Bool
+    let opaque = true //TODO: Find when its false
+    @State var reactionData: BuiltReactions? = nil
     
     //MARK: - Initializer
     

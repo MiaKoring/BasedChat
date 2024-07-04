@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import SwiftChameleon
-import SwiftData
+import RealmSwift
 import MediaPlayer
 
 struct ChatTopBar: View {
@@ -97,7 +97,7 @@ struct ChatTopBar: View {
     
     //MARK: - Parameters
     @Binding var showNavigation: NavigationSplitViewVisibility
-    @Binding var chat: Chat
+    @ObservedRealmObject var chat: Chat
     
     @State var data: Data? = nil
     @State var title: String = ""
@@ -106,11 +106,4 @@ struct ChatTopBar: View {
     @State var eventCount: Int = 0
     @State var showEvents: Bool = false
     @Environment(\.modelContext) var context
-}
-
-#Preview {
-    @Previewable @State var showNavigation: NavigationSplitViewVisibility = .detailOnly
-    @Previewable @State var chat: Chat = Chat(title: "Chat")
-
-    ChatTopBar(showNavigation: $showNavigation, chat: $chat)
 }

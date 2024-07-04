@@ -1,6 +1,7 @@
 import Foundation
 import SlashCommands
 import SwiftChameleon
+import RealmSwift
 
 extension ChatView {
     func commandListHeight()-> Double {
@@ -13,7 +14,37 @@ extension ChatView {
     func deleteMessage() {
         DispatchQueue.main.async {
             if messageToDelete.isNil { return }
-            chat.messages.removeAll(where: {$0.id == messageToDelete!.id})
+            deleteMessageFromChat()
+            deleteMessageFromContact()
+        }
+    }
+    
+    fileprivate func deleteMessageFromChat() {
+        guard let index = chat.messages.firstIndex(where: {
+            $0.messageUUID == messageToDelete?.messageUUID
+        }) else {
+            return
+        }
+        try? realm.write {
+            let new = chat.thaw()!
+            new.messages.remove(at: index)
+        }
+    }
+    
+    fileprivate func deleteMessageFromContact() {
+        guard var contact = chat.participants.first(where: {
+            $0.userID == messageToDelete?.sender.first?.userID
+        }) else {
+            return
+        }
+        guard let index = contact.messages.firstIndex(where: {
+            $0.messageUUID == messageToDelete?.messageUUID
+        }) else {
+            return
+        }
+        try? realm.write {
+            let new = contact.thaw()!
+            new.messages.remove(at: index)
         }
     }
     
@@ -23,9 +54,8 @@ extension ChatView {
                 return
             }
             
-            let newMessage = generateMessage()
             DispatchQueue.main.async {
-                replyTo = nil
+                let newMessage = generateMessage()
                 messageInput = ""
                 sendMessage(newMessage)
             }
@@ -33,23 +63,45 @@ extension ChatView {
     }
     
     fileprivate func generateMessage()-> Message {
-        var newMessage: Message? = nil
-        let formattedChars = StringFormatterCollection.formatChars(messageInput)
+        let formattedSubstrs = StringFormatterCollection.formatSubstrs(messageInput)
         
-        if replyTo.isNil {
-            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
+        guard let reply = replyTo else {
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .standalone, text: messageInput, messageID: chat.currentMessageID + 1)
+            
+            for substr in formattedSubstrs {
+                try? realm.write {
+                    newMessage.formattedSubstrings.append(substr)
+                }
+            }
+            return newMessage
         }
-        else {
-            newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: messageInput, messageID: chat.currentMessageID + 1, isRead: false, formattedChars: formattedChars)
+        let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .reply, reply: Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0), text: messageInput, messageID: chat.currentMessageID + 1)
+        
+        for substr in formattedSubstrs {
+            try? realm.write {
+                newMessage.formattedSubstrings.append(substr)
+            }
         }
-        return newMessage!
+        return newMessage
     }
     
     func sendMessage(_ newMessage: Message) {
-        chat.messages.append(newMessage)
-        chat.currentMessageID += 1
+        //TODO: Add error handling
+        replyTo = nil
+        try? realm.write {
+            let chat = chat.thaw()!
+            chat.messages.append(newMessage)
+            chat.currentMessageID += 1
+            guard let participant = chat.participants.first(where: {
+                $0.userID == BasedChatApp.currentUserID
+            }) else {
+                newMessageSent.toggle()
+                return
+            }
+            participant.thaw()!.messages.append(newMessage)
+        }
         newMessageSent.toggle()
-        
+        appendMessage = newMessage
     }
     
     fileprivate func handleCommand()-> Bool {
@@ -70,110 +122,121 @@ extension ChatView {
             
     }
     
-    func sendTableflip(_ params: [String: Any])-> Void {
+    func sendAppendedMessage(_ message: String, append: String){
         var msgStr = ""
-        if params.isEmpty {
-            msgStr = "(╯°□°)╯︵ ┻━┻"
+        if message.isEmpty {
+            msgStr = append
         }
         else {
-            msgStr = "\(params["message"] as! String) (╯°□°)╯︵ ┻━┻"
+            msgStr = "\(message) \(append)"
         }
-        let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo.isNil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
+        let formattedSubstr = StringFormatterCollection.formatSubstrs(msgStr)
+        guard let reply = replyTo else {
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .standalone, text: msgStr, messageID: chat.currentMessageID + 1)
+            for substring in formattedSubstr {
+                newMessage.formattedSubstrings.append(substring)
+            }
             DispatchQueue.main.async {
                 sendMessage(newMessage)
             }
             return
         }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
         DispatchQueue.main.async {
-            sendMessage(newMessage)
+            try? realm.write {
+                let repl = Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0)
+                
+                let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .reply, reply: repl, text: msgStr, messageID: chat.currentMessageID + 1)
+                for substring in formattedSubstr {
+                    newMessage.formattedSubstrings.append(substring)
+                }
+                sendMessage(newMessage)
+            }
         }
-        return
     }
     
-    func sendBababa(_ params: [String: Any])-> Void {
-        var msg: Message? = nil
-        if params.isEmpty {
-            if replyTo.isNil {
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b", stickerName: "Bababa", stickerType: "gif")
-            }
-            else {
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: replyTo!, text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b", stickerName: "Bababa", stickerType: "gif")
-            }
-        }
-        else {
-            if replyTo.isNil {
-                var messageInputString = params["message"]! as! String
-                messageInputString = messageInputString.trimmingCharacters(in: .whitespacesAndNewlines)
-                let formattedChars = StringFormatterCollection.formatChars(messageInputString)
-                
-                let firstMSG = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: messageInputString, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
-                
-                DispatchQueue.main.async {
-                    sendMessage(firstMSG)
-                }
-                
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b", stickerName: "Bababa", stickerType: "gif")
-            }
-            else {
-                var messageInputString = params["message"]! as! String
-                messageInputString = messageInputString.trimmingCharacters(in: .whitespacesAndNewlines)
-                let formattedChars = StringFormatterCollection.formatChars(messageInputString)
-                
-                let firstMSG = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo, text: messageInputString, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
-                
-                
-                DispatchQueue.main.async {
-                    sendMessage(firstMSG)
-                }
-                
-                msg = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .stickerReply, reply: Reply(originID: firstMSG.id, text: firstMSG.text, sender: firstMSG.sender), text: "", messageID: chat.currentMessageID + 1, isRead: true, formattedChars: [], stickerHash: "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b", stickerName: "Bababa", stickerType: "gif")
-            }
-        }
-        DispatchQueue.main.async {
-            sendMessage(msg!)
-            print(msg!)
-        }
+    func sendTableflip(_ params: [String: Any])-> Void {
+        sendAppendedMessage(params["message"] as? String ?? "", append: "(╯°□°)╯︵ ┻━┻")
         return
     }
     
     func sendUnflip(_ params: [String: Any])-> Void {
-        var msgStr = ""
-        if params.isEmpty {
-            msgStr = "┬─┬ノ( º _ ºノ)"
-        }
-        else {
-            msgStr = "\(params["message"] as! String) ┬─┬ノ( º _ ºノ)"
-        }
-        let formattedChars = StringFormatterCollection.formatChars(msgStr)
-        if replyTo.isNil {
-            let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
-            sendMessage(newMessage)
-            return
-        }
-        let newMessage = Message(time: Date().intTimeIntervalSince1970, sender: sender, type: .reply, reply: replyTo!, text: msgStr, messageID: chat.currentMessageID + 1, isRead: true, formattedChars: formattedChars)
-        DispatchQueue.main.async {
-            sendMessage(newMessage)
-        }
+        sendAppendedMessage(params["message"] as? String ?? "", append: "┬─┬ノ( º _ ºノ)")
         return
     }
     
-    func sendStickerChanged(){
-        DispatchQueue.global().async {
-            var message: Message? = nil
-            if replyTo.isNil {
-                message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .sticker, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerHash: stickerPath, stickerName: stickerName, stickerType: stickerType)
+    func sendBababa(_ params: [String: Any])-> Void {
+        let stickerHash = "69f9a9524a902c8fc8635787ab5c65ce21e843d96f8bc52cdf7fd20b7fc5006b"
+        if params.isEmpty {
+            guard let reply = replyTo else {
+                let msg = Message(time: Date().intTimeIntervalSince1970, type: .sticker, text: "", messageID: chat.currentMessageID + 1, stickerHash: stickerHash, stickerName: "Bababa", stickerType: "gif")
+                DispatchQueue.main.async {
+                    sendMessage(msg)
+                }
+                return
             }
-            else {
-                message = Message(time: Date().intTimeIntervalSince1970, sender: 1, type: .stickerReply, reply: replyTo, text: "", messageID: chat.currentMessageID + 1, isRead: false, formattedChars: [], stickerHash: stickerPath, stickerName: stickerName, stickerType: stickerType)
-            }
+            let msg = Message(time: Date().intTimeIntervalSince1970, type: .stickerReply, reply: Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0), text: "", messageID: chat.currentMessageID + 1, stickerHash: stickerHash, stickerName: "Bababa", stickerType: "gif")
             DispatchQueue.main.async {
-                replyTo = nil
-                sendMessage(message!)
-                chat.currentMessageID += 1
+                sendMessage(msg)
             }
+            return
+        }
+        else {
+            var messageInputString = params["message"]! as! String
+            messageInputString = messageInputString.trimmingCharacters(in: .whitespacesAndNewlines)
+            let formattedSubstrs = StringFormatterCollection.formatSubstrs(messageInputString)
+            guard let reply = replyTo else {
+                let firstMSG = Message(time: Date().intTimeIntervalSince1970, type: .standalone, text: messageInputString, messageID: chat.currentMessageID + 1)
+                
+                for substr in formattedSubstrs {
+                    try? realm.write {
+                        firstMSG.formattedSubstrings.append(substr)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    sendMessage(firstMSG)
+                }
+                
+                let msg = Message(time: Date().intTimeIntervalSince1970, type: .stickerReply, reply: Reply(originID: firstMSG.messageUUID, text: firstMSG.text, sender: firstMSG.sender.first?.userID ?? 0), text: "", messageID: chat.currentMessageID + 1, stickerHash: stickerHash, stickerName: "Bababa", stickerType: "gif")
+                DispatchQueue.main.async {
+                    sendMessage(msg)
+                }
+                return
+            }
+            
+            let firstMSG = Message(time: Date().intTimeIntervalSince1970, type: .reply, reply: Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0), text: messageInputString, messageID: chat.currentMessageID + 1)
+            
+            for substr in formattedSubstrs {
+                try? realm.write {
+                    firstMSG.formattedSubstrings.append(substr)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                sendMessage(firstMSG)
+            }
+            
+            let msg = Message(time: Date().intTimeIntervalSince1970, type: .stickerReply, reply: Reply(originID: firstMSG.messageUUID, text: firstMSG.text, sender: firstMSG.sender.first?.userID ?? 0), text: "", messageID: chat.currentMessageID + 1, stickerHash: stickerHash, stickerName: "Bababa", stickerType: "gif")
+            
+            DispatchQueue.main.async {
+                sendMessage(msg)
+            }
+            return
+        }
+    }
+    
+    func sendStickerChanged(){
+        DispatchQueue.main.async {
+            guard let reply = replyTo else {
+                let message = Message(time: Date().intTimeIntervalSince1970, type: .sticker, text: "", messageID: chat.currentMessageID + 1, stickerHash: sendSticker.hash, stickerName: sendSticker.name, stickerType: sendSticker.type)
+                sendMessage(message)
+                return
+            }
+            let repl = Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0)
+            
+            sendMessage(
+                Message(time: Date().intTimeIntervalSince1970, type: .stickerReply, reply: repl, text: "", messageID: chat.currentMessageID + 1, stickerHash: sendSticker.hash, stickerName: sendSticker.name, stickerType: sendSticker.type)
+            )
         }
     }
 }

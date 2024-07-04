@@ -50,7 +50,7 @@ struct TopTabView: View {
                     case .gif:
                         Text("GIF")
                     case .sticker:
-                        StickerSearch(showParentSheet: $showSearch, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
+                        StickerSearch(showParentSheet: $showSearch, sendSticker: $sendSticker)
                     default:
                         Text("How did we get here") // shouldn't be possible
                 }
@@ -63,16 +63,10 @@ struct TopTabView: View {
     //MARK: - Parameters
     @State var selected: TopTabContentType = .sticker
     @State var showSearch: Bool = false
-    @Binding var stickerPath: String
-    @Binding var sendSticker: Bool
-    @Binding var stickerName: String
-    @Binding var stickerType: String
+    @Binding var sendSticker: SendableSticker
 }
 
 #Preview {
-    @Previewable @State var stickerPath = ""
-    @Previewable @State var sendSticker = false
-    @Previewable @State var stickerName = ""
-    @Previewable @State var stickerType = ""
-    TopTabView(stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType)
+    @Previewable @State var sendSticker = SendableSticker(name: "", hash: "", type: "")
+    TopTabView(sendSticker: $sendSticker)
 }

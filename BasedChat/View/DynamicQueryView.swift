@@ -11,11 +11,11 @@ public struct DynamicQueryView<T: Object & Identifiable, Content: View>: View {
         self.content(Array(results))
     }
     
-    public init(query: ((Query<T>) -> Query<Bool>)? = nil, @ViewBuilder content: @escaping ([T]) -> Content) {
+    public init(query: ((Query<T>) -> Query<Bool>)? = nil, sortDescriptor: RealmSwift.SortDescriptor? = nil, @ViewBuilder content: @escaping ([T]) -> Content) {
         if let filter = query {
-            _results = ObservedResults(T.self, where: filter)
+            _results = ObservedResults(T.self, where: filter, sortDescriptor: sortDescriptor)
         } else {
-            _results = ObservedResults(T.self)
+            _results = ObservedResults(T.self, sortDescriptor: sortDescriptor)
         }
         self.content = content
     }
@@ -23,16 +23,13 @@ public struct DynamicQueryView<T: Object & Identifiable, Content: View>: View {
 
 extension DynamicQueryView where T : StickerCollection {
     init( searchCollectionName: String, filterEmpty: Bool, @ViewBuilder content: @escaping ([T]) -> Content) {
-        /*let sort = [
-            RealmSwift.SortDescriptor(keyPath: "priority", ascending: false),
-            RealmSwift.SortDescriptor(keyPath: "name", ascending: true),
-        ]*/
+        let sort = RealmSwift.SortDescriptor(keyPath: "priority", ascending: false)
         
         if !filterEmpty {
             let filter: ((Query<T>)->Query<Bool>)? = searchCollectionName.isEmpty ? nil : {
                 $0.name.contains(searchCollectionName)
             }
-            self.init(query: filter, content: content)
+            self.init(query: filter, sortDescriptor: sort, content: content)
             return
         }
         
@@ -42,7 +39,7 @@ extension DynamicQueryView where T : StickerCollection {
             $0.name.contains(searchCollectionName) &&
             $0.stickers.count > 0
         }
-        self.init(query: filter, content: content)
+        self.init(query: filter, sortDescriptor: sort, content: content)
     }
 }
 

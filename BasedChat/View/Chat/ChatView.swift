@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftData
+import RealmSwift
 import SlashCommands
 import SwiftChameleon
 
@@ -8,7 +8,7 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            MessageScrollView(messages: chat.messages.sorted(by: {$0.messageID < $1.messageID}), showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, keyboardShown: $keyboardShown)
+            MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, appendMessage: $appendMessage, keyboardShown: $keyboardShown)
                 .overlay(alignment: .bottom) {
                     VStack{
                         if currentCommand.isNil {
@@ -32,7 +32,7 @@ struct ChatView: View {
                 }
                 .background(Color.init("BottomCardButtonClicked"))
             }
-            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: $chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker, stickerPath: $stickerPath, stickerName: $stickerName, stickerType: $stickerType)
+            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker)
         }
             .padding(.horizontal, 10)
             .onTapGesture {
@@ -51,8 +51,6 @@ struct ChatView: View {
             }
             .sheet(isPresented: $showStickerDetail) {
                 VStack {
-                    RoundedRectangle(cornerRadius: 25)
-                        .pullbarStyle()
                     if bottomCardReaction != nil {
                         ReactionSheetView(
                             reaction: bottomCardReaction!,
@@ -65,6 +63,7 @@ struct ChatView: View {
                 }
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThickMaterial)
+                .presentationDragIndicator(.visible)
             }
         #if canImport(UIKit)
             .ignoresSafeAreaWith(condition: UIDevice.isIPhone, regions: .container, edges: .top)
@@ -73,13 +72,12 @@ struct ChatView: View {
         #endif
             .navigationBarBackButtonHidden()
             .overlay {
-                ChatTopBar(showNavigation: $showNavigation, chat: $chat) //TODO: add adaptive functionality
+                ChatTopBar(showNavigation: $showNavigation, chat: chat) //TODO: add adaptive functionality
             }
             .onChange(of: messageSent) {
                 handleMessageSend()
             }
             .onAppear() {
-                chat.currentMessageID = max(chat.currentMessageID, 100)
                 collection = CommandCollection(commands: [
                     Bababa(completion: sendBababa),
                     Tableflip(completion: sendTableflip),
@@ -97,8 +95,7 @@ struct ChatView: View {
     
     //MARK: - Parameters
     
-    @State var chat: Chat
-    @Environment(\.modelContext) var context
+    @ObservedRealmObject var chat: Chat
     #if canImport(UIKit)
     @Environment(\.safeAreaInsets) var safeAreaInsets
     #endif
@@ -106,9 +103,9 @@ struct ChatView: View {
     @State var triggerScroll = false
     @State var showLoading: Bool = false
     @State var showStickerDetail = false
-    @State var bottomCardReaction: Reaction? = nil
+    @State var bottomCardReaction: BuiltReactions? = nil
     @State private var keyboardShown: Bool = false
-    @State var replyTo: Reply? = nil
+    @State var replyTo: Message? = nil
     @State var newMessageSent = false
     @State var messageToDelete: Message? = nil
     @State var relevantCommands: [any Command] = []
@@ -119,11 +116,9 @@ struct ChatView: View {
     @State var messageSent = false
     @State var commandErrorShown = false
     @State var commandError: CommandError? = nil
-    @State var sendSticker = false
-    @State var stickerPath = ""
-    @State var stickerName = ""
-    @State var stickerType = ""
+    @State var sendSticker: SendableSticker = SendableSticker(name: "", hash: "", type: "")
     @Binding var showNavigation: NavigationSplitViewVisibility
+    @State var appendMessage: Message? = nil
     
     //MARK: -
 }

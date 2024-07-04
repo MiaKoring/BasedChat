@@ -47,14 +47,5 @@ extension StickerView {
             }
             doubletapTimer?.invalidate()
         }
-    }
-    
-    func appeared(){
-        if !message.reactions.isEmpty {
-            reactionData = genReactions()
-            reactionContainer = "\(reactionData.mostUsed)\(reactionData.differentEmojisCount > 4 ? "+" : "")\(reactionData.countString == "0" ? "" : " \(reactionData.countString)")"
-        }
-        hash = message.stickerHash
-    }
-    
+    }    
 }

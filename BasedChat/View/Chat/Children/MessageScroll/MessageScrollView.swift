@@ -1,4 +1,5 @@
 import SwiftUI
+import RealmSwift
 
 struct MessageScrollView: View {
     //MARK: - Body
@@ -7,36 +8,28 @@ struct MessageScrollView: View {
         ZStack(alignment: .bottom) {
             ScrollView {
                 ScrollViewReader { reader in
-                    MessageView(showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, renderedMessages: $renderedMessages, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete)
+                    MessageView(chatID: chat._id, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage, keyboardShown: $keyboardShown, replyTo: $replyTo, containsUnread: $containsUnread, lastUnreadIndex: $lastUnreadIndex, showBottomScrollButton: $showBottomScrollButton, messageToDelete: $messageToDelete, appendMessage: $appendMessage)
                         .onChange(of: triggerBottomScroll) {
                             withAnimation(.smooth(duration: 0.3)) {
-                                reader.scrollTo(renderedMessages.first?.id)
+                                reader.scrollTo(chat.messages.sorted(by: {
+                                    $0.messageID > $1.messageID
+                                }).first?.messageUUID, anchor: .top)
                             }
                         }
                         .onChange(of: triggerScroll) {
-                            loadScrollDestination()
+                            //loadScrollDestination()
                             
                             withAnimation(.smooth(duration: 0.2)) {
                                 reader.scrollTo(scrollTo, anchor: .top)
                             }
                         }
                         .onChange(of: newMessageSent) {
-                            newMessage()
+                            //newMessage()
                         }
-                    if rangeStart > 0 {
-                        ProgressView()
-                            .onAppear() {
-                                let previousStart = rangeStart - 1
-                                rangeStart = max(rangeStart - 50, 0)
-                                renderedMessages.append(contentsOf: messages[rangeStart...previousStart].reversed())
-                            }
-                    }
-                    else{
-                        Rectangle()
-                            .hidden()
-                            .frame(width: 0, height: 0)
-                            .padding(.top, 100)
-                    }
+                    Rectangle()
+                        .hidden()
+                        .frame(width: 0, height: 0)
+                        .padding(.top, 110)
                     Spacer()
                 }
             }
@@ -48,13 +41,13 @@ struct MessageScrollView: View {
             bottomScrollOverlay()
         }
         .onAppear() {
-            setup()
+            //setup()
         }
         .onDisappear() {
-            markAllRead()
+            //markAllRead()
         }
         .onChange(of: scenePhase) { newScenePhase, _ in
-            scenePhaseChanged(newScenePhase: newScenePhase)
+            //scenePhaseChanged(newScenePhase: newScenePhase)
         }
         .onChange(of: glowOriginMessage) {
             messageGlow()
@@ -63,15 +56,14 @@ struct MessageScrollView: View {
     
     //MARK: - Parameters
     
-    let messages: [Message]
+    @ObservedRealmObject var chat: Chat
     @Binding var showStickerDetail: Bool
-    @Binding var bottomCardReaction: Reaction?
+    @Binding var bottomCardReaction: BuiltReactions?
     @State var scrollTo: UUID? = nil
     @State var triggerScroll: Bool = false
-    @Binding var replyTo: Reply?
+    @Binding var replyTo: Message?
     @Binding var newMessageSent: Bool
     @State var triggerBottomScroll = false
-    @State var renderedMessages: [Message] = []
     @State var glowOriginMessage: UUID? = nil
     @State var startIndex = 500000
     @State var endIndex = 500000
@@ -79,9 +71,9 @@ struct MessageScrollView: View {
     @State var rangeEnd: Int = 0
     @State var containsUnread = false
     @State var lastUnreadIndex: Int? = nil
-    @Environment(\.modelContext) var context
     @Environment(\.scenePhase) var scenePhase
     @Binding var messageToDelete: Message?
+    @Binding var appendMessage: Message?
     @Binding var keyboardShown: Bool
     @State var showBottomScrollButton: Bool = false
     

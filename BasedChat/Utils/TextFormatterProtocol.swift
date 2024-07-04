@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol ReactionInfluenced {
-    func genReactions()-> BuiltReactions
+protocol TextFormatter {
     var message: Message { get set }
+    func formatText()-> Text
 }

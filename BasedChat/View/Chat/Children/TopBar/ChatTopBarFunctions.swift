@@ -6,15 +6,8 @@ import Combine
 extension ChatTopBar {
     func appeared() {
         if ChatType(rawValue: chat.type) == .direct {
-            guard
-                let reciepient = chat.participants.first(where: {!$0.isCurrentUser}),
-                let reciepientContact = try? context.fetch(FetchDescriptor(predicate: #Predicate<Contact>{
-                    $0.userID == reciepient
-                })).first else {
-                print("Contact not found")
-                return
-            }
-            contact = reciepientContact
+            let reciepient = chat.participants.first(where: {!$0.userID.isCurrentUser})
+            contact = reciepient
             title = contact?.savedAs ?? contact?.username ?? "Not Found"
             
         }
@@ -31,7 +24,7 @@ extension ChatTopBar {
     
     func loadImage() {
         DispatchQueue.global().async {
-            if let res = FileHandler.loadFileIntern(fileName: "\(contact?.imagehash ?? "").jpg") {
+            if let res = FileHandler.loadFileIntern(fileName: "\(contact?.pfpHash ?? "").jpg") {
                 DispatchQueue.main.async {
                     data = res
                 }

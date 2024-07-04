@@ -2,66 +2,17 @@ import Foundation
 import SwiftUI
 
 extension ReactionInfluenced {
-    /*func formatText()-> some View {
-        var text = Text("")
-        for i in 0..<formattedChars.count {
-            if formattedChars[i].formats.contains("*") && formattedChars[i].formats.contains("_") && formattedChars[i].formats.contains("~") {
-                text = text+Text(formattedChars[i].char).fontWeight(.bold).italic().strikethrough()
-            }
-            else if formattedChars[i].formats.contains("*") && formattedChars[i].formats.contains("_") && !formattedChars[i].formats.contains("~") {
-                text = text+Text(formattedChars[i].char).fontWeight(.bold).italic()
-            }
-            else if formattedChars[i].formats.contains("*") && !formattedChars[i].formats.contains("_") && formattedChars[i].formats.contains("~") {
-                text = text+Text(formattedChars[i].char).fontWeight(.bold).strikethrough()
-            }
-            else if formattedChars[i].formats == ["*"] {
-                text = text+Text(formattedChars[i].char).fontWeight(.bold)
-            }
-            else if !formattedChars[i].formats.contains("*") && formattedChars[i].formats.contains("_") && formattedChars[i].formats.contains("~") {
-                text = text+Text(formattedChars[i].char).italic().strikethrough()
-            }
-            else if formattedChars[i].formats == ["_"] {
-                text = text+Text(formattedChars[i].char).italic()
-            }
-            else if formattedChars[i].formats == ["~"] {
-                text = text+Text(formattedChars[i].char).strikethrough()
-            }
-            else {
-                text = text + Text(formattedChars[i].char)
-            }
-        }
-        return text
-    }
-    */
-    
-    func formatText()-> some View{
-        let collection = StringFormatterCollection()
-        collection.addFormatter(BoldStringFormatter())
-        collection.addFormatter(ItalicStringFormatter())
-        collection.addFormatter(StrikethroughStringFormatter())
-        
-        var text = AttributedString()
-        
-        for i in 0..<formattedChars.count{
-            text = text + collection.addFormats(formattedChar: formattedChars[i])
-        }
-        return Text(text)
-    }
-    
-    func genReactions()-> Reaction {
-        let differentEmojis = Array(Set(message.reactions.values))
-        var emojisCount: [String : Int] = [:]
+    func genReactions()-> BuiltReactions {
+        let (differentEmojis, counts) = extractDifferentEmojis()
         var totalCount = 0.0
         var reactionCache = ""
-        let differentEmojisCount = differentEmojis.count
         
-        for i in 0 ..< differentEmojis.count {
-            let countForEmoji = message.reactions.keys(forValue: differentEmojis[i]).count
-            emojisCount[differentEmojis[i]] = countForEmoji
+        for i in 0 ..< counts.count {
+            guard let countForEmoji = counts[differentEmojis[i]] else { continue }
             totalCount += Double(countForEmoji)
         }
         
-        let sortedByCount = Dictionary(uniqueKeysWithValues: emojisCount.sorted(by: {$0.value > $1.value}))
+        let sortedByCount = Dictionary(uniqueKeysWithValues: counts.sorted(by: {$0.value > $1.value}))
         let reactionList = Array(sortedByCount.keys)
         
         for i in 0 ..< sortedByCount.count {
@@ -69,6 +20,8 @@ extension ReactionInfluenced {
                 reactionCache += reactionList[i]
             }
         }
+        
+        totalCount = counts.count.double
         
         var countString = String(Int(totalCount))
         
@@ -78,6 +31,23 @@ extension ReactionInfluenced {
             countString = String(totalCount)+"K"
         }
         
-        return Reaction(mostUsed: reactionCache, countString: countString, emojisCount: emojisCount, differentEmojisCount: differentEmojisCount, peopleReactions: message.reactions)
+        return BuiltReactions(mostUsed: reactionCache, countString: countString, emojisCount: counts, differentEmojisCount: differentEmojis.count, peopleReactions: message.reactions)
+    }
+    
+    fileprivate func extractDifferentEmojis()-> (Array<String>, [String: Int]) {
+        var emojis: [String] = []
+        var counts: [String: Int] = [:]
+        for reaction in message.reactions {
+            let emoji = reaction.reaction
+            
+            if !emojis.contains(emoji) {
+                emojis.append(emoji)
+                counts[emoji] = 1
+                continue
+            }
+            
+            counts[reaction.reaction]? += 1
+        }
+        return (emojis, counts)
     }
 }

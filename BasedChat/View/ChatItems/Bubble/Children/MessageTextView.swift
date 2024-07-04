@@ -1,7 +1,9 @@
 import Foundation
 import SwiftUI
+import RealmSwift
 
-struct MessageTextView: View, ReactionInfluenced {
+struct MessageTextView: View, TextFormatter {    
+    
     //MARK: - Body
     
     var body: some View {
@@ -9,22 +11,11 @@ struct MessageTextView: View, ReactionInfluenced {
             formatText()
                 .padding(.bottom, reactionContainer.isEmpty ? 0 : 14.5)
         }
-        .onAppear(){
-            formattedChars = message.formattedChars.sorted(by: {$0.id < $1.id})
-        }
     }
     
     //MARK: - Parameters
-    
-    var message: Message
-    @Binding var reactionContainer: String
-    @Binding var formattedChars: [FormattedChar]
-    
-    init(message: Message, reactionContainer: Binding<String>, formattedChars: Binding<[FormattedChar]>) {
-        self.message = message
-        self._reactionContainer = reactionContainer
-        self._formattedChars = formattedChars
-    }
+    @ObservedRealmObject var message: Message
+    @State var reactionContainer: String
     
     //MARK: -
 }

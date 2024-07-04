@@ -1,10 +1,9 @@
 /*import SwiftUI
-
 struct Test: View {
     var body: some View {
         VStack {
             if let originalImage = UIImage(named: "InternalCommandImage"), let resizedImage = resizeImage(image: originalImage, targetSize: CGSize(width: 20, height: 20)) {
-                Text("Custom Emoji: ").font(.system(size: 20)) + Text(Image(uiImage: resizedImage))+Text(" another random text")
+                Text("Custom Emoji: ").font(.system(size: 20)) + Text(Image(uiImage: resizedImage)).baselineOffset(-4)+Text(" another random text")
             } else {
                 Text("Emoji not found")
             }

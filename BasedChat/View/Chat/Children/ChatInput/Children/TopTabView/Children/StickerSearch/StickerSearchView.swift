@@ -62,10 +62,7 @@ struct StickerSearch: View {
                                 }), id: \.self) { sticker in
                                     StickerImageView(name: sticker.hashString, fileExtension: sticker.type, data: $data, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
                                         .onTapGesture {
-                                            stickerPath = sticker.hashString
-                                            stickerName = sticker.name
-                                            stickerType = sticker.type
-                                            sendSticker.toggle()
+                                            sendSticker = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
                                             showParentSheet = false
                                         }
                                 }
@@ -87,7 +84,7 @@ struct StickerSearch: View {
                             ForEach(collections.sorted(by: {
                                 $0.priority > $1.priority
                             })) { collection in
-                                CollectionDisplay(collection: collection, stickerPath: $stickerPath, sendSticker: $sendSticker, stickerName: $stickerName, stickerType: $stickerType, showParentSheet: $showParentSheet)
+                                CollectionDisplay(collection: collection, sendSticker: $sendSticker, showParentSheet: $showParentSheet)
                             }
                         }
                     }
@@ -119,10 +116,7 @@ struct StickerSearch: View {
     @State var searchText: String = ""
     @State var selected: TopTabContentType = .sticker
     @Binding var showParentSheet: Bool
-    @Binding var stickerPath: String
-    @Binding var sendSticker: Bool
-    @Binding var stickerName: String
-    @Binding var stickerType: String
+    @Binding var sendSticker: SendableSticker
     @State var data: Data? = nil
     @State var filterEmptyCollections: Bool = false
 }

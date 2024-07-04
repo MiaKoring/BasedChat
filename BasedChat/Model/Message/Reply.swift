@@ -1,15 +1,18 @@
 import Foundation
 import SwiftData
+import RealmSwift
 
-@Model
-final class Reply: Identifiable {
-    var id: UUID
-    var originID: UUID
-    var text: String
-    var sender: Int
+final class Reply: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var originID: UUID
+    @Persisted var text: String
+    @Persisted var sender: Int
     
-    init(id: UUID = UUID(), originID: UUID, text: String, sender: Int) {
-        self.id = id
+    override init() {
+        super.init()
+    }
+    
+    init(originID: UUID, text: String, sender: Int) {
         self.originID = originID
         self.text = text
         self.sender = sender
