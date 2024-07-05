@@ -34,7 +34,7 @@ extension Text {
             .allowsHitTesting(false)
             .background() {
                 Rectangle()
-                    .background(.ultraThinMaterial)
+                    .fill(senderIsCurrent ? Color.init("MeMSG").mix(with: .white, by: 0.1) : Color.init("YouMSG").mix(with: .white, by: 0.1))
                     .clipShape(UnevenRoundedRectangle
                         .rect(cornerRadii: RectangleCornerRadii(topLeading: 5, bottomLeading: 5, bottomTrailing: 5, topTrailing: 5)))
                     .onTapGesture {
@@ -45,7 +45,7 @@ extension Text {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(.black, style: .init(lineWidth: 1.3))
+                    .stroke(.ultraThinMaterial, style: .init(lineWidth: 1.3))
             }
     }
     
