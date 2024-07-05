@@ -90,10 +90,18 @@ extension View {
         }
     }
     
-    func messageInputStyle()-> some View {
+    func messageInputStyle(textFieldFocused: FocusState<Bool>.Binding)-> some View {
         self
             .padding(5)
-            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 1.0).fill(.ultraThickMaterial).allowsHitTesting(false))
+            .background(){
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(.ultraThinMaterial)
+                    .onTapGesture {
+                        textFieldFocused.wrappedValue = true
+                    }
+            }
+            .overlay(RoundedRectangle(cornerRadius: 15)
+                .stroke(.regularMaterial, lineWidth: 1.0).allowsHitTesting(false))
             .padding(.horizontal, 5)
             .padding(.vertical, 4)
     }

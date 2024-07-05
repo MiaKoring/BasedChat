@@ -91,6 +91,7 @@
 		A67C332A2C17386900594120 /* StickerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C33292C17386900594120 /* StickerCollection.swift */; };
 		A67C332C2C17399B00594120 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C332B2C17399B00594120 /* Sticker.swift */; };
 		A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */ = {isa = PBXBuildFile; productRef = A68C6FC82BE2D38B00967243 /* SlashCommands */; };
+		A694256C2C38275E00CD969D /* DefaultBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A694256B2C38275900CD969D /* DefaultBackground.swift */; };
 		A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4A42C20BCFB0042DA3B /* ChatTopBarFunctions.swift */; };
 		A69CF4A82C20D9510042DA3B /* MediaControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4A72C20D9490042DA3B /* MediaControlView.swift */; };
 		A69CF4AC2C20EC050042DA3B /* MusicPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69CF4AB2C20EBFD0042DA3B /* MusicPlayerManager.swift */; };
@@ -255,6 +256,7 @@
 		A65DD8162C2CEFAC00607ECB /* SendableSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableSticker.swift; sourceTree = "<group>"; };
 		A67C33292C17386900594120 /* StickerCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollection.swift; sourceTree = "<group>"; };
 		A67C332B2C17399B00594120 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		A694256B2C38275900CD969D /* DefaultBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBackground.swift; sourceTree = "<group>"; };
 		A69CF4A42C20BCFB0042DA3B /* ChatTopBarFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTopBarFunctions.swift; sourceTree = "<group>"; };
 		A69CF4A72C20D9490042DA3B /* MediaControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControlView.swift; sourceTree = "<group>"; };
 		A69CF4AB2C20EBFD0042DA3B /* MusicPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerManager.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		140DE7172BDBD12900B59A25 /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A694256A2C38275200CD969D /* Background */,
 				A6A3CD932C191870002ACCD6 /* TopBar */,
 				144D31AC2BDD7DC300D1427F /* ChatInput */,
 				149876192BDD1F9A001CE1C5 /* ReplyToDisplay */,
@@ -649,6 +652,14 @@
 			path = Sticker;
 			sourceTree = "<group>";
 		};
+		A694256A2C38275200CD969D /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				A694256B2C38275900CD969D /* DefaultBackground.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
 		A69CF4A62C20D93C0042DA3B /* MediaControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +947,7 @@
 				146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */,
 				A6A3CD9A2C192725002ACCD6 /* IOSTopBarButtonView.swift in Sources */,
 				A69CF4A52C20BD040042DA3B /* ChatTopBarFunctions.swift in Sources */,
+				A694256C2C38275E00CD969D /* DefaultBackground.swift in Sources */,
 				14CB69DA2BD2EC9000516D28 /* FormattedSubstring.swift in Sources */,
 				140DE7192BDBD13D00B59A25 /* MessageView.swift in Sources */,
 				A633A0A42C2CC58100E4E9B6 /* BoldStringFormatter.swift in Sources */,

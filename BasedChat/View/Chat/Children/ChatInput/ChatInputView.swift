@@ -28,7 +28,7 @@ struct ChatInputView: View {
                             showStickerSheet.toggle()
                         }
                 }
-                .messageInputStyle()
+                .messageInputStyle(textFieldFocused: $textFieldFocused)
                 Button {
                     createMessage()
                 } label: {

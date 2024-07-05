@@ -9,88 +9,109 @@ struct ChatView: View {
     var body: some View {
         VStack {
             MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, appendMessage: $appendMessage, keyboardShown: $keyboardShown)
-                .overlay(alignment: .bottom) {
-                    VStack{
-                        if currentCommand.isNil {
-                            CommandList(relevantCommands: $relevantCommands, currentCommand: $currentCommand, commandInput: $messageInput)
-                                .frame(height: commandListHeight())
+                .padding(.horizontal, 10)
+            VStack {
+                if replyTo != nil {
+                    HStack {
+                        ReplyToDisplayView(replyTo: $replyTo)
+                            .frame(height: 50)
+                        Spacer()
+                        Button {
+                            replyTo = nil
+                        } label: {
+                            Image(systemName: "xmark.circle")
                         }
-                        CommandDetailView(commandInput: $messageInput, collection: $collection, currentCommand: $currentCommand, relevantCommands: $relevantCommands)
-                    }
-                    .background(.ultraThickMaterial)
-                }
-            if replyTo != nil {
-                HStack {
-                    ReplyToDisplayView(replyTo: $replyTo)
-                        .frame(height: 50)
-                    Spacer()
-                    Button {
-                        replyTo = nil
-                    } label: {
-                        Image(systemName: "xmark.circle")
                     }
                 }
-                .background(Color.init("BottomCardButtonClicked"))
+                ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker)
             }
-            ChatInputView(replyTo: $replyTo, messageInput: $messageInput, chat: chat, messageSent: $messageSent, sender: $sender, sendSticker: $sendSticker)
-        }
             .padding(.horizontal, 10)
-            .onTapGesture {
-                hideKeyboard()
-            }
-        #if canImport(UIKit)
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                self.keyboardShown = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                self.keyboardShown = false
-            }
-        #endif
-            .onChange(of: messageToDelete) {
-                deleteMessage()
-            }
-            .sheet(isPresented: $showStickerDetail) {
-                VStack {
-                    if bottomCardReaction != nil {
-                        ReactionSheetView(
-                            reaction: bottomCardReaction!,
-                            selected:
-                                bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 }).first!,
-                            emojisSorted:
-                                bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 })
-                        )
+            .background {
+                GeometryReader { geometry in
+                    VStack {
+                        if replyTo != nil || !relevantCommands.isEmpty {
+                            Rectangle()
+                                .fill(.ultraThinMaterial)
+                                .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
+                        }
+                    }
+                    .onChange(of: geometry.size) {
+                        currentOffset = 0 - geometry.size.height
+                    }
+                    .onAppear(){
+                        currentOffset = 0 - geometry.size.height
                     }
                 }
-                .presentationDetents([.medium])
-                .presentationBackground(.ultraThickMaterial)
-                .presentationDragIndicator(.visible)
             }
-        #if canImport(UIKit)
-            .ignoresSafeAreaWith(condition: UIDevice.isIPhone, regions: .container, edges: .top)
-        #else
-            .ignoresSafeArea(.container, edges: .top)
-        #endif
-            .navigationBarBackButtonHidden()
-            .overlay {
-                ChatTopBar(showNavigation: $showNavigation, chat: chat) //TODO: add adaptive functionality
+            .overlay(alignment: .bottom) {
+                VStack{
+                    if currentCommand.isNil {
+                        CommandList(relevantCommands: $relevantCommands, currentCommand: $currentCommand, commandInput: $messageInput)
+                            .frame(height: commandListHeight())
+                    }
+                    CommandDetailView(commandInput: $messageInput, collection: $collection, currentCommand: $currentCommand, relevantCommands: $relevantCommands)
+                }
+                .background(.thinMaterial)
+                //.offset(y: replyTo.isNil ? -40 : -90)
+                .offset(y: currentOffset)
             }
-            .onChange(of: messageSent) {
-                handleMessageSend()
+        }
+        .onTapGesture {
+            hideKeyboard()
+        }
+    #if canImport(UIKit)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            self.keyboardShown = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            self.keyboardShown = false
+        }
+    #endif
+        .onChange(of: messageToDelete) {
+            deleteMessage()
+        }
+        .sheet(isPresented: $showStickerDetail) {
+            VStack {
+                if bottomCardReaction != nil {
+                    ReactionSheetView(
+                        reaction: bottomCardReaction!,
+                        selected:
+                            bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 }).first!,
+                        emojisSorted:
+                            bottomCardReaction!.emojisCount.keys.sorted(by: { bottomCardReaction!.emojisCount[$0] ?? -1 > bottomCardReaction!.emojisCount[$1] ?? -1 })
+                    )
+                }
             }
-            .onAppear() {
-                collection = CommandCollection(commands: [
-                    Bababa(completion: sendBababa),
-                    Tableflip(completion: sendTableflip),
-                    Unflip(completion: sendUnflip)
-                ])
-            }
-            .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
-            .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){
-                
-            }
-            .onChange(of: sendSticker) {
-                sendStickerChanged()
-            }
+            .presentationDetents([.medium])
+            .presentationBackground(.ultraThickMaterial)
+            .presentationDragIndicator(.visible)
+        }
+    #if canImport(UIKit)
+        .ignoresSafeAreaWith(condition: UIDevice.isIPhone, regions: .container, edges: .top)
+    #else
+        .ignoresSafeArea(.container, edges: .top)
+    #endif
+        .navigationBarBackButtonHidden()
+        .overlay {
+            ChatTopBar(showNavigation: $showNavigation, chat: chat) //TODO: add adaptive functionality
+        }
+        .onChange(of: messageSent) {
+            handleMessageSend()
+        }
+        .onAppear() {
+            collection = CommandCollection(commands: [
+                Bababa(completion: sendBababa),
+                Tableflip(completion: sendTableflip),
+                Unflip(completion: sendUnflip)
+            ])
+        }
+        .onChange(of: bottomCardReaction) {} //somehow seems to fix https://github.com/MiaKoring/BasedChat/issues/6
+        .alert(LocalizedStringKey(commandError?.localizedDescription ?? ""), isPresented: $commandErrorShown){
+            
+        }
+        .onChange(of: sendSticker) {
+            sendStickerChanged()
+        }
     }
     
     //MARK: - Parameters
@@ -119,6 +140,7 @@ struct ChatView: View {
     @State var sendSticker: SendableSticker = SendableSticker(name: "", hash: "", type: "")
     @Binding var showNavigation: NavigationSplitViewVisibility
     @State var appendMessage: Message? = nil
+    @State var currentOffset: Double = 0.0
     
     //MARK: -
 }

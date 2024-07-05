@@ -149,7 +149,15 @@ struct FirstView: View {
                 if UIDevice.isIPhone {
                     NavigationStack {
                         List {
-                            NavigationLink("Chat", destination: ChatView(chat: chats.first!, showNavigation: $showNavigation))
+                            //NavigationLink("Chat", destination: ChatView(chat: chats.first!, showNavigation: $showNavigation))
+                            NavigationLink("Chat") {
+                                ChatView(chat: chats.first!, showNavigation: $showNavigation)
+                                    .background {
+                                        DefaultBackground()
+                                            .ignoresSafeArea()
+                                    }
+                                
+                            }
                         }
                     }
                 }
@@ -166,6 +174,10 @@ struct FirstView: View {
                     } detail: {
                         if selectedChat != nil {
                             ChatView(chat: selectedChat!, showNavigation: $showNavigation)
+                                .background {
+                                    DefaultBackground()
+                                        .ignoresSafeArea()
+                                }
                         }
                         else {
                             Image(systemName: "exclamationmark.bubble")

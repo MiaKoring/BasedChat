@@ -49,16 +49,14 @@ extension ChatView {
     }
     
     func handleMessageSend() {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.main.async {
             if handleCommand() {
                 return
             }
             
-            DispatchQueue.main.async {
-                let newMessage = generateMessage()
-                messageInput = ""
-                sendMessage(newMessage)
-            }
+            let newMessage = generateMessage()
+            messageInput = ""
+            sendMessage(newMessage)
         }
     }
     
@@ -142,15 +140,13 @@ extension ChatView {
             return
         }
         DispatchQueue.main.async {
-            try? realm.write {
-                let repl = Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0)
-                
-                let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .reply, reply: repl, text: msgStr, messageID: chat.currentMessageID + 1)
-                for substring in formattedSubstr {
-                    newMessage.formattedSubstrings.append(substring)
-                }
-                sendMessage(newMessage)
+            let repl = Reply(originID: reply.messageUUID, text: reply.text, sender: reply.sender.first?.userID ?? 0)
+            
+            let newMessage = Message(time: Date().intTimeIntervalSince1970, type: .reply, reply: repl, text: msgStr, messageID: chat.currentMessageID + 1)
+            for substring in formattedSubstr {
+                newMessage.formattedSubstrings.append(substring)
             }
+            sendMessage(newMessage)
         }
     }
     
