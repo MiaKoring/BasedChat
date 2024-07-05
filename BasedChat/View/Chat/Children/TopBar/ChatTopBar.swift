@@ -5,6 +5,7 @@ import RealmSwift
 import MediaPlayer
 
 struct ChatTopBar: View {
+    @StateObject private var musicPlayerManager = MusicPlayerManager()
     
     //MARK: - Body
     var body: some View {
@@ -70,6 +71,31 @@ struct ChatTopBar: View {
                     }
                     if eventIsActive() && showEvents { Spacer() }
                 }
+                .gesture(
+                    DragGesture(minimumDistance: 20)
+                        .onEnded { endedGesture in
+                            var verticalDistance = endedGesture.location.y - endedGesture.startLocation.y
+                            verticalDistance = verticalDistance < 0 ? 0 - verticalDistance : verticalDistance
+                            var horizontalDistance = endedGesture.location.x - endedGesture.startLocation.x
+                            horizontalDistance = horizontalDistance < 0 ? 0 - horizontalDistance : horizontalDistance
+                            
+                            if horizontalDistance > verticalDistance {
+                                if (endedGesture.location.x - endedGesture.startLocation.x) > 0 {
+                                    musicPlayerManager.skipToNextItem()
+                                    return
+                                }
+                                musicPlayerManager.skipToPreviousItem()
+                                return
+                            }
+                            else {
+                                if (endedGesture.location.y - endedGesture.startLocation.y) > 0 {
+                                    showEvents = true
+                                    return
+                                }
+                                showEvents = false
+                            }
+                        }
+                )
             }
             .background(){
                 if eventIsActive() && showEvents{
