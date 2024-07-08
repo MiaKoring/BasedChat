@@ -24,6 +24,10 @@ struct ChatInputView: View {
                         .focused($textFieldFocused)
                     Image("sticker.bold")
                         .font(.system(size: 18))
+                        .background {
+                            RoundedRectangle(cornerRadius: 3)
+                                .fill(.ultraThinMaterial)
+                        }
                         .onTapGesture {
                             showStickerSheet.toggle()
                         }
