@@ -2,11 +2,14 @@ import Foundation
 import SwiftUI
 import SwiftChameleon
 import RealmSwift
+#if os(iOS)
 import MediaPlayer
+#endif
 
 struct ChatTopBar: View {
+    #if os(iOS)
     @StateObject private var musicPlayerManager = MusicPlayerManager()
-    
+    #endif
     //MARK: - Body
     var body: some View {
         VStack {
@@ -71,6 +74,7 @@ struct ChatTopBar: View {
                     }
                     if eventIsActive() && showEvents { Spacer() }
                 }
+                #if os(iOS)
                 .gesture(
                     DragGesture(minimumDistance: 20)
                         .onEnded { endedGesture in
@@ -96,6 +100,7 @@ struct ChatTopBar: View {
                             }
                         }
                 )
+                #endif
             }
             .background(){
                 if eventIsActive() && showEvents{
