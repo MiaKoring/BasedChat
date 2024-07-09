@@ -1,4 +1,3 @@
-import SwiftData
 import Foundation
 import RealmSwift
 

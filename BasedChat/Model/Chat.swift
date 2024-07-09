@@ -1,5 +1,4 @@
 import Foundation
-import SwiftData
 import RealmSwift
 
 final class Chat: Object, ObjectKeyIdentifiable {

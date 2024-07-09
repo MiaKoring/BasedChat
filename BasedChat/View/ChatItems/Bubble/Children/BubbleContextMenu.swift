@@ -42,7 +42,6 @@ struct BubbleContextMenu: View {
     //MARK: - Parameters
     
     let message: Message
-    @Environment(\.modelContext) var context
     @Binding var replyTo: Message?
     @Binding var deleteAlertPresented: Bool
     @Binding var updateMessage: Message?

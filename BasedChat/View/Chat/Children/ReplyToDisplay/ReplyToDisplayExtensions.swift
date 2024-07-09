@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftData
 
 extension ReplyToDisplayView {
     func getText()-> String {

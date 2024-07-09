@@ -136,5 +136,4 @@ struct ChatTopBar: View {
     @State var contactNotFound: Bool = false
     @State var eventCount: Int = 0
     @State var showEvents: Bool = false
-    @Environment(\.modelContext) var context
 }

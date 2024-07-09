@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import SwiftData
 
 struct Bubble: View, ReactionInfluenced, TimeToggler {
     
@@ -73,7 +72,6 @@ struct Bubble: View, ReactionInfluenced, TimeToggler {
     //MARK: - Parameters
     
     let minSpacerWidth: Double
-    @Environment(\.modelContext) var context
     var message: Message
     @Binding var showStickerDetail: Bool
     @Binding var bottomCardReaction: BuiltReactions?

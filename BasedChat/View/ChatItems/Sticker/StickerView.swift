@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import SwiftChameleon
-import SwiftData
 import RealmSwift
 
 struct StickerView: View, TimeToggler, ReactionInfluenced {

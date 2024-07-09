@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftData
 
 ///Shows Stickers and GIFs in Chat(sheet)
 struct TopTabView: View {
