@@ -64,7 +64,7 @@ struct StickerImageView: View {
     }
     
     //MARK: - Parameters
-    @State var isDone = true
+    @State var isDone = false
     @State var name: String
     @State var fileExtension: String
     @Binding var data: Data?

@@ -19,7 +19,13 @@
     "+%lld" : {
 
     },
+    "Add to Collection" : {
+
+    },
     "Add to Favourites" : {
+
+    },
+    "already added" : {
 
     },
     "AppleMusic" : {
@@ -82,6 +88,12 @@
     "Couldn't find sticker" : {
 
     },
+    "Create" : {
+
+    },
+    "Create Collection" : {
+
+    },
     "creating chat..." : {
 
     },
@@ -142,6 +154,9 @@
         }
       }
     },
+    "Do you want to add the selected sticker?" : {
+
+    },
     "Done" : {
 
     },
@@ -168,10 +183,19 @@
     "Error" : {
 
     },
+    "Failed adding Sticker" : {
+
+    },
+    "Failed to create collection" : {
+
+    },
     "favourites not found" : {
 
     },
     "GIF" : {
+
+    },
+    "High" : {
 
     },
     "how did we get here" : {
@@ -213,6 +237,9 @@
     "Loading..." : {
 
     },
+    "Low" : {
+
+    },
     "max loaded items reached" : {
 
     },
@@ -250,6 +277,12 @@
         }
       }
     },
+    "Name" : {
+
+    },
+    "Name can't be empty" : {
+
+    },
     "NewMessages" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -267,6 +300,15 @@
         }
       }
     },
+    "No" : {
+
+    },
+    "No Results for \"%@\"" : {
+
+    },
+    "Normal" : {
+
+    },
     "not playing" : {
 
     },
@@ -279,6 +321,15 @@
           }
         }
       }
+    },
+    "Please enter a name" : {
+
+    },
+    "Please try again" : {
+
+    },
+    "Priority" : {
+
     },
     "regular" : {
 
@@ -340,6 +391,9 @@
     "select chat" : {
 
     },
+    "Sorting" : {
+
+    },
     "TableFlipDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -357,6 +411,9 @@
         }
       }
     },
+    "Try checking the pronounciation or start a new search" : {
+
+    },
     "UnflipDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -373,6 +430,12 @@
           }
         }
       }
+    },
+    "Yes" : {
+
+    },
+    "You don't have any collections yet" : {
+
     }
   },
   "version" : "1.0"

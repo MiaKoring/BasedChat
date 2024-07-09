@@ -38,7 +38,6 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
                 StickerDetailSheet(stickerSheetPresented: $stickerSheetPresented, message: message, data: $data, favourites: favs)
                     .frame(minHeight: 400)
                     .presentationDetents([.medium])
-                    .presentationBackground(.ultraThickMaterial)
             }
             else {
                 Text("favourites not found") //TODO: Create Favourites

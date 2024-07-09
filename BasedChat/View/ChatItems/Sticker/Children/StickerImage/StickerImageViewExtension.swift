@@ -8,7 +8,6 @@ extension StickerImageView {
                     data = res
                 }
             }
-            isDone = false
         }
     }
 }

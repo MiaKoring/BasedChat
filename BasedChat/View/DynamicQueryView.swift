@@ -41,6 +41,26 @@ extension DynamicQueryView where T : StickerCollection {
         }
         self.init(query: filter, sortDescriptor: sort, content: content)
     }
+    
+    init( searchCollectionName: String, excludingSystem: Bool = true, @ViewBuilder content: @escaping ([T]) -> Content ) {
+        let sort = RealmSwift.SortDescriptor(keyPath: "name", ascending: true)
+        
+        if !excludingSystem {
+            let filter: ((Query<T>)->Query<Bool>)? = searchCollectionName.isEmpty ? nil : {
+                $0.name.contains(searchCollectionName)
+            }
+            self.init(query: filter, sortDescriptor: sort, content: content)
+            return
+        }
+        
+        let filter: ((Query<T>)->Query<Bool>)? = searchCollectionName.isEmpty ? {
+            $0.name != "favourites" && $0.name != "integrated"
+        } : {
+            $0.name.contains(searchCollectionName) &&
+            $0.name != "favourites" && $0.name != "integrated"
+        }
+        self.init(query: filter, sortDescriptor: sort, content: content)
+    }
 }
 
 extension DynamicQueryView where T : Sticker {

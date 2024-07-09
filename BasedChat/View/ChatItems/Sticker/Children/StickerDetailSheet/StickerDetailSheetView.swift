@@ -26,6 +26,12 @@ struct StickerDetailSheet: View {
                     Label("Add to Favourites", systemImage: favourites.stickers.contains(where: {$0.hashString == message.stickerHash}) ? "star.fill" : "star")
                 }
                 .buttonStyle(PlainButtonStyle())
+                Button {
+                    addToCollectionPresented = true
+                } label: {
+                    Label("Add to Collection", systemImage: "plus.circle")
+                }
+                .buttonStyle(PlainButtonStyle())
             }
             Spacer()
         }
@@ -35,6 +41,11 @@ struct StickerDetailSheet: View {
                 Text("OK")
             }
         }
+        .sheet(isPresented: $addToCollectionPresented) {
+            AddToCollectionView(stickerHash: message.stickerHash, stickerType: message.stickerType, stickerName: message.stickerName)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+        }
     }
     
     //MARK: - Parameters
@@ -43,4 +54,5 @@ struct StickerDetailSheet: View {
     @Binding var data: Data?
     @State var showAddStickerError: Bool = false
     @ObservedRealmObject var favourites: StickerCollection
+    @State var addToCollectionPresented: Bool = false
 }
