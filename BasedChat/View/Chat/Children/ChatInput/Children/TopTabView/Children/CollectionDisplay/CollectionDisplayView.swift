@@ -51,7 +51,7 @@ struct CollectionDisplay: View {
     
     //MARK: - Parameters
     @State var data: Data? = nil
-    @State var open: Bool = true
+    @State var open: Bool = false
     let collection: StickerCollection
     @Binding var sendSticker: SendableSticker
     @Binding var showParentSheet: Bool
