@@ -29,7 +29,7 @@ struct CollectionDisplay: View {
                 ScrollView(.horizontal) {
                     LazyHStack(alignment: .top, spacing: 10) {
                         ForEach(collection.stickers, id: \.id) {sticker in
-                            StickerImageView(name: sticker.hashString, fileExtension: sticker.type, data: $data, width: 100, height: 100)
+                            StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: 100, height: 100)
                                 .onTapGesture {
                                     sendSticker = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
                                     showParentSheet = false
@@ -50,8 +50,7 @@ struct CollectionDisplay: View {
     }
     
     //MARK: - Parameters
-    @State var data: Data? = nil
-    @State var open: Bool = false
+    @State var open: Bool = true
     let collection: StickerCollection
     @Binding var sendSticker: SendableSticker
     @Binding var showParentSheet: Bool

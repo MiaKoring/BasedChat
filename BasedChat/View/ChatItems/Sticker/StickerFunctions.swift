@@ -41,9 +41,7 @@ extension StickerView {
             }
         }
         else {
-            if data != nil {
-                stickerSheetPresented = true
-            }
+            stickerSheetPresented = true
             doubletapTimer?.invalidate()
         }
     }    

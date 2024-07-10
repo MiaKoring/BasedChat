@@ -55,7 +55,7 @@ struct StickerSearch: View {
                                         ForEach(stickers.sorted(by: {
                                             $0.name < $1.name
                                         }), id: \.self) { sticker in
-                                            StickerImageView(name: sticker.hashString, fileExtension: sticker.type, data: $data, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
+                                            StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
                                                 .onTapGesture {
                                                     sendSticker = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
                                                     showParentSheet = false
@@ -117,6 +117,5 @@ struct StickerSearch: View {
     @State var selected: TopTabContentType = .sticker
     @Binding var showParentSheet: Bool
     @Binding var sendSticker: SendableSticker
-    @State var data: Data? = nil
     @State var filterEmptyCollections: Bool = false
 }

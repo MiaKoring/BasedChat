@@ -16,7 +16,7 @@ struct StickerDetailSheet: View {
             }
 #endif
             Spacer()
-            StickerImageView(name: message.stickerHash, fileExtension: message.stickerType, data: $data, width: 200, height: 200, durationFactor: 30)
+            StickerImageView(name: message.stickerHash, fileExtension: message.stickerType, width: 200, height: 200, durationFactor: 30)
             List {
                 Button {
                     if !removeFromFavourites() {
@@ -51,7 +51,6 @@ struct StickerDetailSheet: View {
     //MARK: - Parameters
     @Binding var stickerSheetPresented: Bool
     @ObservedRealmObject var message: Message
-    @Binding var data: Data?
     @State var showAddStickerError: Bool = false
     @ObservedRealmObject var favourites: StickerCollection
     @State var addToCollectionPresented: Bool = false

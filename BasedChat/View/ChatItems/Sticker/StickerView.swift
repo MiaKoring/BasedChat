@@ -11,7 +11,7 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
                 VStack{
                     if !message.stickerHash.isEmpty {
                         ReplyView(message: message, scrollTo: $scrollTo, triggerScroll: $triggerScroll, glowOriginMessage: $glowOriginMessage)
-                        StickerImageView(name: message.stickerHash, fileExtension: message.stickerType, data: $data)
+                        StickerImageView(name: message.stickerHash, fileExtension: message.stickerType)
                     }
                 }
                 .overlay(alignment: message.senderIsCurrentUser ? .bottomLeading : .bottomTrailing){
@@ -34,7 +34,7 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
         .sheet(isPresented: $stickerSheetPresented, content: {
             //TODO: Create Subview
             if let favs = favourites.first {
-                StickerDetailSheet(stickerSheetPresented: $stickerSheetPresented, message: message, data: $data, favourites: favs)
+                StickerDetailSheet(stickerSheetPresented: $stickerSheetPresented, message: message, favourites: favs)
                     .frame(minHeight: 400)
                     .presentationDetents([.medium])
             }
@@ -66,7 +66,6 @@ struct StickerView: View, TimeToggler, ReactionInfluenced {
     @Binding var messageToDelete: Message?
     let minSpacerWidth: Double
     @State var deleteAlertPresented = false
-    @State var data: Data? = nil
     @State var showAddStickerError: Bool = false
     @Binding var updateMessage: Message?
     @ObservedResults(StickerCollection.self, where: {$0.name == "favourites"}) var favourites

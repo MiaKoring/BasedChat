@@ -7,7 +7,7 @@ struct CollectionRow: View {
         HStack {
             HStack {
                 if collection.stickers.count > 0 {
-                    StickerImageView(isDone: true, name: stickerHash, fileExtension: stickerType, data: $data, width: 60, height: 60)
+                    StickerImageView(isDone: true, name: stickerHash, fileExtension: stickerType, width: 60, height: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 else {

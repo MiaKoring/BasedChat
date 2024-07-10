@@ -10,14 +10,11 @@ extension StickerDetailSheet {
             $favourites.stickers.append(sticker)
             return
         }
-        if data != nil {
-            //TODO: Finish
-            let newSticker = Sticker(name: message.stickerName, type: message.stickerType, hashString: message.stickerHash)
-            
-            $favourites.stickers.append(newSticker)
-            return
-            
-        }
+        //TODO: Finish
+        let newSticker = Sticker(name: message.stickerName, type: message.stickerType, hashString: message.stickerHash)
+        
+        $favourites.stickers.append(newSticker)
+        return
     }
     
     func removeFromFavourites()-> Bool {
