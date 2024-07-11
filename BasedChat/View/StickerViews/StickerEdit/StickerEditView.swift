@@ -46,7 +46,7 @@ struct StickerEditView: View {
                             ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
                         }
                         else {
-                            StickerListView(stickers: stickers, editable: true)
+                            StickerListView(stickers: stickers, deleteable: true)
                         }
                     }
                     .padding(.horizontal, 20)

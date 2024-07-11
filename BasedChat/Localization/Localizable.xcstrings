@@ -34,6 +34,9 @@
     "Are you sure you want to delete this collection? You will keep the stickers." : {
 
     },
+    "Are you sure you want to remove that sticker from the selected collection?" : {
+
+    },
     "BababaDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -210,6 +213,9 @@
     "GIF" : {
 
     },
+    "Hehe" : {
+
+    },
     "High" : {
 
     },
@@ -347,6 +353,12 @@
 
     },
     "regular" : {
+
+    },
+    "Remove" : {
+
+    },
+    "Remove from Collection" : {
 
     },
     "Reply" : {

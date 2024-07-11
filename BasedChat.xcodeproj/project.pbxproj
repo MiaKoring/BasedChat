@@ -66,7 +66,7 @@
 		A61361E82C4017CB00DE9239 /* StickerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361E72C4017C000DE9239 /* StickerEditView.swift */; };
 		A61361EB2C401AEF00DE9239 /* StickerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361EA2C401AE900DE9239 /* StickerListView.swift */; };
 		A61361ED2C40304700DE9239 /* StickerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361EC2C40304100DE9239 /* StickerExtensions.swift */; };
-		A61361EF2C40314F00DE9239 /* StickerListViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361EE2C40314600DE9239 /* StickerListViewExtensions.swift */; };
+		A61361EF2C40314F00DE9239 /* StickerListViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361EE2C40314600DE9239 /* StickerListViewFunctions.swift */; };
 		A61361F12C40370800DE9239 /* StickerEditViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361F02C40370100DE9239 /* StickerEditViewExtensions.swift */; };
 		A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */; };
 		A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */; };
@@ -244,7 +244,7 @@
 		A61361E72C4017C000DE9239 /* StickerEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerEditView.swift; sourceTree = "<group>"; };
 		A61361EA2C401AE900DE9239 /* StickerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerListView.swift; sourceTree = "<group>"; };
 		A61361EC2C40304100DE9239 /* StickerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerExtensions.swift; sourceTree = "<group>"; };
-		A61361EE2C40314600DE9239 /* StickerListViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerListViewExtensions.swift; sourceTree = "<group>"; };
+		A61361EE2C40314600DE9239 /* StickerListViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerListViewFunctions.swift; sourceTree = "<group>"; };
 		A61361F02C40370100DE9239 /* StickerEditViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerEditViewExtensions.swift; sourceTree = "<group>"; };
 		A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerImageViewExtension.swift; sourceTree = "<group>"; };
 		A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
@@ -564,7 +564,6 @@
 			isa = PBXGroup;
 			children = (
 				A61361E92C401AD800DE9239 /* StickerViews */,
-				A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */,
 				A6D738D82BFF79D0002A4AD8 /* WindowControlElements */,
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
 				14BE37F32BDBB5940078D49B /* Chat */,
@@ -613,15 +612,24 @@
 		A61361E92C401AD800DE9239 /* StickerViews */ = {
 			isa = PBXGroup;
 			children = (
+				A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */,
+				A61361F22C404BE600DE9239 /* StickerList */,
 				A6E77B1F2C287302004E4D5D /* CollectionDisplay */,
 				A6E77B1B2C2871C0004E4D5D /* StickerSearch */,
 				A61361E62C4017B900DE9239 /* StickerEdit */,
 				A6AEAB1C2C3C2B6C00B73192 /* StickerDetailSheet */,
-				A61361EE2C40314600DE9239 /* StickerListViewExtensions.swift */,
-				A61361EA2C401AE900DE9239 /* StickerListView.swift */,
 				A6FBD1B52C26034D00FAC3AF /* StickerSheet */,
 			);
 			path = StickerViews;
+			sourceTree = "<group>";
+		};
+		A61361F22C404BE600DE9239 /* StickerList */ = {
+			isa = PBXGroup;
+			children = (
+				A61361EA2C401AE900DE9239 /* StickerListView.swift */,
+				A61361EE2C40314600DE9239 /* StickerListViewFunctions.swift */,
+			);
+			path = StickerList;
 			sourceTree = "<group>";
 		};
 		A62B05A62BE7B0EF00A0C399 /* Bubble */ = {
@@ -1060,7 +1068,7 @@
 				A62C31222C3D6C2800F84BF7 /* CreateCollectionFunctions.swift in Sources */,
 				A6DF55F32C28C1C900836A2B /* CustomEmojisTest.swift in Sources */,
 				A628A6052C1A530C00801EBB /* ChatType.swift in Sources */,
-				A61361EF2C40314F00DE9239 /* StickerListViewExtensions.swift in Sources */,
+				A61361EF2C40314F00DE9239 /* StickerListViewFunctions.swift in Sources */,
 				14CB69FB2BD2FC4E00516D28 /* MessageTextView.swift in Sources */,
 				14CB69E42BD2ED6000516D28 /* AnswerDisplayView.swift in Sources */,
 				14F35B6F2BD66EAF00D41949 /* IntExtensions.swift in Sources */,

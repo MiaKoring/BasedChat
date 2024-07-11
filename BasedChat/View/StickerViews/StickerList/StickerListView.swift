@@ -21,9 +21,9 @@ struct StickerListView: View {
                                 guard let showParentSheetBinding = showParentSheet else { return }
                                 showParentSheetBinding.wrappedValue = false
                             }
-                            .if(editable) { view in
+                            .when(deleteable, removeable) { view in
                                 view
-                                    .contextMenu(){
+                                    .contextMenu {
                                         Button(role: .destructive) {
                                             deleteSticker = sticker
                                             showDeleteAlert = true
@@ -31,7 +31,13 @@ struct StickerListView: View {
                                             Label("Delete", systemImage: "trash")
                                         }
                                     }
-                            }
+                            } or: { view in
+                                view
+                                    .contextMenu {
+                                    Text("Hehe")
+                                }
+                                
+                            } otherwise: { view in view }
                     }
                 }
                 .padding()
@@ -58,6 +64,15 @@ struct StickerListView: View {
                 Text("OK")
             }
         }
+        .alert("Remove from Collection", isPresented: $showRemoveAlert) {
+            Button(role: .destructive) {
+                removeSticker(deleteSticker)
+            } label: {
+                Text("Remove")
+            }
+        } message: {
+            Text("Are you sure you want to remove that sticker from the selected collection?")
+        }
     }
     
     //MARK: - Parameters
@@ -66,7 +81,11 @@ struct StickerListView: View {
     @State var showDeleteAlert = false
     @State var deleteSticker: Sticker? = nil
     @State var deleteFailed: Bool = false
+    @State var showRemoveAlert: Bool = false
+    @State var showRemoveFailed: Bool = false
     var showParentSheet: Binding<Bool>? = nil
     var sendSticker: Binding<SendableSticker>? = nil
-    var editable = false
+    var deleteable = false
+    var removeable = false
+    var collectionID: ObjectId? = nil
 }
