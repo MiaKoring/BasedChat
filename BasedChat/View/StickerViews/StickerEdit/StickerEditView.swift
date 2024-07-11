@@ -46,7 +46,7 @@ struct StickerEditView: View {
                             ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
                         }
                         else {
-                            StickerListView(stickers: stickers, editable: true)
+                            StickerListView(stickers: stickers, deleteable: true, id: $detailID, type: $detailType, detailOpen: $showDetail)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -57,8 +57,13 @@ struct StickerEditView: View {
                         }
                         else {
                             List {
+                                Button {
+                                    showCollectionCreation = true
+                                } label: {
+                                    Label("Create", systemImage: "plus")
+                                }
                                 ForEach(collections) { collection in
-                                    CollectionRow(collection: collection, showIfAdded: false)
+                                    CollectionRow(collection: collection, showIfAdded: false, detailID: $detailID, detailType: $detailType, showDetail: $showDetail)
                                         .if(collection.name != "integrated" && collection.name != "favourites"){ view in
                                             view
                                                 .swipeActions {
@@ -100,6 +105,12 @@ struct StickerEditView: View {
                 Text("OK")
             }
         }
+        .sheet(isPresented: $showDetail) {
+            DetailEditView(id: $detailID, type: $detailType)
+        }
+        .sheet(isPresented: $showCollectionCreation) {
+            CreateCollection(disableCreationChoice: true)
+        }
     }
     
     //MARK: - Parameters
@@ -109,4 +120,8 @@ struct StickerEditView: View {
     @State var showDeleteAlert: Bool = false
     @State var deleteID: ObjectId? = nil
     @State var deleteFailed: Bool = false
+    @State var showDetail: Bool = false
+    @State var detailType: TopTabContentType = .sticker
+    @State var detailID: ObjectId? = nil
+    @State var showCollectionCreation: Bool = false
 }

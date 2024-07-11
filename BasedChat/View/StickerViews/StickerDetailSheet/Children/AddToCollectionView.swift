@@ -81,7 +81,7 @@ struct AddToCollectionView: View {
         }
         .padding(20)
         .sheet(isPresented: $showCreateCollection) {
-            CreateCollection(stickerHash: stickerHash, stickerType: stickerType, stickerName: stickerName, showSheet: $showCreateCollection)
+            CreateCollection(stickerHash: stickerHash, stickerType: stickerType, stickerName: stickerName)
         }
     }
     
