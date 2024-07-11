@@ -2,7 +2,7 @@ import SwiftUI
 import RealmSwift
 import SwiftChameleon
 
-struct StickerListView: View {
+struct StickerListView: View, StickerEditable {
     
     //MARK: - Body
     
@@ -16,7 +16,15 @@ struct StickerListView: View {
                     }), id: \.self) { sticker in
                         StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
                             .onTapGesture {
-                                guard let sendStickerBinding = sendSticker else { return }
+                                guard let sendStickerBinding = sendSticker else {
+                                    guard let id = id else { return }
+                                    guard let type = type else { return }
+                                    id.wrappedValue = sticker._id
+                                    type.wrappedValue = .sticker
+                                    guard let detailOpen = detailOpen else { return }
+                                    detailOpen.wrappedValue = true
+                                    return
+                                }
                                 sendStickerBinding.wrappedValue = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
                                 guard let showParentSheetBinding = showParentSheet else { return }
                                 showParentSheetBinding.wrappedValue = false
@@ -34,8 +42,13 @@ struct StickerListView: View {
                             } or: { view in
                                 view
                                     .contextMenu {
-                                    Text("Hehe")
-                                }
+                                        Button(role: .destructive) {
+                                            deleteSticker = sticker
+                                            showRemoveAlert = true
+                                        } label: {
+                                            Label("Remove", systemImage: "minus.square")
+                                        }
+                                    }
                                 
                             } otherwise: { view in view }
                     }
@@ -50,7 +63,7 @@ struct StickerListView: View {
         }
         .alert("Delete Sticker", isPresented: $showDeleteAlert) {
             Button(role: .destructive) {
-                deleteSticker(deleteSticker)
+                deleteSticker(deleteSticker, deleteFailed: $deleteFailed)
             } label: {
                 Text("Delete")
             }
@@ -66,12 +79,19 @@ struct StickerListView: View {
         }
         .alert("Remove from Collection", isPresented: $showRemoveAlert) {
             Button(role: .destructive) {
-                removeSticker(deleteSticker)
+                removeSticker(deleteSticker, from: collectionID, showRemoveFailed: $showRemoveFailed)
             } label: {
                 Text("Remove")
             }
         } message: {
-            Text("Are you sure you want to remove that sticker from the selected collection?")
+            Text("Are you sure you want to remove that sticker from the selected collection? The Sticker gets removed immediately.")
+        }
+        .alert("Failed to remove Sticker", isPresented: $showRemoveFailed) {
+            Button {
+                showRemoveFailed = false
+            } label: {
+                Text("OK")
+            }
         }
     }
     
@@ -88,4 +108,7 @@ struct StickerListView: View {
     var deleteable = false
     var removeable = false
     var collectionID: ObjectId? = nil
+    var id: Binding<ObjectId?>? = nil
+    var type: Binding<TopTabContentType>? = nil
+    var detailOpen: Binding<Bool>? = nil
 }

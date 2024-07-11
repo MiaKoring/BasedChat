@@ -34,7 +34,7 @@
     "Are you sure you want to delete this collection? You will keep the stickers." : {
 
     },
-    "Are you sure you want to remove that sticker from the selected collection?" : {
+    "Are you sure you want to remove that sticker from the selected collection? The Sticker gets removed immediately." : {
 
     },
     "BababaDescription" : {
@@ -74,6 +74,12 @@
     "Chat" : {
 
     },
+    "Collection is empty" : {
+
+    },
+    "Collections" : {
+
+    },
     "CommandCheckError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -90,6 +96,9 @@
           }
         }
       }
+    },
+    "Couldn't find collection" : {
+
     },
     "Couldn't find sticker" : {
 
@@ -198,6 +207,9 @@
     "Error" : {
 
     },
+    "Export" : {
+
+    },
     "Failed adding Sticker" : {
 
     },
@@ -207,13 +219,13 @@
     "Failed to delete Sticker" : {
 
     },
+    "Failed to remove Sticker" : {
+
+    },
     "favourites not found" : {
 
     },
     "GIF" : {
-
-    },
-    "Hehe" : {
 
     },
     "High" : {
@@ -223,6 +235,9 @@
 
     },
     "How did we get here" : {
+
+    },
+    "Image" : {
 
     },
     "integrated" : {
@@ -418,10 +433,19 @@
     "select chat" : {
 
     },
+    "Sharing unavailable" : {
+
+    },
     "Sorting" : {
 
     },
+    "Sticker is not yet added to any collection" : {
+
+    },
     "Sticker will get removed from every collection, %@ are you sure?" : {
+
+    },
+    "Stickers" : {
 
     },
     "TableFlipDescription" : {
@@ -442,6 +466,9 @@
       }
     },
     "Try checking the pronounciation or start a new search" : {
+
+    },
+    "Type" : {
 
     },
     "UnflipDescription" : {

@@ -55,13 +55,16 @@ struct CollectionRow: View {
     @State var data: Data? = nil
     @State var highlighted: Bool = false
     @State var addingFailedAlert: Bool = false
+    var detailID: Binding<ObjectId?>? = nil
+    var detailType: Binding<TopTabContentType>? = nil
+    var showDetail: Binding<Bool>? = nil
     
     //MARK: - Functions
     
     func stickerAdded() -> Bool {
         collection.stickers.contains(where: {$0.hashString == stickerHash && $0.type == stickerType})
     }
-    
+  
     func tapped() {
         withAnimation {
             highlighted = true
@@ -71,7 +74,13 @@ struct CollectionRow: View {
                 }
             }
         }
-        if !showIfAdded || stickerAdded() { return }
+        if !showIfAdded {
+            detailID?.wrappedValue = collection._id
+            detailType?.wrappedValue = .collection
+            showDetail?.wrappedValue = true
+            return
+        }
+        if stickerAdded() { return }
         do {
             try realm.write {
                 guard let sticker = stickers.first(where: {$0.hashString == stickerHash && $0.type == stickerType}) else {

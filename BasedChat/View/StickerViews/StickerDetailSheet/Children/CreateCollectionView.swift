@@ -5,7 +5,7 @@ struct CreateCollection: View {
     var body: some View {
         HStack {
             Button {
-                showSheet = false
+                dismiss()
             } label: {
                 Text("Cancel")
             }
@@ -14,6 +14,10 @@ struct CreateCollection: View {
 #endif
             Spacer()
             Button {
+                if disableCreationChoice {
+                    createEmpty()
+                    return
+                }
                 showCreationChoice = true
             } label: {
                 Text("Create")
@@ -25,16 +29,7 @@ struct CreateCollection: View {
         .padding(.top, 20)
         .padding(.horizontal, 20)
         Form {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $nameInput)
-            }
-            Section(header: Text("Sorting")) {
-                Picker("Priority", selection: $priority) {
-                    Text("High").tag(CollectionPriority.high)
-                    Text("Normal").tag(CollectionPriority.regular)
-                    Text("Low").tag(CollectionPriority.low)
-                }
-            }
+            CollectionCreationFormComponents(nameInput: $nameInput, priority: $priority)
         }
         .alert(Text("Name can't be empty"), isPresented: $showAlert) {
             Button {
@@ -68,13 +63,14 @@ struct CreateCollection: View {
         }
     }
     @State var nameInput: String = ""
-    @State var priority: CollectionPriority = .regular
+    @State var priority: Int = 1
     @State var showAlert: Bool = false
     @State var showCreationError: Bool = false
     @State var showCreationChoice: Bool = false
     @ObservedResults(Sticker.self) var stickers
-    var stickerHash: String
-    var stickerType: String
-    var stickerName: String
-    @Binding var showSheet: Bool
+    var stickerHash: String = ""
+    var stickerType: String = ""
+    var stickerName: String = ""
+    @Environment(\.dismiss) var dismiss
+    var disableCreationChoice = false
 }

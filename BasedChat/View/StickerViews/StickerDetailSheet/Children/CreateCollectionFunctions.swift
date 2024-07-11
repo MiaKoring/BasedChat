@@ -11,17 +11,17 @@ extension CreateCollection {
                 guard let sticker = stickers.first(where: {$0.hashString == stickerHash && $0.type == stickerType}) else {
                     let collection = realm.create(StickerCollection.self)
                     collection.name = nameInput
-                    collection.priority = priority.rawValue
+                    collection.priority = priority
                     let sticker = Sticker(name: stickerName, type: stickerType, hashString: stickerHash)
                     collection.stickers.append(sticker)
                     return
                 }
                 let collection = realm.create(StickerCollection.self)
                 collection.name = nameInput
-                collection.priority = priority.rawValue
+                collection.priority = priority
                 collection.stickers.append(sticker.thaw()!)
             }
-            showSheet = false
+            dismiss()
         } catch {
             showCreationError = true
         }
@@ -32,11 +32,11 @@ extension CreateCollection {
             try realm.write {
                 let collection = realm.create(StickerCollection.self)
                 collection.name = nameInput
-                collection.priority = priority.rawValue
+                collection.priority = priority
             }
         } catch {
             showCreationError = true
         }
-        showSheet = false
+        dismiss()
     }
 }
