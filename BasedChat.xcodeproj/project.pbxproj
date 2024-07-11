@@ -63,6 +63,7 @@
 		14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B722BD6712800D41949 /* CredentialHandler.swift */; };
 		14F35B762BD6A26500D41949 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 14F35B752BD6A26500D41949 /* KeychainAccess */; };
 		14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F35B772BD6A33F00D41949 /* Credentials.swift */; };
+		A61361E82C4017CB00DE9239 /* StickerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61361E72C4017C000DE9239 /* StickerEditView.swift */; };
 		A61448AA2BE80091002CE0E9 /* StickerImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */; };
 		A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */; };
 		A61448B22BE828F6002CE0E9 /* TimeTogglerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61448B12BE828F6002CE0E9 /* TimeTogglerProtocol.swift */; };
@@ -236,6 +237,7 @@
 		14F35B6E2BD66EAF00D41949 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		14F35B722BD6712800D41949 /* CredentialHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialHandler.swift; sourceTree = "<group>"; };
 		14F35B772BD6A33F00D41949 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		A61361E72C4017C000DE9239 /* StickerEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerEditView.swift; sourceTree = "<group>"; };
 		A61448A92BE80091002CE0E9 /* StickerImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerImageViewExtension.swift; sourceTree = "<group>"; };
 		A61448AF2BE80BA0002CE0E9 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
 		A61448B12BE828F6002CE0E9 /* TimeTogglerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTogglerProtocol.swift; sourceTree = "<group>"; };
@@ -590,6 +592,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A61361E62C4017B900DE9239 /* StickerEdit */ = {
+			isa = PBXGroup;
+			children = (
+				A61361E72C4017C000DE9239 /* StickerEditView.swift */,
+			);
+			path = StickerEdit;
+			sourceTree = "<group>";
+		};
 		A62B05A62BE7B0EF00A0C399 /* Bubble */ = {
 			isa = PBXGroup;
 			children = (
@@ -856,6 +866,7 @@
 		A6E77B1E2C2872DD004E4D5D /* Children */ = {
 			isa = PBXGroup;
 			children = (
+				A61361E62C4017B900DE9239 /* StickerEdit */,
 				A6E77B1F2C287302004E4D5D /* CollectionDisplay */,
 				A6FBD1B52C26034D00FAC3AF /* StickerSheet */,
 				A6E77B1B2C2871C0004E4D5D /* StickerSearch */,
@@ -1003,6 +1014,7 @@
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
 				A69CF4AC2C20EC050042DA3B /* MusicPlayerManager.swift in Sources */,
 				A6BF8C8D2BE5851200D1C471 /* Tableflip.swift in Sources */,
+				A61361E82C4017CB00DE9239 /* StickerEditView.swift in Sources */,
 				A6A3CD9E2C1932B8002ACCD6 /* UIDeviceExtension.swift in Sources */,
 				A62B05A92BE7B11D00A0C399 /* StickerView.swift in Sources */,
 				149876182BDD1EA7001CE1C5 /* ReplyToDisplayView.swift in Sources */,

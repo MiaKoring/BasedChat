@@ -105,4 +105,15 @@ extension View {
             .padding(.horizontal, 5)
             .padding(.vertical, 4)
     }
+    
+    func topTabBarStyle() -> some View {
+        self
+            .frame(height: 31)
+            .padding(5)
+            .background {
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(.ultraThickMaterial)
+                    .shadow(radius: 6)
+            }
+    }
 }

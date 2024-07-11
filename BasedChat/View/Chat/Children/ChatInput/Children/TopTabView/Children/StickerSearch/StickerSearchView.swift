@@ -34,13 +34,7 @@ struct StickerSearch: View {
                 Divider()
                 TopTabButton(selected: $selected, id: .collection, image: .system("tray.2"), imageFont: .system(size: 18))
             }
-            .frame(height: 31)
-            .padding(5)
-            .background {
-                RoundedRectangle(cornerRadius: 7)
-                    .fill(.ultraThickMaterial)
-                    .shadow(radius: 6)
-            }
+            .topTabBarStyle()
             switch selected {
                 case .sticker:
                     DynamicQueryView(searchStickerName: searchText) { stickers in

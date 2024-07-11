@@ -17,20 +17,23 @@ struct TopTabView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     Spacer()
+                    if selected == .sticker {
+                        Button {
+                            showStickerEdit = true
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                                .font(.system(size: 18))
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
-                .padding(.leading, 20)
+                .padding(.horizontal, 20)
                 HStack {
                     TopTabButton(selected: $selected, id: .gif, image: .custom("GIF.bold"), imageFont: .system(size: 18))
                     Divider()
                     TopTabButton(selected: $selected, id: .sticker, image: .custom("sticker.bold"), imageFont: .system(size: 18))
                 }
-                .frame(height: 31)
-                .padding(5)
-                .background {
-                    RoundedRectangle(cornerRadius: 7)
-                        .fill(.ultraThickMaterial)
-                        .shadow(radius: 6)
-                }
+                .topTabBarStyle()
             }
             switch selected {
                 case .gif:
@@ -57,11 +60,16 @@ struct TopTabView: View {
             .padding(20)
             .presentationBackground(.thickMaterial)
         }
+        .sheet(isPresented: $showStickerEdit) {
+            StickerEditView()
+                .padding(20)
+        }
     }
     
     //MARK: - Parameters
     @State var selected: TopTabContentType = .sticker
     @State var showSearch: Bool = false
+    @State var showStickerEdit: Bool = false
     @Binding var sendSticker: SendableSticker
 }
 
