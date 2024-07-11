@@ -1,16 +1,14 @@
-# Read-Only License
+# Non-Commercial, Non-Compete, Private Use License
 
 This license applies to the code in this repository, unless otherwise noted.
 
-Permission is hereby granted to any person obtaining a copy of this software and associated documentation files (the "Software"), to view and use the Software solely for personal, educational, and non-commercial purposes.
+Permission is hereby granted to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software, including the rights to use, copy, modify, and merge, subject to the following conditions:
 
-The following restrictions apply:
+1. **Non-Commercial Use:** The Software may not be used for commercial purposes. Commercial purposes include, but are not limited to, selling or licensing copies of the Software, using the Software as part of a service for which you charge, or using the Software to generate revenue in any form.
 
-1. **No Modification or Distribution:** You may not modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
+2. **Non-Compete:** You may not use the Software, or any modified version of the Software, to create a product that competes with the original Software.
 
-2. **No Derivative Works:** You may not create derivative works of the Software.
-
-3. **No Commercial Use:** The Software may not be used for commercial purposes.
+3. **Private Use:** The use of the Software and any modifications must be for personal or educational purposes only. Distribution of the Software or modified versions is only allowed for non-commercial, private purposes.
 
 4. **Attribution:** You must give appropriate credit, provide a link to the original source, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
@@ -21,4 +19,5 @@ By using the Software, you agree to the terms of this license. If you do not agr
 ---
 
 **Copyright 2024 Mia Koring**
+
 
