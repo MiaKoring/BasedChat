@@ -42,28 +42,7 @@ struct StickerSearch: View {
                             ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
                         }
                         else {
-                            GeometryReader { reader in
-                                ScrollView(.vertical){
-                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 10) {
-                                        
-                                        ForEach(stickers.sorted(by: {
-                                            $0.name < $1.name
-                                        }), id: \.self) { sticker in
-                                            StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
-                                                .onTapGesture {
-                                                    sendSticker = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
-                                                    showParentSheet = false
-                                                }
-                                        }
-                                    }
-                                    .padding()
-                                }
-#if canImport(UIKit)
-                                .onScrollPhaseChange {_,_  in
-                                    hideKeyboard()
-                                }
-#endif
-                            }
+                            StickerListView(stickers: stickers, showParentSheet: $showParentSheet, sendSticker: $sendSticker)
                         }
                     }
                 case .collection:
@@ -112,4 +91,7 @@ struct StickerSearch: View {
     @Binding var showParentSheet: Bool
     @Binding var sendSticker: SendableSticker
     @State var filterEmptyCollections: Bool = false
+
+    
+    
 }

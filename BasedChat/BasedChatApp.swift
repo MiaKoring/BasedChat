@@ -36,7 +36,6 @@ let defaultMessages = [
 let realm = try! Realm()
 
 
-
 @main
 struct BasedChatApp: SwiftUI.App {
 #if canImport(UIKit)

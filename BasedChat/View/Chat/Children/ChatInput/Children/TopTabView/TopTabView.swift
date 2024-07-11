@@ -62,7 +62,6 @@ struct TopTabView: View {
         }
         .sheet(isPresented: $showStickerEdit) {
             StickerEditView()
-                .padding(20)
         }
     }
     

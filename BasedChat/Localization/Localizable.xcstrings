@@ -31,6 +31,9 @@
     "AppleMusic" : {
 
     },
+    "Are you sure you want to delete this collection? You will keep the stickers." : {
+
+    },
     "BababaDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -120,6 +123,15 @@
         }
       }
     },
+    "Delete Collection?" : {
+
+    },
+    "Delete Failed" : {
+
+    },
+    "Delete Sticker" : {
+
+    },
     "DeleteAlert" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -160,9 +172,6 @@
     "Done" : {
 
     },
-    "Edit" : {
-
-    },
     "Eli" : {
 
     },
@@ -190,6 +199,9 @@
 
     },
     "Failed to create collection" : {
+
+    },
+    "Failed to delete Sticker" : {
 
     },
     "favourites not found" : {
@@ -395,6 +407,9 @@
 
     },
     "Sorting" : {
+
+    },
+    "Sticker will get removed from every collection, %@ are you sure?" : {
 
     },
     "TableFlipDescription" : {

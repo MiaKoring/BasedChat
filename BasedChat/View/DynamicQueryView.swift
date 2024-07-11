@@ -22,10 +22,18 @@ public struct DynamicQueryView<T: Object & Identifiable, Content: View>: View {
 }
 
 extension DynamicQueryView where T : StickerCollection {
-    init( searchCollectionName: String, filterEmpty: Bool, @ViewBuilder content: @escaping ([T]) -> Content) {
+    init( searchCollectionName: String, filterEmpty: Bool, excludeIntegrated: Bool = false, @ViewBuilder content: @escaping ([T]) -> Content) {
         let sort = RealmSwift.SortDescriptor(keyPath: "priority", ascending: false)
         
         if !filterEmpty {
+            if excludeIntegrated {
+                let filter: ((Query<T>)->Query<Bool>) = searchCollectionName.isEmpty ? {$0.name != "integrated"} : {
+                    $0.name.contains(searchCollectionName) && $0.name != "integrated"
+                }
+                self.init(query: filter, sortDescriptor: sort, content: content)
+                return
+            }
+            
             let filter: ((Query<T>)->Query<Bool>)? = searchCollectionName.isEmpty ? nil : {
                 $0.name.contains(searchCollectionName)
             }
@@ -33,6 +41,17 @@ extension DynamicQueryView where T : StickerCollection {
             return
         }
         
+        if excludeIntegrated {
+            let filter: ((Query<T>)->Query<Bool>) = searchCollectionName.isEmpty ? {
+                $0.stickers.count > 0 && $0.name != "integrated"
+            } : {
+                $0.name.contains(searchCollectionName) &&
+                $0.stickers.count > 0 &&
+                $0.name != "integrated"
+            }
+            self.init(query: filter, sortDescriptor: sort, content: content)
+            return
+        }
         let filter: ((Query<T>)->Query<Bool>)? = searchCollectionName.isEmpty ? {
             $0.stickers.count > 0
         } : {

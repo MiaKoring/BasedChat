@@ -6,8 +6,8 @@ struct CollectionRow: View {
     var body: some View {
         HStack {
             HStack {
-                if collection.stickers.count > 0 {
-                    StickerImageView(isDone: true, name: stickerHash, fileExtension: stickerType, width: 60, height: 60)
+                if collection.stickers.count > 0, let imageHash = collection.stickers.first?.hashString, let type = collection.stickers.first?.type {
+                    StickerImageView(isDone: true, name: imageHash, fileExtension: type, width: 60, height: 60)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 else {
@@ -19,7 +19,7 @@ struct CollectionRow: View {
             .padding(.horizontal, 10)
             VStack(alignment: .leading) {
                 Text(collection.name)
-                if stickerAdded() {
+                if showIfAdded && stickerAdded() {
                     Text("already added")
                         .font(.footnote)
                 }
@@ -48,9 +48,10 @@ struct CollectionRow: View {
     
     @ObservedRealmObject var collection: StickerCollection
     @ObservedResults(Sticker.self) var stickers
-    let stickerHash: String
-    let stickerType: String
-    let stickerName: String
+    @State var stickerHash: String = ""
+    @State var stickerType: String = ""
+    @State var stickerName: String = ""
+    @State var showIfAdded = true
     @State var data: Data? = nil
     @State var highlighted: Bool = false
     @State var addingFailedAlert: Bool = false
@@ -70,7 +71,7 @@ struct CollectionRow: View {
                 }
             }
         }
-        if stickerAdded() { return }
+        if !showIfAdded || stickerAdded() { return }
         do {
             try realm.write {
                 guard let sticker = stickers.first(where: {$0.hashString == stickerHash && $0.type == stickerType}) else {
