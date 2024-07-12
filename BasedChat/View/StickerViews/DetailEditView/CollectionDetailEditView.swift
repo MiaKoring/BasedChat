@@ -32,16 +32,23 @@ struct CollectionDetailEditView: View {
                 }
             }
             if isOpen {
-                VStack{
-                    if collection.stickers.isEmpty {
-                        ContentUnavailableView("Collection is empty", systemImage: "xmark.rectangle")
+                if !update {
+                    VStack{
+                        if collection.stickers.isEmpty {
+                            ContentUnavailableView("Collection is empty", systemImage: "xmark.rectangle")
+                        }
+                        else {
+                            StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), update: $update, removeable: true, collectionID: collection._id, id: $id, type: $type, addStickers: true)
+                        }
+                        Spacer()
                     }
-                    else {
-                        StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), update: $update, removeable: true, collectionID: collection._id, id: $id, type: $type)
-                    }
+                    .padding(.horizontal, 20)
+                    .transition(.scale)
                 }
-                .padding(.horizontal, 20)
-                .transition(.scale)
+                else {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
             }
             Spacer()
         }

@@ -45,13 +45,19 @@ struct StickerImageView: View {
                             .font(.title)
                     }
                     else {
-                        VStack {
-                            Image(systemName: "x.circle")
-                                .foregroundStyle(Color.red)
-                                .font(.title)
-                            Text(LocalizedStringKey("ressourceNotFound"))
+                        if searched {
+                            VStack {
+                                Image(systemName: "x.circle")
+                                    .foregroundStyle(Color.red)
+                                    .font(.title)
+                                Text(LocalizedStringKey("ressourceNotFound"))
+                            }
+                            .padding(20)
                         }
-                        .padding(20)
+                        else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
                     }
                 }
             }
@@ -68,6 +74,7 @@ struct StickerImageView: View {
     @State var name: String
     @State var fileExtension: String
     @State var data: Data? = nil
+    @State var searched: Bool = false
     var width: Double = 200
     var height: Double = 200
     var durationFactor = 10.0

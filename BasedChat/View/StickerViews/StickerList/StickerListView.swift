@@ -19,25 +19,44 @@ struct StickerListView: View, StickerEditable {
                                 .allowsHitTesting(false)
                         }
                         .onTapGesture {
-                            showStickerCreator = true
+                            if !addStickers {
+                                showStickerCreator = true
+                                return
+                            }
+                            showAddToCollection = true
                         }
                     ForEach(stickers.sorted(by: {
                         $0.name < $1.name
                     }), id: \.self) { sticker in
                         StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
                             .onTapGesture {
-                                guard let sendStickerBinding = sendSticker else {
-                                    guard let id = id else { return }
-                                    guard let type = type else { return }
-                                    id.wrappedValue = sticker._id
-                                    type.wrappedValue = .sticker
-                                    guard let detailOpen = detailOpen else { return }
-                                    detailOpen.wrappedValue = true
+                                if !addStickers && !showIfAdded{
+                                    guard let sendStickerBinding = sendSticker else {
+                                        guard let id = id else { return }
+                                        guard let type = type else { return }
+                                        id.wrappedValue = sticker._id
+                                        type.wrappedValue = .sticker
+                                        guard let detailOpen = detailOpen else { return }
+                                        detailOpen.wrappedValue = true
+                                        return
+                                    }
+                                    sendStickerBinding.wrappedValue = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
+                                    guard let showParentSheetBinding = showParentSheet else { return }
+                                    showParentSheetBinding.wrappedValue = false
                                     return
                                 }
-                                sendStickerBinding.wrappedValue = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
-                                guard let showParentSheetBinding = showParentSheet else { return }
-                                showParentSheetBinding.wrappedValue = false
+                                if showIfAdded {
+                                    do {
+                                        try realm.write {
+                                            guard let collectionID = collectionID else { throw RealmError.idEmpty }
+                                            guard let collection = realm.object(ofType: StickerCollection.self, forPrimaryKey: collectionID) else { throw RealmError.objectNotFound }
+                                            guard let sticker = sticker.thaw() else { throw RealmError.thawFailed }
+                                            collection.stickers.append(sticker)
+                                        }
+                                    } catch {
+                                        print("adding failed")
+                                    }
+                                }
                             }
                             .when(deleteable, removeable) { view in
                                 view
@@ -61,6 +80,20 @@ struct StickerListView: View, StickerEditable {
                                     }
                                 
                             } otherwise: { view in view }
+                            .if(showIfAdded) { view in
+                                view
+                                    .overlay(alignment: .topTrailing) {
+                                        if let collectionID, let collection = realm.object(ofType: StickerCollection.self, forPrimaryKey: collectionID), collection.stickers.contains(where: {$0._id == sticker._id}) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .transition(.opacity)
+                                        }
+                                        else {
+                                            Image(systemName: "circle")
+                                                .transition(.opacity)
+                                        }
+                                            
+                                    }
+                            }
                     }
                 }
                 .padding()
@@ -74,6 +107,10 @@ struct StickerListView: View, StickerEditable {
         .alert("Delete Sticker", isPresented: $showDeleteAlert) {
             Button(role: .destructive) {
                 deleteSticker(deleteSticker, deleteFailed: $deleteFailed)
+                update = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    update = false
+                }
             } label: {
                 Text("Delete")
             }
@@ -86,6 +123,10 @@ struct StickerListView: View, StickerEditable {
         .alert("Remove from Collection", isPresented: $showRemoveAlert) {
             Button(role: .destructive) {
                 removeSticker(deleteSticker, from: collectionID, showRemoveFailed: $showRemoveFailed)
+                update = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    update = false
+                }
             } label: {
                 Text("Remove")
             }
@@ -106,6 +147,19 @@ struct StickerListView: View, StickerEditable {
                 }
             }
         }
+        .sheet(isPresented: $showAddToCollection) {
+            if let collectionID {
+                AddStickersToCollectionView(collectionID: collectionID)
+            }
+        }
+        .onChange(of: showAddToCollection) {
+            if !showAddToCollection {
+                update = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    update = false
+                }
+            }
+        }
     }
     
     //MARK: - Parameters
@@ -118,6 +172,7 @@ struct StickerListView: View, StickerEditable {
     @State var showRemoveFailed: Bool = false
     @State var showStickerCreator: Bool = false
     @State var image: Image? = nil
+    @State var showAddToCollection = false
     @Binding var update: Bool
     var showParentSheet: Binding<Bool>? = nil
     var sendSticker: Binding<SendableSticker>? = nil
@@ -127,4 +182,6 @@ struct StickerListView: View, StickerEditable {
     var id: Binding<ObjectId?>? = nil
     var type: Binding<TopTabContentType>? = nil
     var detailOpen: Binding<Bool>? = nil
+    var addStickers: Bool = false
+    var showIfAdded: Bool = false
 }

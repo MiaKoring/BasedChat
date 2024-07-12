@@ -90,6 +90,7 @@ struct StickerEditView: View {
                         Text("how did we get here") // shouldn't be possible
                 }
             }
+            Spacer()
         }
         .alert("Delete Collection?", isPresented: $showDeleteAlert) {
             Button(role: .destructive) {
