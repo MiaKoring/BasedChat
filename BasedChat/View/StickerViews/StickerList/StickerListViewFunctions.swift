@@ -15,7 +15,7 @@ extension StickerListView {
     }
     
     func stickerTapped(sticker: Sticker) {
-        if !addStickers && !showIfAdded { //could be normal sticker view
+        if  !showIfAdded { //could be normal sticker view
             guard let sendStickerBinding = sendSticker else { // when else is triggered, view is either in CollectionDetailEdit or StickerEdit
                 openStickerDetailEdit(sticker: sticker)
                 return
@@ -26,7 +26,7 @@ extension StickerListView {
             if closeOnTap { dismiss() }
             return
         }
-        if showIfAdded { // View is opened from CollectionDetailView to add stickers
+        else { // View is opened from CollectionDetailView to add stickers
             do {
                 try realm.write {
                     guard let collectionID = collectionID else { throw RealmError.idEmpty }
