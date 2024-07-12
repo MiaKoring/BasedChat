@@ -20,13 +20,13 @@ struct StickerDetailEditView: View, StickerEditable {
                         .disabled(true)
                 }
                 //TODO: Add other filetypes
-                if sticker.type == "gif" {
+                if sticker.type == "gif", let url = FileHandler.getPath(for: "\(sticker.hashString).\(sticker.type)") {
                     Button {
                         showExporter.toggle()
                     } label: {
                         Label("Export", systemImage: "square.and.arrow.up")
                     }
-                    .fileExporter(isPresented: $showExporter, document: Doc(url: Bundle.main.path(forResource: sticker.hashString, ofType: sticker.type)!), contentType: .gif) { (res) in
+                    .fileExporter(isPresented: $showExporter, document: Doc(url: url.path()), contentType: .gif) { (res) in
                         do {
                             let fileUrl = try res.get()
                             print(fileUrl)
@@ -39,7 +39,7 @@ struct StickerDetailEditView: View, StickerEditable {
                 //TODO: Add MacOS alternative
                 else {
 #if os(iOS)
-                    if let path = Bundle.main.path(forResource: sticker.hashString, ofType: sticker.type), let url = URL(string: path), let data = try? Data(contentsOf: url), let uiImage = UIImage(data: data) {
+                    if let data = FileHandler.loadFileIntern(fileName: "\(sticker.hashString).\(sticker.type)"), let uiImage = UIImage(data: data) {
                         ShareLink(item: Photo(image: Image(uiImage: uiImage)), preview: SharePreview(sticker.name))
                     }
                     else {

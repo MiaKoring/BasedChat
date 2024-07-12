@@ -15,6 +15,21 @@ class FileHandler {
         return res
     }
     
+    public static func getPath(for fileName: String) -> URL? {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let documentDirectory = urls.first else {
+            return Bundle.main.url(forResource: fileName, withExtension: "")
+        }
+        
+        let fileURL = documentDirectory.appendingPathComponent(fileName)
+        guard fileManager.fileExists(atPath: fileURL.path()) else {
+            return Bundle.main.url(forResource: fileName, withExtension: "")
+        }
+        return fileURL
+    }
+    
+    
     fileprivate static func loadData(url: URL)-> Data? {
         do {
             let data = try Data(contentsOf: url)
