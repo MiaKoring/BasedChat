@@ -32,20 +32,12 @@ struct CreateCollection: View {
             CollectionCreationFormComponents(nameInput: $nameInput, priority: $priority)
         }
         .alert(Text("Name can't be empty"), isPresented: $showAlert) {
-            Button {
-                showAlert = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $showAlert)
         } message: {
             Text("Please enter a name")
         }
         .alert(Text("Failed to create collection"), isPresented: $showCreationError) {
-            Button {
-                showCreationError = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $showCreationError)
         } message: {
             Text("Please try again")
         }

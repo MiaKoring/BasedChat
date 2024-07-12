@@ -19,6 +19,9 @@
     "+%lld" : {
 
     },
+    "A sticker with this image already exists" : {
+
+    },
     "Add to Collection" : {
 
     },
@@ -26,6 +29,9 @@
 
     },
     "already added" : {
+
+    },
+    "An Error occured while creating Sticker" : {
 
     },
     "AppleMusic" : {
@@ -178,7 +184,13 @@
         }
       }
     },
+    "Do you wan't to continue anyways?" : {
+
+    },
     "Do you want to add the selected sticker?" : {
+
+    },
+    "Do you want to add the sticker to collections?" : {
 
     },
     "Done" : {
@@ -361,6 +373,9 @@
     "Please enter a name" : {
 
     },
+    "Please select an image" : {
+
+    },
     "Please try again" : {
 
     },
@@ -433,10 +448,19 @@
     "select chat" : {
 
     },
+    "Select Image" : {
+
+    },
     "Sharing unavailable" : {
 
     },
+    "Something went wrong" : {
+
+    },
     "Sorting" : {
+
+    },
+    "Sticker created successfully" : {
 
     },
     "Sticker is not yet added to any collection" : {
@@ -489,6 +513,9 @@
       }
     },
     "Yes" : {
+
+    },
+    "You can't change the name later" : {
 
     },
     "You don't have any collections yet" : {

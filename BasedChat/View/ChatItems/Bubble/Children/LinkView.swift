@@ -43,12 +43,8 @@ struct LinkView: View {
             }
         }
             .alert("Invalid URL", isPresented: $showURLInvalidAlert) {
-                Button {
-                    showURLInvalidAlert = false
-                } label: {
-                    Text("OK")
-                }
-            }//TODO: Change to localized String
+                AlertCloseButton(displayed: $showURLInvalidAlert)
+            }
     }
     
     //MARK: - Parameters

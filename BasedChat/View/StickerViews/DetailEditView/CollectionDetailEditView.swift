@@ -37,7 +37,7 @@ struct CollectionDetailEditView: View {
                         ContentUnavailableView("Collection is empty", systemImage: "xmark.rectangle")
                     }
                     else {
-                        StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), removeable: true, collectionID: collection._id, id: $id, type: $type)
+                        StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), update: $update, removeable: true, collectionID: collection._id, id: $id, type: $type)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -56,4 +56,5 @@ struct CollectionDetailEditView: View {
     @Binding var id: ObjectId?
     @Binding var type: TopTabContentType
     @State var isOpen: Bool = false
+    @State var update: Bool = false
 }

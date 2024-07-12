@@ -138,6 +138,10 @@
 		A6C0813B2C278ECB008BF6B4 /* DynamicQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */; };
 		A6CA3D4A2C2B525800AF822A /* StickerDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CA3D492C2B524D00AF822A /* StickerDetailSheetView.swift */; };
 		A6CA3D4C2C2B52AC00AF822A /* StickerDetailSheetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CA3D4B2C2B52A300AF822A /* StickerDetailSheetFunctions.swift */; };
+		A6CC73922C414D7400FA3A45 /* StickerPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC73912C414D6A00FA3A45 /* StickerPicker.swift */; };
+		A6CC73942C415FFA00FA3A45 /* CreateStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC73932C415FEF00FA3A45 /* CreateStickerView.swift */; };
+		A6CC73972C4161B300FA3A45 /* CreateStickerFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC73962C4161AB00FA3A45 /* CreateStickerFunctions.swift */; };
+		A6CC73992C416CFA00FA3A45 /* AlertCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC73982C416CF000FA3A45 /* AlertCloseButton.swift */; };
 		A6D738DA2BFF7A0C002A4AD8 /* CloseOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */; };
 		A6DF55F32C28C1C900836A2B /* CustomEmojisTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DF55F22C28C1C500836A2B /* CustomEmojisTest.swift */; };
 		A6E77B1D2C2871D9004E4D5D /* StickerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */; };
@@ -320,6 +324,10 @@
 		A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicQueryView.swift; sourceTree = "<group>"; };
 		A6CA3D492C2B524D00AF822A /* StickerDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDetailSheetView.swift; sourceTree = "<group>"; };
 		A6CA3D4B2C2B52A300AF822A /* StickerDetailSheetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDetailSheetFunctions.swift; sourceTree = "<group>"; };
+		A6CC73912C414D6A00FA3A45 /* StickerPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPicker.swift; sourceTree = "<group>"; };
+		A6CC73932C415FEF00FA3A45 /* CreateStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStickerView.swift; sourceTree = "<group>"; };
+		A6CC73962C4161AB00FA3A45 /* CreateStickerFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStickerFunctions.swift; sourceTree = "<group>"; };
+		A6CC73982C416CF000FA3A45 /* AlertCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCloseButton.swift; sourceTree = "<group>"; };
 		A6D738D92BFF7A0C002A4AD8 /* CloseOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOnly.swift; sourceTree = "<group>"; };
 		A6DF55F22C28C1C500836A2B /* CustomEmojisTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojisTest.swift; sourceTree = "<group>"; };
 		A6E77B1C2C2871D4004E4D5D /* StickerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSearchView.swift; sourceTree = "<group>"; };
@@ -575,6 +583,7 @@
 		14DC8B362B4AE5A3009ED309 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A6CC73982C416CF000FA3A45 /* AlertCloseButton.swift */,
 				A61361E92C401AD800DE9239 /* StickerViews */,
 				A6D738D82BFF79D0002A4AD8 /* WindowControlElements */,
 				A6BF8C522BE56C1A00D1C471 /* Commands */,
@@ -627,6 +636,7 @@
 		A61361E92C401AD800DE9239 /* StickerViews */ = {
 			isa = PBXGroup;
 			children = (
+				A6CC73952C415FFE00FA3A45 /* Create */,
 				A61361FA2C4065FC00DE9239 /* CollectionCreationFormComponents.swift */,
 				A61361F32C405F9300DE9239 /* DetailEditView */,
 				A6C0813A2C278EC4008BF6B4 /* DynamicQueryView.swift */,
@@ -897,6 +907,16 @@
 			path = TopTabView;
 			sourceTree = "<group>";
 		};
+		A6CC73952C415FFE00FA3A45 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				A6CC73932C415FEF00FA3A45 /* CreateStickerView.swift */,
+				A6CC73962C4161AB00FA3A45 /* CreateStickerFunctions.swift */,
+				A6CC73912C414D6A00FA3A45 /* StickerPicker.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
 		A6D738D82BFF79D0002A4AD8 /* WindowControlElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1063,7 @@
 				14F35B782BD6A33F00D41949 /* Credentials.swift in Sources */,
 				A6BF8C822BE580BD00D1C471 /* CommandParamBackgroundState.swift in Sources */,
 				A61361F92C4063C300DE9239 /* CollectionDetailEditView.swift in Sources */,
+				A6CC73942C415FFA00FA3A45 /* CreateStickerView.swift in Sources */,
 				14F35B732BD6712800D41949 /* CredentialHandler.swift in Sources */,
 				A6A9076C2C2753BE00D8FBDC /* TypedImage.swift in Sources */,
 				A65D068C2C2A1AD100456548 /* CollectionPriority.swift in Sources */,
@@ -1091,6 +1112,7 @@
 				A6BF8C5A2BE56FF500D1C471 /* CommandParamView.swift in Sources */,
 				149876162BDD1B7E001CE1C5 /* RoundedRectangleExtensions.swift in Sources */,
 				A6A9076E2C27550500D8FBDC /* TopTabContentType.swift in Sources */,
+				A6CC73922C414D7400FA3A45 /* StickerPicker.swift in Sources */,
 				1478813A2BDE962E009EE6B0 /* StringFormatterProtocol.swift in Sources */,
 				A6BF8C8F2BE5856100D1C471 /* CommandPreview.swift in Sources */,
 				A67C332C2C17399B00594120 /* Sticker.swift in Sources */,
@@ -1122,6 +1144,7 @@
 				14CB69F32BD2F42300516D28 /* MatchWidthView.swift in Sources */,
 				A6A3CD972C192563002ACCD6 /* CallButtonsView.swift in Sources */,
 				A6BF8C562BE56D9A00D1C471 /* ImageExtensions.swift in Sources */,
+				A6CC73972C4161B300FA3A45 /* CreateStickerFunctions.swift in Sources */,
 				A61361FB2C40660300DE9239 /* CollectionCreationFormComponents.swift in Sources */,
 				14CB69EB2BD2ED8200516D28 /* DateHandler.swift in Sources */,
 				140DE71D2BDBD73B00B59A25 /* MessageScrollView.swift in Sources */,
@@ -1154,6 +1177,7 @@
 				14CB69FF2BD3011000516D28 /* ReactionFunctions.swift in Sources */,
 				A61448B02BE80BA0002CE0E9 /* GIFImage.swift in Sources */,
 				A633A0A22C2CC56100E4E9B6 /* ItalicStringFormatter.swift in Sources */,
+				A6CC73992C416CFA00FA3A45 /* AlertCloseButton.swift in Sources */,
 				A6BF8C582BE56DDB00D1C471 /* CommandImageSize.swift in Sources */,
 				A61448B22BE828F6002CE0E9 /* TimeTogglerProtocol.swift in Sources */,
 				140DE73F2BDC26E700B59A25 /* ChatViewFunctions.swift in Sources */,

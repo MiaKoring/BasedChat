@@ -1,5 +1,6 @@
 import SwiftUI
 
+//Thanks to Gordan Glavaš -> https://github.com/globulus/swiftui-gif.git
 #if canImport(AppKit)
 import Cocoa
 import SwiftUI

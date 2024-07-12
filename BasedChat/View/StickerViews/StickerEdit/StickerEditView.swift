@@ -39,54 +39,56 @@ struct StickerEditView: View {
                 TopTabButton(selected: $selected, id: .collection, image: .system("tray.2"), imageFont: .system(size: 18))
             }
             .topTabBarStyle()
-            switch selected {
-                case .sticker:
-                    DynamicQueryView(searchStickerName: searchText) { stickers in
-                        if stickers.isEmpty {
-                            ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
+            if !update {
+                switch selected {
+                    case .sticker:
+                        DynamicQueryView(searchStickerName: searchText) { stickers in
+                            if stickers.isEmpty {
+                                ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
+                            }
+                            else {
+                                StickerListView(stickers: stickers, update: $update, deleteable: true, id: $detailID, type: $detailType, detailOpen: $showDetail)
+                            }
                         }
-                        else {
-                            StickerListView(stickers: stickers, deleteable: true, id: $detailID, type: $detailType, detailOpen: $showDetail)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                case .collection:
-                    DynamicQueryView(searchCollectionName: searchText, filterEmpty: filterEmptyCollections, excludeIntegrated: true) { collections in
-                        if collections.isEmpty {
-                            ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
-                        }
-                        else {
-                            List {
-                                Button {
-                                    showCollectionCreation = true
-                                } label: {
-                                    Label("Create", systemImage: "plus")
-                                }
-                                ForEach(collections) { collection in
-                                    CollectionRow(collection: collection, showIfAdded: false, detailID: $detailID, detailType: $detailType, showDetail: $showDetail)
-                                        .if(collection.name != "integrated" && collection.name != "favourites"){ view in
-                                            view
-                                                .swipeActions {
-                                                    Button(role: .destructive) {
-                                                        deleteID = collection._id
-                                                        showDeleteAlert = true
-                                                    } label: {
-                                                        Image(systemName: "trash")
+                        .padding(.horizontal, 20)
+                    case .collection:
+                        DynamicQueryView(searchCollectionName: searchText, filterEmpty: filterEmptyCollections, excludeIntegrated: true) { collections in
+                            if collections.isEmpty {
+                                ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
+                            }
+                            else {
+                                List {
+                                    Button {
+                                        showCollectionCreation = true
+                                    } label: {
+                                        Label("Create", systemImage: "plus")
+                                    }
+                                    ForEach(collections) { collection in
+                                        CollectionRow(collection: collection, showIfAdded: false, detailID: $detailID, detailType: $detailType, showDetail: $showDetail)
+                                            .if(collection.name != "integrated" && collection.name != "favourites"){ view in
+                                                view
+                                                    .swipeActions {
+                                                        Button(role: .destructive) {
+                                                            deleteID = collection._id
+                                                            showDeleteAlert = true
+                                                        } label: {
+                                                            Image(systemName: "trash")
+                                                        }
                                                     }
-                                                }
-                                        }
+                                            }
+                                    }
                                 }
-                            }
-                            .listStyle(PlainListStyle())
+                                .listStyle(PlainListStyle())
 #if canImport(UIKit)
-                            .onScrollPhaseChange {_,_  in
-                                hideKeyboard()
-                            }
+                                .onScrollPhaseChange {_,_  in
+                                    hideKeyboard()
+                                }
 #endif
+                            }
                         }
-                    }
-                default:
-                    Text("how did we get here") // shouldn't be possible
+                    default:
+                        Text("how did we get here") // shouldn't be possible
+                }
             }
         }
         .alert("Delete Collection?", isPresented: $showDeleteAlert) {
@@ -99,17 +101,19 @@ struct StickerEditView: View {
             Text("Are you sure you want to delete this collection? You will keep the stickers.")
         }
         .alert("Delete Failed", isPresented: $deleteFailed) {
-            Button {
-                deleteFailed = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $deleteFailed)
         }
         .sheet(isPresented: $showDetail) {
             DetailEditView(id: $detailID, type: $detailType)
         }
         .sheet(isPresented: $showCollectionCreation) {
             CreateCollection(disableCreationChoice: true)
+        }
+        .onChange(of: showDetail) {
+            if !showDetail { triggerUpdate() }
+        }
+        .onChange(of: showCollectionCreation) {
+            if !showCollectionCreation { triggerUpdate() }
         }
     }
     
@@ -124,4 +128,12 @@ struct StickerEditView: View {
     @State var detailType: TopTabContentType = .sticker
     @State var detailID: ObjectId? = nil
     @State var showCollectionCreation: Bool = false
+    @State var update: Bool = false
+    
+    func triggerUpdate() {
+        update = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            update = false
+        }
+    }
 }

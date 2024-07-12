@@ -34,11 +34,7 @@ struct CollectionRow: View {
         }
         .onTapGesture(perform: tapped)
         .alert("Failed adding Sticker", isPresented: $addingFailedAlert) {
-            Button {
-                addingFailedAlert = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $addingFailedAlert)
         } message: {
             Text("Please try again")
         }

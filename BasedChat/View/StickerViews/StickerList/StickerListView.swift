@@ -10,7 +10,17 @@ struct StickerListView: View, StickerEditable {
         GeometryReader { reader in
             ScrollView(.vertical){
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 10) {
-                    
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.gray.opacity(0.4))
+                        .frame(width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
+                        .overlay {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .allowsHitTesting(false)
+                        }
+                        .onTapGesture {
+                            showStickerCreator = true
+                        }
                     ForEach(stickers.sorted(by: {
                         $0.name < $1.name
                     }), id: \.self) { sticker in
@@ -71,11 +81,7 @@ struct StickerListView: View, StickerEditable {
             Text("Sticker will get removed from every collection, \(deleteSticker?.isIntegrated ?? false ? "except \"integrated\" " : "") are you sure?")
         }
         .alert("Failed to delete Sticker", isPresented: $deleteFailed) {
-            Button {
-                deleteFailed = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $deleteFailed)
         }
         .alert("Remove from Collection", isPresented: $showRemoveAlert) {
             Button(role: .destructive) {
@@ -87,10 +93,17 @@ struct StickerListView: View, StickerEditable {
             Text("Are you sure you want to remove that sticker from the selected collection? The Sticker gets removed immediately.")
         }
         .alert("Failed to remove Sticker", isPresented: $showRemoveFailed) {
-            Button {
-                showRemoveFailed = false
-            } label: {
-                Text("OK")
+            AlertCloseButton(displayed: $showRemoveFailed)
+        }
+        .sheet(isPresented: $showStickerCreator) {
+            CreateStickerView()
+        }
+        .onChange(of: showStickerCreator) {
+            if !showStickerCreator {
+                update = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    update = false
+                }
             }
         }
     }
@@ -103,6 +116,9 @@ struct StickerListView: View, StickerEditable {
     @State var deleteFailed: Bool = false
     @State var showRemoveAlert: Bool = false
     @State var showRemoveFailed: Bool = false
+    @State var showStickerCreator: Bool = false
+    @State var image: Image? = nil
+    @Binding var update: Bool
     var showParentSheet: Binding<Bool>? = nil
     var sendSticker: Binding<SendableSticker>? = nil
     var deleteable = false

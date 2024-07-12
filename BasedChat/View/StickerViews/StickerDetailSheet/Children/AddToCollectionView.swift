@@ -59,23 +59,30 @@ struct AddToCollectionView: View {
                 }
             }
             else {
-                DynamicQueryView(searchCollectionName: searchText) { collections in
-                    if collections.isEmpty {
-                        ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
-                    }
-                    else {
-                        ScrollView {
-                            LazyVStack(alignment: .leading, spacing: 10) {
-                                ForEach(collections) { collection in
-                                    CollectionRow(collection: collection, stickerHash: stickerHash, stickerType: stickerType, stickerName: stickerName)
-                                    if collection != collections.last {
-                                        Divider()
-                                            .padding(.leading, 80)
+                if !update {
+                    DynamicQueryView(searchCollectionName: searchText) { collections in
+                        if collections.isEmpty {
+                            ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
+                        }
+                        else {
+                            ScrollView {
+                                LazyVStack(alignment: .leading, spacing: 10) {
+                                    ForEach(collections) { collection in
+                                        CollectionRow(collection: collection, stickerHash: stickerHash, stickerType: stickerType, stickerName: stickerName)
+                                        if collection != collections.last {
+                                            Divider()
+                                                .padding(.leading, 80)
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                }
+                else {
+                    ProgressView()
+                        .progressViewStyle(.circular
+                        )
                 }
             }
         }
@@ -83,12 +90,22 @@ struct AddToCollectionView: View {
         .sheet(isPresented: $showCreateCollection) {
             CreateCollection(stickerHash: stickerHash, stickerType: stickerType, stickerName: stickerName)
         }
+        .onChange(of: showCreateCollection) {
+            if !showCreateCollection {
+                print("triggered")
+                update = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    update = false
+                }
+            }
+        }
     }
     
     //MARK: - Parameters
     @ObservedResults(StickerCollection.self, where: { $0.name != "favourites" && $0.name != "integrated"}) var collections
     @State var searchText: String = ""
     @State var showCreateCollection: Bool = false
+    @State var update: Bool = false
     let stickerHash: String
     let stickerType: String
     let stickerName: String

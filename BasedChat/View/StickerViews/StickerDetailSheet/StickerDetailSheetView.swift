@@ -36,10 +36,7 @@ struct StickerDetailSheet: View {
             Spacer()
         }
         .alert("Couldn't find sticker", isPresented: $showAddStickerError) {
-            Button(role: .cancel) {
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $showAddStickerError)
         }
         .sheet(isPresented: $addToCollectionPresented) {
             AddToCollectionView(stickerHash: message.stickerHash, stickerType: message.stickerType, stickerName: message.stickerName)

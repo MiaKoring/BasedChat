@@ -42,7 +42,7 @@ struct StickerSearch: View {
                             ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
                         }
                         else {
-                            StickerListView(stickers: stickers, showParentSheet: $showParentSheet, sendSticker: $sendSticker)
+                            StickerListView(stickers: stickers, update: $update, showParentSheet: $showParentSheet, sendSticker: $sendSticker)
                         }
                     }
                 case .collection:
@@ -73,24 +73,13 @@ struct StickerSearch: View {
         }
     }
     
-    func getUniqueStickers(_ stickers: [Sticker])-> [Sticker] {
-        var unique: [Sticker] = []
-        var used: [String] = []
-        for sticker in stickers {
-            if !used.contains(sticker.hashString) {
-                unique.append(sticker)
-                used.append(sticker.hashString)
-            }
-        }
-        return unique
-    }
-    
     //MARK: - Parameters
     @State var searchText: String = ""
     @State var selected: TopTabContentType = .sticker
     @Binding var showParentSheet: Bool
     @Binding var sendSticker: SendableSticker
     @State var filterEmptyCollections: Bool = false
+    @State var update: Bool = false
 
     
     

@@ -36,13 +36,16 @@ struct StickerDetailEditView: View, StickerEditable {
                         }
                     }
                 }
+                //TODO: Add MacOS alternative
                 else {
+#if os(iOS)
                     if let path = Bundle.main.path(forResource: sticker.hashString, ofType: sticker.type), let url = URL(string: path), let data = try? Data(contentsOf: url), let uiImage = UIImage(data: data) {
                         ShareLink(item: Photo(image: Image(uiImage: uiImage)), preview: SharePreview(sticker.name))
                     }
                     else {
                         Text("Sharing unavailable")
                     }
+#endif
                 }
             }
             .padding(.horizontal, 20)
@@ -104,11 +107,7 @@ struct StickerDetailEditView: View, StickerEditable {
             Text("Are you sure you want to remove that sticker from the selected collection? The Sticker gets removed immediately.")
         }
         .alert("Failed to remove Sticker", isPresented: $showRemoveFailed) {
-            Button {
-                showRemoveFailed = false
-            } label: {
-                Text("OK")
-            }
+            AlertCloseButton(displayed: $showRemoveFailed)
         }
     }
     
