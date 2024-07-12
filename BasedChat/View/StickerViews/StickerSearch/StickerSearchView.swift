@@ -42,7 +42,7 @@ struct StickerSearch: View {
                             ContentUnavailableView("No Results for \"\(searchText)\"", systemImage: "magnifyingglass", description: Text("Try checking the pronounciation or start a new search"))
                         }
                         else {
-                            StickerListView(stickers: stickers, update: $update, showParentSheet: $showParentSheet, sendSticker: $sendSticker)
+                            StickerListView(stickers: stickers, update: $update, sendSticker: $sendSticker)
                         }
                     }
                 case .collection:

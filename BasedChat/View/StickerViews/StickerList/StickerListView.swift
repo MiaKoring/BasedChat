@@ -10,53 +10,16 @@ struct StickerListView: View, StickerEditable {
         GeometryReader { reader in
             ScrollView(.vertical){
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 10) {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray.opacity(0.4))
-                        .frame(width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
-                        .overlay {
-                            Image(systemName: "plus")
-                                .font(.title)
-                                .allowsHitTesting(false)
-                        }
+                    PlusButton(width: ((reader.size.width - 30) / 4.0))
                         .onTapGesture {
-                            if !addStickers {
-                                showStickerCreator = true
-                                return
-                            }
-                            showAddToCollection = true
+                            plusTapped()
                         }
                     ForEach(stickers.sorted(by: {
                         $0.name < $1.name
                     }), id: \.self) { sticker in
-                        StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: ((reader.size.width - 30) / 4.0), height: ((reader.size.width - 30) / 4.0))
+                        StickerImageView(name: sticker.hashString, fileExtension: sticker.type, width: calcWidth(reader.size.width), height: calcWidth(reader.size.width))
                             .onTapGesture {
-                                if !addStickers && !showIfAdded{
-                                    guard let sendStickerBinding = sendSticker else {
-                                        guard let id = id else { return }
-                                        guard let type = type else { return }
-                                        id.wrappedValue = sticker._id
-                                        type.wrappedValue = .sticker
-                                        guard let detailOpen = detailOpen else { return }
-                                        detailOpen.wrappedValue = true
-                                        return
-                                    }
-                                    sendStickerBinding.wrappedValue = SendableSticker(name: sticker.name, hash: sticker.hashString, type: sticker.type)
-                                    guard let showParentSheetBinding = showParentSheet else { return }
-                                    showParentSheetBinding.wrappedValue = false
-                                    return
-                                }
-                                if showIfAdded {
-                                    do {
-                                        try realm.write {
-                                            guard let collectionID = collectionID else { throw RealmError.idEmpty }
-                                            guard let collection = realm.object(ofType: StickerCollection.self, forPrimaryKey: collectionID) else { throw RealmError.objectNotFound }
-                                            guard let sticker = sticker.thaw() else { throw RealmError.thawFailed }
-                                            collection.stickers.append(sticker)
-                                        }
-                                    } catch {
-                                        print("adding failed")
-                                    }
-                                }
+                                stickerTapped(sticker: sticker)
                             }
                             .when(deleteable, removeable) { view in
                                 view
@@ -83,7 +46,7 @@ struct StickerListView: View, StickerEditable {
                             .if(showIfAdded) { view in
                                 view
                                     .overlay(alignment: .topTrailing) {
-                                        if let collectionID, let collection = realm.object(ofType: StickerCollection.self, forPrimaryKey: collectionID), collection.stickers.contains(where: {$0._id == sticker._id}) {
+                                        if isAdded(sticker) {
                                             Image(systemName: "checkmark.circle.fill")
                                                 .transition(.opacity)
                                         }
@@ -104,13 +67,21 @@ struct StickerListView: View, StickerEditable {
             }
 #endif
         }
+        .sheet(isPresented: $showStickerCreator) {
+            CreateStickerView()
+        }
+        .sheet(isPresented: $showAddToCollection) {
+            if let collectionID {
+                AddStickersToCollectionView(collectionID: collectionID)
+            }
+            else {
+                ContentUnavailableView("Something went wrong", systemImage: "exclamationmark.triangle")
+            }
+        }
         .alert("Delete Sticker", isPresented: $showDeleteAlert) {
             Button(role: .destructive) {
                 deleteSticker(deleteSticker, deleteFailed: $deleteFailed)
-                update = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    update = false
-                }
+                update(if: true)
             } label: {
                 Text("Delete")
             }
@@ -123,10 +94,7 @@ struct StickerListView: View, StickerEditable {
         .alert("Remove from Collection", isPresented: $showRemoveAlert) {
             Button(role: .destructive) {
                 removeSticker(deleteSticker, from: collectionID, showRemoveFailed: $showRemoveFailed)
-                update = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    update = false
-                }
+                update(if: true)
             } label: {
                 Text("Remove")
             }
@@ -136,52 +104,45 @@ struct StickerListView: View, StickerEditable {
         .alert("Failed to remove Sticker", isPresented: $showRemoveFailed) {
             AlertCloseButton(displayed: $showRemoveFailed)
         }
-        .sheet(isPresented: $showStickerCreator) {
-            CreateStickerView()
-        }
-        .onChange(of: showStickerCreator) {
-            if !showStickerCreator {
-                update = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    update = false
-                }
-            }
-        }
-        .sheet(isPresented: $showAddToCollection) {
-            if let collectionID {
-                AddStickersToCollectionView(collectionID: collectionID)
-            }
-        }
-        .onChange(of: showAddToCollection) {
-            if !showAddToCollection {
-                update = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    update = false
-                }
-            }
-        }
+        .onChange(of: showStickerCreator) { update(if: !showStickerCreator) }
+        .onChange(of: showAddToCollection) { update(if: !showAddToCollection) }
     }
     
     //MARK: - Parameters
     
+    //Default Value gets changed in the cases mentioned in comments
+    
+    //always used
     @State var stickers: [Sticker]
+    @Binding var update: Bool
+    @Environment(\.dismiss) var dismiss
+    
+    //Alerts and sheets
     @State var showDeleteAlert = false
     @State var deleteSticker: Sticker? = nil
     @State var deleteFailed: Bool = false
     @State var showRemoveAlert: Bool = false
     @State var showRemoveFailed: Bool = false
     @State var showStickerCreator: Bool = false
-    @State var image: Image? = nil
     @State var showAddToCollection = false
-    @Binding var update: Bool
-    var showParentSheet: Binding<Bool>? = nil
+    
+    //when sticker should be sent
     var sendSticker: Binding<SendableSticker>? = nil
+    
+    //StickerEdit
     var deleteable = false
+    var id: Binding<ObjectId?>? = nil //to open DetailEdit
+    var detailOpen: Binding<Bool>? = nil //to open DetailEdit
+    var type: Binding<TopTabContentType>? = nil //to open the correct editor
+    
+    //CollectionDetailEdit
     var removeable = false
     var collectionID: ObjectId? = nil
-    var id: Binding<ObjectId?>? = nil
-    var type: Binding<TopTabContentType>? = nil
-    var detailOpen: Binding<Bool>? = nil
-    var addStickers: Bool = false
+    
+    //add stickers from CollectionDetailEdit
     var showIfAdded: Bool = false
+    var addStickers: Bool = false
+    
+    //small-sticker-send sheet
+    var closeOnTap: Bool = true
 }

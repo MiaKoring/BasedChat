@@ -104,6 +104,8 @@
 		A65D068C2C2A1AD100456548 /* CollectionPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65D068B2C2A1AC200456548 /* CollectionPriority.swift */; };
 		A65DD8172C2CEFB100607ECB /* SendableSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DD8162C2CEFAC00607ECB /* SendableSticker.swift */; };
 		A6747D8B2C419E740079DBCB /* AddStickersToCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6747D8A2C419E720079DBCB /* AddStickersToCollectionView.swift */; };
+		A6747D8F2C41A16D0079DBCB /* StickerListViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6747D8E2C41A1650079DBCB /* StickerListViewFunctions.swift */; };
+		A6747D912C41A2340079DBCB /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6747D902C41A22F0079DBCB /* PlusButton.swift */; };
 		A67C332A2C17386900594120 /* StickerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C33292C17386900594120 /* StickerCollection.swift */; };
 		A67C332C2C17399B00594120 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67C332B2C17399B00594120 /* Sticker.swift */; };
 		A68C6FC92BE2D38B00967243 /* SlashCommands in Frameworks */ = {isa = PBXBuildFile; productRef = A68C6FC82BE2D38B00967243 /* SlashCommands */; };
@@ -292,6 +294,8 @@
 		A65D068B2C2A1AC200456548 /* CollectionPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPriority.swift; sourceTree = "<group>"; };
 		A65DD8162C2CEFAC00607ECB /* SendableSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableSticker.swift; sourceTree = "<group>"; };
 		A6747D8A2C419E720079DBCB /* AddStickersToCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStickersToCollectionView.swift; sourceTree = "<group>"; };
+		A6747D8E2C41A1650079DBCB /* StickerListViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerListViewFunctions.swift; sourceTree = "<group>"; };
+		A6747D902C41A22F0079DBCB /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		A67C33292C17386900594120 /* StickerCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollection.swift; sourceTree = "<group>"; };
 		A67C332B2C17399B00594120 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		A694256B2C38275900CD969D /* DefaultBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBackground.swift; sourceTree = "<group>"; };
@@ -655,6 +659,8 @@
 		A61361F22C404BE600DE9239 /* StickerList */ = {
 			isa = PBXGroup;
 			children = (
+				A6747D902C41A22F0079DBCB /* PlusButton.swift */,
+				A6747D8E2C41A1650079DBCB /* StickerListViewFunctions.swift */,
 				A61361EA2C401AE900DE9239 /* StickerListView.swift */,
 			);
 			path = StickerList;
@@ -1075,6 +1081,7 @@
 				14BE37F82BDBB97A0078D49B /* UIApplicationExtension.swift in Sources */,
 				A65DD8172C2CEFB100607ECB /* SendableSticker.swift in Sources */,
 				A633A09E2C2CBF3E00E4E9B6 /* TestMessage.swift in Sources */,
+				A6747D8F2C41A16D0079DBCB /* StickerListViewFunctions.swift in Sources */,
 				A62B05B92BE7C76C00A0C399 /* FileHandler.swift in Sources */,
 				146F74F42BD9075900E0C10B /* BubbleContextMenu.swift in Sources */,
 				A6A3CD9A2C192725002ACCD6 /* IOSTopBarButtonView.swift in Sources */,
@@ -1095,6 +1102,7 @@
 				144F38F92BD848DB00770A79 /* TextExtensions.swift in Sources */,
 				14CB69EA2BD2ED8200516D28 /* BubbleFunctions.swift in Sources */,
 				A69CF4AC2C20EC050042DA3B /* MusicPlayerManager.swift in Sources */,
+				A6747D912C41A2340079DBCB /* PlusButton.swift in Sources */,
 				A6BF8C8D2BE5851200D1C471 /* Tableflip.swift in Sources */,
 				A61361E82C4017CB00DE9239 /* StickerEditView.swift in Sources */,
 				A6A3CD9E2C1932B8002ACCD6 /* UIDeviceExtension.swift in Sources */,

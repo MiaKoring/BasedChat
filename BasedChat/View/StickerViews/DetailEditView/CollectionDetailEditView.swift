@@ -38,9 +38,9 @@ struct CollectionDetailEditView: View {
                             ContentUnavailableView("Collection is empty", systemImage: "xmark.rectangle")
                         }
                         else {
-                            StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), update: $update, removeable: true, collectionID: collection._id, id: $id, type: $type, addStickers: true)
+                            StickerListView(stickers: collection.stickers.sorted(by: {$0.name < $1.name}), update: $update, id: $id, type: $type, removeable: true, collectionID: collection._id, addStickers: true)
                         }
-                        Spacer()
+                        
                     }
                     .padding(.horizontal, 20)
                     .transition(.scale)

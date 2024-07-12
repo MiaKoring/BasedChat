@@ -39,7 +39,7 @@ struct TopTabView: View {
                 case .gif:
                     Text("GIF")
                 case .sticker:
-                    StickerSheet()
+                    StickerSheet(sendSticker: $sendSticker)
                 default:
                     Text("how did we get here") // shouldn't be possible
             }
