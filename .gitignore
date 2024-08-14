@@ -1,1 +1,4 @@
 Config.plist
+*.xcuserstate
+BasedChat/.DS_Store
+.DS_Store

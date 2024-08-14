@@ -8,7 +8,11 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, appendMessage: $appendMessage, keyboardShown: $keyboardShown)
+            MessageScrollView(chat: chat, showStickerDetail: $showStickerDetail, bottomCardReaction: $bottomCardReaction, replyTo: $replyTo, newMessageSent: $newMessageSent, messageToDelete: $messageToDelete, appendMessage: $appendMessage, keyboardShown: $keyboardShown) { old, new in
+                withAnimation(.linear(duration: 0.2)) {
+                    isScrolling = new.isScrolling
+                }
+            }
                 .padding(.horizontal, 10)
             VStack {
                 if replyTo != nil {
@@ -93,7 +97,9 @@ struct ChatView: View {
     #endif
         .navigationBarBackButtonHidden()
         .overlay {
-            ChatTopBar(showNavigation: $showNavigation, chat: chat) //TODO: add adaptive functionality
+            if !isScrolling {
+                ChatTopBar(showNavigation: $showNavigation, chat: chat) //TODO: add adaptive functionality
+            }
         }
         .onChange(of: messageSent) {
             handleMessageSend()
@@ -141,6 +147,7 @@ struct ChatView: View {
     @Binding var showNavigation: NavigationSplitViewVisibility
     @State var appendMessage: Message? = nil
     @State var currentOffset: Double = 0.0
+    @State var isScrolling: Bool = false
     
     //MARK: -
 }

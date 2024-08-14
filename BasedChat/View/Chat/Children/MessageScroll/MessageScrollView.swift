@@ -35,6 +35,9 @@ struct MessageScrollView: View {
             }
             .defaultScrollAnchor(.top)
             .scrollIndicators(.hidden)
+            .onScrollPhaseChange { old, new in
+                scrollPhaseChange(old, new)
+            }
         }
         .rotationEffect(.degrees(180.0))
         .overlay(alignment: .bottomTrailing) {
@@ -76,6 +79,7 @@ struct MessageScrollView: View {
     @Binding var appendMessage: Message?
     @Binding var keyboardShown: Bool
     @State var showBottomScrollButton: Bool = false
+    let scrollPhaseChange: (ScrollPhase, ScrollPhase) -> Void
     
     //MARK: -
 }
